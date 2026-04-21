@@ -78,7 +78,7 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--gray-50);color
 
 /* CALENDARIO */
 .cal-main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0;}
-.week-hdr{display:grid;grid-template-columns:52px repeat(6,1fr) 46px;border-bottom:1.5px solid var(--gray-300);background:var(--white);flex-shrink:0;}
+.week-hdr{display:grid;grid-template-columns:52px repeat(6,1fr) 46px;border-bottom:1.5px solid var(--gray-300);background:var(--white);flex-shrink:0;width:100%;}
 .wh-tz{font-size:9px;color:var(--gray-500);padding:8px 4px 5px;text-align:right;align-self:flex-end;}
 .wh-col{text-align:center;padding:7px 3px 5px;cursor:pointer;border-left:0.5px solid var(--gray-200);}
 .wh-col:hover{background:var(--accent-xlight);}
@@ -91,17 +91,17 @@ body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--gray-50);color
 .wh-dots{display:flex;justify-content:center;gap:2px;margin-top:2px;min-height:6px;}
 .wh-dot{width:5px;height:5px;border-radius:50%;}
 .tgw{flex:1;overflow-y:auto;background:#f8faf8;}
-.tg{display:grid;grid-template-columns:52px repeat(6,1fr) 46px;}
+.tg{display:grid;grid-template-columns:52px repeat(6,1fr) 46px;width:100%;}
 .tg-t{font-size:11px;font-weight:500;color:var(--gray-700);text-align:right;padding-right:8px;display:flex;align-items:flex-start;padding-top:3px;justify-content:flex-end;flex-shrink:0;background:#f8faf8;}
 .tg-t.off{font-size:9px;font-weight:400;color:var(--gray-300);background:#f4f6f4;}
 .tg-t.work{height:64px;}.tg-t.off{height:26px;}
-.tg-c{border-left:0.5px solid #ccddd4;border-top:0.5px solid #ccddd4;position:relative;cursor:pointer;background:#fff;display:flex;flex-direction:column;gap:1px;padding:1px;}
+.tg-c{border-left:0.5px solid #ccddd4;border-top:0.5px solid #ccddd4;position:relative;cursor:pointer;background:#fff;display:flex;flex-direction:column;gap:1px;padding:1px;overflow:hidden;min-width:0;max-width:100%;}
 .tg-c.work{height:64px;}.tg-c.off{height:26px;background:#f5f7f5;}
 .tg-c.td{background:#f2fbf5;}.tg-c.td.off{background:#edf7f1;}
 .tg-c.dom{background:#fafaf8;}.tg-c.dom.off{background:#f7f7f5;}
 .tg-c:hover{background:#eef7f2 !important;}
-.ev{flex:1;min-height:0;border-radius:4px;padding:2px 5px;overflow:hidden;cursor:pointer;z-index:2;}
-.ev-n{font-size:11px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.ev{flex:1;min-height:0;min-width:0;max-width:100%;border-radius:4px;padding:2px 4px;overflow:hidden;cursor:pointer;z-index:2;}
+.ev-n{font-size:11px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;}
 .ev-s{font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;opacity:0.85;}
 .ev-h{font-size:9px;opacity:0.65;}
 .m{background:var(--accent-light);border-left:3px solid var(--accent-dark);}
@@ -1015,8 +1015,10 @@ function rGrid(){
         const e=e2[0],c=getClass(e);
         inner=`<div class="ev ${c}" onclick="event.stopPropagation();showDet('${e.id}')"><div class="ev-n">${getLabel(e)}</div>${w&&e.tipo&&!e.tipo.includes('Cose da fare')?`<div class="ev-s">${e.tipo}</div>`:''}<div class="ev-h">${e.ora}</div></div>`;
       } else {
-        inner=`<div style="display:flex;gap:1px;flex:1;min-height:0;">`;
-        e2.forEach(e=>{const c=getClass(e);inner+=`<div class="ev ${c}" style="flex:1;min-width:0;" onclick="event.stopPropagation();showDet('${e.id}')"><div class="ev-n" style="font-size:10px;">${getLabel(e)}</div><div class="ev-h">${e.ora}</div></div>`;});
+        // Scale font based on count to prevent column widening
+        const fz = e2.length<=2?9:e2.length<=3?8:7;
+        inner=`<div style="display:flex;gap:1px;width:100%;min-width:0;overflow:hidden;">`;
+        e2.forEach(e=>{const c=getClass(e);inner+=`<div class="ev ${c}" style="flex:1;min-width:0;max-width:${Math.floor(100/e2.length)}%;overflow:hidden;" onclick="event.stopPropagation();showDet('${e.id}')"><div class="ev-n" style="font-size:${fz}px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">${getLabel(e)}</div></div>`;});
         inner+=`</div>`;
       }
       h+=`<div class="tg-c ${cls}${it?' td':''}" onclick="openAptAt('${ds}',${hr})">${inner}</div>`;
