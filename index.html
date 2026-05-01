@@ -1,0 +1,1041 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#2d5a3d">
+<title>Edilnord RE</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#5a9a70;--gl:#9dc0aa;--gp:#e8f2ec;--gd:#2d5a3d;
+  --cream:#faf8f5;--g50:#f7f7f6;--g100:#eeede9;--g200:#dddbd5;
+  --g300:#c5c3bc;--g500:#8a8880;--g700:#4a4844;--g900:#1a1917;
+  --matteo:#4285f4;--matteo-l:#e8f0fe;
+  --giuseppe:#e07b39;--giuseppe-l:#fef0e6;
+  --red:#ea4335;--amber:#f4b400;
+  --sh1:0 1px 4px rgba(0,0,0,.07);
+  --sh2:0 4px 16px rgba(0,0,0,.1);
+  --sh3:0 16px 48px rgba(0,0,0,.16);
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;overflow:hidden;}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--g900);display:flex;flex-direction:column;}
+
+/* ── APP SHELL ── */
+.app{display:flex;height:100vh;overflow:hidden;}
+
+/* ── SIDEBAR (desktop) ── */
+.sidebar{width:220px;flex-shrink:0;background:var(--gd);display:flex;flex-direction:column;height:100vh;}
+.sb-logo{padding:22px 20px 14px;border-bottom:1px solid rgba(255,255,255,.08);}
+.sb-lm{font-family:'DM Serif Display',serif;font-size:19px;color:white;}
+.sb-ls{font-size:10px;color:rgba(255,255,255,.35);letter-spacing:1.4px;text-transform:uppercase;margin-top:2px;}
+.sb-nav{padding:10px;flex:1;overflow-y:auto;}
+.sb-nl{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.27);padding:7px 12px 4px;font-weight:500;}
+.sb-ni{display:flex;align-items:center;gap:9px;padding:8px 12px;border-radius:8px;color:rgba(255,255,255,.6);font-size:13px;cursor:pointer;margin-bottom:1px;transition:background .15s;}
+.sb-ni:hover{background:rgba(255,255,255,.07);}
+.sb-ni.on{background:rgba(255,255,255,.12);color:white;font-weight:500;}
+.sb-ni .ic{font-size:14px;width:18px;text-align:center;}
+.sb-badge{margin-left:auto;background:rgba(255,255,255,.14);color:rgba(255,255,255,.75);font-size:10px;font-weight:600;padding:1px 7px;border-radius:20px;}
+.sb-wx{margin:4px 12px 8px;background:rgba(0,0,0,.18);border-radius:12px;padding:12px 13px;border:1px solid rgba(255,255,255,.07);}
+.wx-lbl{font-size:9px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:8px;font-weight:500;}
+.wx-row{display:flex;align-items:center;gap:9px;margin-bottom:4px;}
+.wx-ico{font-size:26px;line-height:1;}
+.wx-tmp{font-family:'DM Serif Display',serif;font-size:26px;color:white;line-height:1;}
+.wx-dsc{font-size:11px;color:rgba(255,255,255,.55);margin-top:2px;}
+.wx-det{display:flex;gap:8px;margin-top:3px;}
+.wd{font-size:9.5px;color:rgba(255,255,255,.35);}.wd span{color:rgba(255,255,255,.6);}
+.wx-sep{height:1px;background:rgba(255,255,255,.07);margin:8px 0;}
+.wx-tom{display:flex;align-items:center;gap:7px;}
+.wt-l{font-size:11px;color:rgba(255,255,255,.4);flex:1;}
+.wt-i{font-size:15px;}
+.wt-t{font-size:12px;font-weight:600;color:rgba(255,255,255,.7);}
+.wt-d{font-size:9.5px;color:rgba(255,255,255,.33);margin-top:1px;}
+.sb-user{padding:12px 16px;border-top:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:10px;margin-top:auto;}
+.sb-av{width:32px;height:32px;border-radius:50%;background:var(--gl);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:var(--gd);}
+.sb-nm{font-size:12px;color:white;font-weight:500;}
+.sb-rl{font-size:10px;color:rgba(255,255,255,.35);}
+
+/* ── MAIN CALENDAR (desktop) ── */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;border-left:1px solid var(--g100);border-right:1px solid var(--g100);}
+.gcal-bar{flex-shrink:0;padding:12px 16px 10px;border-bottom:1px solid var(--g100);display:flex;align-items:center;justify-content:space-between;background:white;}
+.gcal-left{display:flex;align-items:center;gap:10px;}
+.gcal-today{background:white;border:1px solid var(--g200);border-radius:6px;padding:6px 13px;font-size:12.5px;font-weight:500;color:var(--g700);cursor:pointer;font-family:'DM Sans',sans-serif;}
+.gcal-nav{display:flex;gap:2px;}
+.gcal-nb{width:28px;height:28px;border-radius:50%;border:none;background:transparent;cursor:pointer;font-size:16px;color:var(--g500);display:flex;align-items:center;justify-content:center;}
+.gcal-nb:hover{background:var(--g50);}
+.gcal-title{font-size:18px;font-weight:500;color:var(--g900);font-family:'DM Serif Display',serif;letter-spacing:-.3px;}
+.gcal-right{display:flex;align-items:center;gap:8px;}
+.gcal-search{background:var(--g50);border:1px solid var(--g100);border-radius:8px;padding:6px 12px;font-size:12.5px;font-family:'DM Sans',sans-serif;color:var(--g900);outline:none;width:180px;}
+.gcal-search::placeholder{color:var(--g300);}
+.gcal-views{display:flex;border:1px solid var(--g200);border-radius:6px;overflow:hidden;}
+.gcv{padding:5px 12px;font-size:12px;font-weight:500;background:white;color:var(--g500);cursor:pointer;border:none;font-family:'DM Sans',sans-serif;}
+.gcv.on{background:var(--gp);color:var(--gd);}
+.gcal-new{background:var(--green);color:white;border:none;border-radius:20px;padding:7px 16px;font-size:13px;font-weight:500;cursor:pointer;font-family:'DM Sans',sans-serif;box-shadow:0 2px 8px rgba(90,154,112,.3);}
+.gcal-hdr{flex-shrink:0;display:grid;border-bottom:1px solid var(--g100);background:white;}
+.ghd{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 0;cursor:pointer;}
+.ghd-dn{font-size:10px;font-weight:600;color:var(--g500);letter-spacing:.5px;text-transform:uppercase;}
+.ghd-dd{font-size:22px;font-weight:400;color:var(--g700);width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:50%;margin-top:2px;}
+.ghd.td .ghd-dn{color:var(--green);}
+.ghd.td .ghd-dd{background:var(--green);color:white;font-weight:600;}
+.ghd.wk .ghd-dn,.ghd.wk .ghd-dd{color:var(--g300);}
+.ghd-corner{border-right:1px solid var(--g100);}
+.gcal-scroll{flex:1;overflow-y:auto;overflow-x:hidden;position:relative;}
+.gcal-scroll::-webkit-scrollbar{width:5px;}
+.gcal-scroll::-webkit-scrollbar-thumb{background:var(--g100);border-radius:3px;}
+.gcal-grid{display:grid;position:relative;}
+.now-line{position:absolute;left:52px;right:0;height:2px;background:var(--red);z-index:10;pointer-events:none;display:none;}
+.now-line::before{content:'';position:absolute;left:-5px;top:-4px;width:10px;height:10px;border-radius:50%;background:var(--red);}
+.time-col{border-right:1px solid var(--g100);}
+.ts{height:56px;display:flex;align-items:flex-start;justify-content:flex-end;padding:4px 6px 0;font-size:9px;color:var(--g300);letter-spacing:.2px;}
+.day-col{border-right:1px solid var(--g100);position:relative;}
+.day-col:last-child{border-right:none;}
+.day-col.td{background:rgba(90,154,112,.025);}
+.day-col.wk{background:rgba(0,0,0,.012);}
+.dc-cell{height:56px;border-bottom:1px solid rgba(0,0,0,.035);}
+.ev{position:absolute;left:3px;right:3px;border-radius:6px;padding:4px 7px;font-size:10.5px;font-weight:500;cursor:pointer;overflow:hidden;color:white;transition:opacity .15s,transform .1s;}
+.ev:hover{opacity:.88;transform:scaleX(.98);}
+.ev-name{font-weight:600;font-size:11px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;}
+.ev-sub{font-size:9.5px;opacity:.85;margin-top:1px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;}
+.ev.matteo{background:var(--matteo);}
+.ev.giuseppe{background:var(--giuseppe);}
+.ev.old{background:#9e9e9e;}
+
+/* ── RIGHT PANEL (desktop) ── */
+.rpanel{width:260px;flex-shrink:0;background:var(--g50);display:flex;flex-direction:column;overflow:hidden;border-left:1px solid var(--g100);}
+.rp-sec{padding:14px 16px;border-bottom:1px solid var(--g100);flex-shrink:0;}
+.rp-sec.grow{flex:1;overflow-y:auto;min-height:0;}
+.rp-sec.scroll{overflow-y:auto;max-height:185px;}
+.rp-title{font-size:10px;font-weight:600;color:var(--g500);letter-spacing:.7px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;}
+.rp-add{width:19px;height:19px;background:var(--gp);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;color:var(--green);cursor:pointer;line-height:1;border:none;}
+.upc-item{display:flex;gap:8px;padding:8px 0;border-bottom:1px solid var(--g100);}
+.upc-item:last-child{border-bottom:none;}
+.upc-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:3px;}
+.upc-info{flex:1;}
+.upc-name{font-size:12.5px;font-weight:500;color:var(--g900);}
+.upc-meta{font-size:10.5px;color:var(--g500);margin-top:1px;}
+.upc-type{display:inline-block;font-size:9.5px;padding:1px 6px;border-radius:4px;margin-top:3px;font-weight:500;background:var(--gp);color:var(--gd);}
+.upc-gc{background:var(--g100);color:var(--g700);border:none;border-radius:4px;padding:3px 8px;font-size:10px;cursor:pointer;font-family:'DM Sans',sans-serif;margin-top:4px;display:block;}
+.notes-ta{width:100%;height:100%;border:none;background:transparent;resize:none;font-family:'DM Sans',sans-serif;font-size:12.5px;color:var(--g700);line-height:1.8;outline:none;}
+.news-item{display:flex;gap:8px;padding:7px 0;border-bottom:1px solid var(--g100);cursor:pointer;}
+.news-item:last-child{border-bottom:none;}
+.news-dot{width:5px;height:5px;border-radius:50%;background:var(--green);margin-top:5px;flex-shrink:0;}
+.news-txt{font-size:11px;color:var(--g700);line-height:1.4;}
+.news-src{font-size:9.5px;color:var(--g300);margin-top:2px;}
+
+/* ── MOBILE HEADER ── */
+.mob-header{background:var(--gd);padding:env(safe-area-inset-top,14px) 22px 20px;position:relative;overflow:hidden;flex-shrink:0;}
+.mob-header::before{content:'';position:absolute;top:-60px;right:-60px;width:200px;height:200px;border-radius:50%;background:rgba(255,255,255,.05);}
+.mob-header::after{content:'';position:absolute;bottom:-40px;left:20px;width:150px;height:150px;border-radius:50%;background:rgba(255,255,255,.03);}
+.mob-hdr-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;position:relative;z-index:1;}
+.mob-logo{font-family:'DM Serif Display',serif;font-size:17px;color:white;}
+.mob-logo-sub{font-size:9px;color:rgba(255,255,255,.33);letter-spacing:1.3px;text-transform:uppercase;margin-top:2px;}
+.mob-agents{display:flex;}
+.mob-ag{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;border:2.5px solid var(--gd);}
+.mob-ag.matteo{background:var(--gl);color:var(--gd);}
+.mob-ag.giuseppe{background:#c5b9a8;color:#4a3a28;margin-left:-8px;}
+.mob-date{margin-bottom:14px;position:relative;z-index:1;}
+.mob-date-main{font-family:'DM Serif Display',serif;font-size:22px;color:white;letter-spacing:-.3px;}
+.mob-date-yr{font-size:11px;color:rgba(255,255,255,.38);margin-top:2px;}
+.mob-wx{background:rgba(0,0,0,.2);border-radius:14px;padding:13px 15px;border:1px solid rgba(255,255,255,.08);position:relative;z-index:1;}
+.mwx-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:9px;}
+.mwx-l{display:flex;align-items:center;gap:10px;}
+.mwx-i{font-size:32px;line-height:1;}
+.mwx-ci{font-size:10px;color:rgba(255,255,255,.4);}
+.mwx-de{font-size:13px;color:rgba(255,255,255,.82);font-weight:500;margin-top:1px;}
+.mwx-tm{font-family:'DM Serif Display',serif;font-size:36px;color:white;line-height:1;}
+.mwx-ds{display:flex;gap:12px;margin-bottom:10px;}
+.mwx-d{font-size:10.5px;color:rgba(255,255,255,.4);}.mwx-d span{color:rgba(255,255,255,.7);font-weight:500;}
+.mwx-sp{height:1px;background:rgba(255,255,255,.08);margin-bottom:9px;}
+.mwx-tom{display:flex;align-items:center;gap:8px;}
+.mwt-l{font-size:12px;color:rgba(255,255,255,.45);flex:1;}
+.mwt-i{font-size:18px;}
+.mwt-t{font-size:13px;font-weight:600;color:rgba(255,255,255,.75);}
+.mwt-d{font-size:10.5px;color:rgba(255,255,255,.38);margin-top:1px;}
+
+/* ── MOBILE BODY ── */
+.mob-body{flex:1;overflow-y:auto;padding:16px;}
+.mob-body::-webkit-scrollbar{display:none;}
+.mini-cal{background:white;border-radius:14px;padding:15px;border:1px solid var(--g100);box-shadow:var(--sh1);margin-bottom:18px;}
+.mini-cal-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.mini-cal-mo{font-size:14px;font-weight:600;color:var(--g900);}
+.mini-cal-nav{display:flex;gap:4px;}
+.mcnb{width:26px;height:26px;border-radius:6px;border:1px solid var(--g100);background:transparent;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--g500);}
+.mini-dhd{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;margin-bottom:5px;}
+.mini-dl{font-size:10px;font-weight:600;color:var(--g300);padding:3px 0;}
+.mini-dl.wk{color:#ddd;}
+.mini-days{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;row-gap:2px;}
+.mday{padding:5px 0;font-size:12.5px;color:var(--g700);border-radius:50%;cursor:pointer;position:relative;margin:0 auto;width:28px;}
+.mday.td{background:var(--green);color:white;font-weight:600;}
+.mday.mu{color:var(--g300);}
+.mday.sel:not(.td){background:var(--gp);color:var(--gd);}
+.mday.has::after{content:'';position:absolute;bottom:1px;left:50%;transform:translateX(-50%);width:3px;height:3px;border-radius:50%;background:var(--green);}
+.mday.td.has::after{background:rgba(255,255,255,.7);}
+.mob-sec{font-size:10.5px;font-weight:600;color:var(--g500);letter-spacing:.7px;text-transform:uppercase;margin-bottom:11px;display:flex;align-items:center;justify-content:space-between;}
+.mob-see{font-size:11px;color:var(--green);font-weight:500;text-transform:none;letter-spacing:0;cursor:pointer;}
+.apt-card{background:white;border-radius:16px;padding:13px 14px;margin-bottom:8px;border:1px solid var(--g100);box-shadow:var(--sh1);display:flex;gap:12px;align-items:flex-start;cursor:pointer;}
+.apt-time{min-width:38px;text-align:right;flex-shrink:0;padding-top:2px;}
+.apt-t{font-size:13px;font-weight:700;color:var(--g500);}
+.apt-bar{width:3px;border-radius:2px;min-height:44px;flex-shrink:0;}
+.apt-bar.matteo{background:var(--matteo);}
+.apt-bar.giuseppe{background:var(--giuseppe);}
+.apt-bar.old{background:var(--g300);}
+.apt-info{flex:1;}
+.apt-name{font-size:14px;font-weight:500;color:var(--g900);}
+.apt-prop{font-size:12px;color:var(--g500);margin-top:2px;}
+.apt-badge{display:inline-flex;align-items:center;font-size:10px;font-weight:500;padding:2px 8px;border-radius:20px;margin-top:5px;background:var(--g50);color:var(--g500);}
+.apt-gcal-btn{background:var(--g100);color:var(--g700);border:none;border-radius:6px;padding:5px 10px;font-size:11px;font-family:'DM Sans',sans-serif;cursor:pointer;margin-top:7px;display:block;}
+.apt-chev{color:var(--g300);font-size:18px;font-weight:300;padding-top:2px;}
+
+/* ── BOTTOM NAV ── */
+.bot-nav{background:white;border-top:1px solid rgba(0,0,0,.06);display:grid;grid-template-columns:repeat(5,1fr);height:76px;box-shadow:0 -4px 24px rgba(0,0,0,.08);flex-shrink:0;padding-bottom:env(safe-area-inset-bottom,4px);}
+.bn-item{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;cursor:pointer;position:relative;padding:0 4px;}
+.bn-item.on::before{content:'';position:absolute;top:10px;left:50%;transform:translateX(-50%);width:46px;height:28px;background:var(--gp);border-radius:20px;}
+.bn-ico{font-size:22px;position:relative;z-index:1;line-height:1;margin-top:4px;}
+.bn-lbl{font-size:10px;font-weight:500;color:var(--g500);position:relative;z-index:1;}
+.bn-item.on .bn-lbl{color:var(--green);font-weight:600;}
+.bn-add{padding:0;}
+.bn-add-ico{width:48px;height:48px;background:var(--green);border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:28px;color:white;box-shadow:0 4px 16px rgba(90,154,112,.45);position:relative;z-index:1;margin-top:-12px;}
+.bn-add .bn-lbl{margin-top:2px;}
+
+/* ── OVERLAYS ── */
+.overlay{position:fixed;inset:0;background:rgba(10,10,8,.4);backdrop-filter:blur(4px);z-index:100;display:none;align-items:flex-end;justify-content:center;}
+.overlay.show{display:flex;}
+.pop-sheet{background:white;border-radius:24px 24px 0 0;width:100%;max-width:520px;max-height:92vh;overflow-y:auto;padding:0 0 env(safe-area-inset-bottom,16px);box-shadow:0 -8px 48px rgba(0,0,0,.2);animation:slideUp .25s ease;}
+.pop-sheet::-webkit-scrollbar{display:none;}
+@keyframes slideUp{from{transform:translateY(100%);}to{transform:translateY(0);}}
+.pop-handle{width:36px;height:4px;background:var(--g100);border-radius:2px;margin:14px auto 0;}
+.pop-hdr{padding:14px 20px 0;}
+.pop-title{font-family:'DM Serif Display',serif;font-size:21px;color:var(--g900);}
+.pop-sub{font-size:12px;color:var(--g500);margin-top:3px;margin-bottom:0;}
+.pop-body{padding:16px 20px;}
+.pop-lbl{font-size:10px;font-weight:600;color:var(--g500);letter-spacing:.5px;text-transform:uppercase;margin-bottom:5px;}
+.pop-field{margin-bottom:12px;}
+.pop-input{width:100%;background:var(--g50);border:1.5px solid var(--g100);border-radius:10px;padding:11px 13px;font-size:14px;color:var(--g900);font-family:'DM Sans',sans-serif;outline:none;transition:border-color .15s;appearance:none;}
+.pop-input:focus{border-color:var(--green);background:white;}
+.pop-input::placeholder{color:var(--g300);}
+.pop-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+
+/* tipo grid */
+.tipo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px;}
+.tipo-opt{border:1.5px solid var(--g100);border-radius:12px;padding:12px 6px;display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;background:white;transition:all .15s;}
+.tipo-opt:active{transform:scale(.96);}
+.tipo-opt.on{border-color:var(--green);background:var(--gp);}
+.tipo-ico{font-size:22px;line-height:1;}
+.tipo-lbl{font-size:11px;font-weight:500;color:var(--g700);text-align:center;line-height:1.2;}
+.tipo-opt.on .tipo-lbl{color:var(--gd);}
+.tipo-todo{border:1.5px solid var(--amber);border-radius:12px;padding:12px;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;background:#fffdf0;margin-bottom:12px;transition:all .15s;}
+.tipo-todo.on{background:#fff8e1;border-width:2px;}
+.tipo-todo-lbl{font-size:13px;font-weight:500;color:var(--amber);}
+
+/* agenti */
+.ag-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;}
+.ag-opt{border-radius:12px;padding:12px;border:2px solid var(--g100);text-align:center;cursor:pointer;background:white;transition:all .15s;}
+.ag-opt.on.matteo{border-color:var(--matteo);background:var(--matteo-l);}
+.ag-opt.on.giuseppe{border-color:var(--giuseppe);background:var(--giuseppe-l);}
+.ag-av{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;margin:0 auto 6px;}
+.ag-opt.matteo .ag-av{background:var(--matteo-l);color:var(--matteo);}
+.ag-opt.on.matteo .ag-av{background:var(--matteo);color:white;}
+.ag-opt.giuseppe .ag-av{background:var(--giuseppe-l);color:var(--giuseppe);}
+.ag-opt.on.giuseppe .ag-av{background:var(--giuseppe);color:white;}
+.ag-nm{font-size:13px;font-weight:600;color:var(--g900);}
+.pop-save{width:100%;background:var(--green);color:white;border:none;border-radius:12px;padding:15px;font-size:15px;font-weight:600;font-family:'DM Sans',sans-serif;cursor:pointer;box-shadow:0 4px 16px rgba(90,154,112,.35);transition:opacity .15s;}
+.pop-save:disabled{opacity:.6;cursor:not-allowed;}
+
+/* dettaglio */
+.det-overlay{position:fixed;inset:0;background:rgba(10,10,8,.4);backdrop-filter:blur(4px);z-index:200;display:none;align-items:flex-end;justify-content:center;}
+.det-overlay.show{display:flex;}
+.det-sheet{background:white;border-radius:24px 24px 0 0;width:100%;max-width:520px;padding:0 0 env(safe-area-inset-bottom,16px);box-shadow:0 -8px 48px rgba(0,0,0,.2);animation:slideUp .22s ease;}
+.det-topbar{height:5px;border-radius:0;}
+.det-topbar.matteo{background:var(--matteo);}
+.det-topbar.giuseppe{background:var(--giuseppe);}
+.det-topbar.old{background:var(--g300);}
+.det-handle{width:36px;height:4px;background:var(--g100);border-radius:2px;margin:14px auto 0;}
+.det-body{padding:16px 20px;}
+.det-name{font-family:'DM Serif Display',serif;font-size:22px;color:var(--g900);margin-bottom:14px;}
+.det-field{display:flex;gap:12px;margin-bottom:11px;align-items:flex-start;}
+.det-ico{font-size:18px;width:24px;flex-shrink:0;}
+.det-val{font-size:14px;color:var(--g900);}
+.det-sub{font-size:11px;color:var(--g500);margin-top:1px;}
+.det-btns{display:flex;gap:8px;margin-top:16px;}
+.det-gc{flex:1;background:var(--g50);border:1px solid var(--g100);border-radius:10px;padding:12px;font-size:13px;font-weight:500;color:var(--g700);cursor:pointer;font-family:'DM Sans',sans-serif;}
+.det-del{background:#fdecea;border:1px solid #fca5a5;border-radius:10px;padding:12px 16px;font-size:13px;font-weight:500;color:var(--red);cursor:pointer;font-family:'DM Sans',sans-serif;}
+
+/* toast */
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--g900);color:white;padding:10px 20px;border-radius:20px;font-size:13px;font-weight:500;opacity:0;transition:all .3s;z-index:300;white-space:nowrap;pointer-events:none;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* loading */
+.loading{display:flex;align-items:center;justify-content:center;padding:40px;color:var(--g500);font-size:13px;gap:8px;}
+.spin{width:18px;height:18px;border:2px solid var(--g100);border-top-color:var(--green);border-radius:50%;animation:spin .8s linear infinite;flex-shrink:0;}
+@keyframes spin{to{transform:rotate(360deg);}}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .sidebar,.rpanel{display:none;}
+  .main{display:none;}
+  .app{flex-direction:column;}
+}
+@media(min-width:769px){
+  .mob-header,.bot-nav,.mob-body{display:none !important;}
+  .gcal-bar,.gcal-hdr,.gcal-scroll{display:flex;}
+  .gcal-hdr{display:grid;}
+  .gcal-scroll{display:block;}
+}
+</style>
+</head>
+<body>
+
+<div class="app" id="app">
+
+  <!-- ═══ SIDEBAR ═══ -->
+  <div class="sidebar">
+    <div class="sb-logo">
+      <div class="sb-lm">Edilnord RE</div>
+      <div class="sb-ls">Brugherio</div>
+    </div>
+    <div class="sb-nav">
+      <div class="sb-nl">Principale</div>
+      <div class="sb-ni on"><span class="ic">📅</span> Calendario</div>
+      <div class="sb-ni"><span class="ic">🏠</span> Immobili <span class="sb-badge" id="sb-imm-n">—</span></div>
+      <div class="sb-ni"><span class="ic">👥</span> Clienti</div>
+      <div class="sb-ni"><span class="ic">📋</span> Appunti</div>
+      <div class="sb-nl" style="margin-top:8px">Strumenti</div>
+      <div class="sb-ni"><span class="ic">📰</span> News Mercato</div>
+      <div class="sb-ni"><span class="ic">⚙️</span> Impostazioni</div>
+    </div>
+    <div class="sb-wx">
+      <div class="wx-lbl">🌤 Meteo · Brugherio</div>
+      <div class="wx-row"><div class="wx-ico" id="wx-ico">⛅</div><div><div class="wx-tmp" id="wx-tmp">—°</div><div class="wx-dsc" id="wx-dsc">Caricamento…</div></div></div>
+      <div class="wx-det">
+        <div class="wd">💧 <span id="wx-hum">—</span></div>
+        <div class="wd">💨 <span id="wx-wind">—</span></div>
+        <div class="wd">🌡 <span id="wx-min">—</span></div>
+      </div>
+      <div class="wx-sep"></div>
+      <div class="wx-tom">
+        <div class="wt-l">Domani</div><div class="wt-i" id="wt-ico">—</div>
+        <div><div class="wt-t" id="wt-tmp">—</div><div class="wt-d" id="wt-dsc">—</div></div>
+      </div>
+    </div>
+    <div class="sb-user">
+      <div class="sb-av" id="sb-av">M</div>
+      <div><div class="sb-nm" id="sb-nm">Matteo</div><div class="sb-rl">Agente</div></div>
+    </div>
+  </div>
+
+  <!-- ═══ MAIN CALENDAR ═══ -->
+  <div class="main">
+    <div class="gcal-bar">
+      <div class="gcal-left">
+        <button class="gcal-today" onclick="goToday()">Oggi</button>
+        <div class="gcal-nav">
+          <button class="gcal-nb" onclick="navWeek(-1)">‹</button>
+          <button class="gcal-nb" onclick="navWeek(1)">›</button>
+        </div>
+        <span class="gcal-title" id="gcal-title">—</span>
+      </div>
+      <div class="gcal-right">
+        <input class="gcal-search" placeholder="🔍 Cerca evento…" oninput="doSearch(this.value)">
+        <div class="gcal-views">
+          <button class="gcv" onclick="setView('day',this)">Giorno</button>
+          <button class="gcv on" onclick="setView('week',this)">Settimana</button>
+          <button class="gcv" onclick="setView('month',this)">Mese</button>
+        </div>
+        <button class="gcal-new" onclick="openNewApt()">＋ Nuovo</button>
+      </div>
+    </div>
+    <div class="gcal-hdr" id="gcal-hdr"></div>
+    <div class="gcal-scroll" id="gcal-scroll">
+      <div class="now-line" id="now-line"></div>
+      <div class="gcal-grid" id="gcal-grid">
+        <div class="loading"><div class="spin"></div>Caricamento eventi…</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ RIGHT PANEL ═══ -->
+  <div class="rpanel">
+    <div class="rp-sec">
+      <div class="rp-title">Prossimi oggi <button class="rp-add" onclick="openNewApt()">+</button></div>
+      <div id="rp-upc"><div class="loading" style="padding:10px 0"><div class="spin"></div></div></div>
+    </div>
+    <div class="rp-sec grow">
+      <div class="rp-title">Appunti <button class="rp-add">✏️</button></div>
+      <textarea class="notes-ta" id="notes-ta" placeholder="Appunti settimanali…"></textarea>
+    </div>
+    <div class="rp-sec scroll">
+      <div class="rp-title">News Mercato</div>
+      <div id="rp-news"><div class="loading" style="padding:6px 0"><div class="spin"></div></div></div>
+    </div>
+  </div>
+
+  <!-- ═══ MOBILE HEADER ═══ -->
+  <div class="mob-header">
+    <div class="mob-hdr-top">
+      <div><div class="mob-logo">Edilnord RE</div><div class="mob-logo-sub">Brugherio</div></div>
+      <div class="mob-agents">
+        <div class="mob-ag matteo">M</div>
+        <div class="mob-ag giuseppe">G</div>
+      </div>
+    </div>
+    <div class="mob-date">
+      <div class="mob-date-main" id="mob-date-main">—</div>
+      <div class="mob-date-yr" id="mob-date-yr">—</div>
+    </div>
+    <div class="mob-wx">
+      <div class="mwx-top">
+        <div class="mwx-l">
+          <div class="mwx-i" id="mwx-ico">⛅</div>
+          <div><div class="mwx-ci">Brugherio</div><div class="mwx-de" id="mwx-de">Caricamento…</div></div>
+        </div>
+        <div class="mwx-tm" id="mwx-tmp">—°</div>
+      </div>
+      <div class="mwx-ds">
+        <div class="mwx-d">💧 <span id="mwx-hum">—</span></div>
+        <div class="mwx-d">💨 <span id="mwx-wind">—</span></div>
+        <div class="mwx-d">🌡 <span id="mwx-min">—</span></div>
+      </div>
+      <div class="mwx-sp"></div>
+      <div class="mwx-tom">
+        <div class="mwt-l">Domani</div>
+        <div class="mwt-i" id="mwt-ico">—</div>
+        <div><div class="mwt-t" id="mwt-tmp">—</div><div class="mwt-d" id="mwt-dsc">—</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══ MOBILE BODY ═══ -->
+  <div class="mob-body" id="mob-body">
+    <div class="mini-cal">
+      <div class="mini-cal-hd">
+        <div class="mini-cal-mo" id="mini-mo">—</div>
+        <div class="mini-cal-nav">
+          <button class="mcnb" onclick="miniNav(-1)">‹</button>
+          <button class="mcnb" onclick="miniNav(1)">›</button>
+        </div>
+      </div>
+      <div class="mini-dhd">
+        <div class="mini-dl">L</div><div class="mini-dl">M</div><div class="mini-dl">M</div>
+        <div class="mini-dl">G</div><div class="mini-dl">V</div>
+        <div class="mini-dl wk">S</div><div class="mini-dl wk">D</div>
+      </div>
+      <div class="mini-days" id="mini-days"></div>
+    </div>
+    <div class="mob-sec" id="mob-sec-lbl">Oggi <span class="mob-see">Vedi tutto →</span></div>
+    <div id="mob-apts"></div>
+  </div>
+
+  <!-- ═══ BOTTOM NAV ═══ -->
+  <div class="bot-nav">
+    <div class="bn-item on" id="bn-agenda" onclick="switchTab('agenda')">
+      <div class="bn-ico">📅</div><div class="bn-lbl">Agenda</div>
+    </div>
+    <div class="bn-item" id="bn-oggi" onclick="switchTab('oggi')">
+      <div class="bn-ico">⭐</div><div class="bn-lbl">Oggi</div>
+    </div>
+    <div class="bn-item bn-add" onclick="openNewApt()">
+      <div class="bn-add-ico">＋</div><div class="bn-lbl">Nuovo</div>
+    </div>
+    <div class="bn-item" id="bn-news" onclick="switchTab('news')">
+      <div class="bn-ico">📰</div><div class="bn-lbl">News</div>
+    </div>
+    <div class="bn-item" id="bn-note" onclick="switchTab('note')">
+      <div class="bn-ico">🔔</div><div class="bn-lbl">Note</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ POPUP NUOVO APPUNTAMENTO ═══ -->
+<div class="overlay" id="apt-overlay" onclick="if(event.target===this)closeApt()">
+  <div class="pop-sheet">
+    <div class="pop-handle"></div>
+    <div class="pop-hdr">
+      <div class="pop-title">Nuovo appuntamento</div>
+      <div class="pop-sub" id="pop-sub">—</div>
+    </div>
+    <div class="pop-body">
+      <div class="pop-field">
+        <div class="pop-lbl">Nome *</div>
+        <input class="pop-input" id="f-nome" placeholder="Marco Rossi" autocomplete="name">
+      </div>
+      <div class="pop-field">
+        <div class="pop-lbl">Telefono *</div>
+        <input class="pop-input" id="f-tel" placeholder="333 000 0000" type="tel">
+      </div>
+
+      <div class="pop-lbl" style="margin-bottom:8px">Per cosa *</div>
+      <div class="tipo-grid">
+        <div class="tipo-opt" onclick="selTipo(this,'Visita acquisto')">
+          <div class="tipo-ico">🏠</div><div class="tipo-lbl">Visita acquisto</div>
+        </div>
+        <div class="tipo-opt" onclick="selTipo(this,'Visita affitto')">
+          <div class="tipo-ico">🔑</div><div class="tipo-lbl">Visita affitto</div>
+        </div>
+        <div class="tipo-opt" onclick="selTipo(this,'In cerca di...')">
+          <div class="tipo-ico">🔍</div><div class="tipo-lbl">In cerca di…</div>
+        </div>
+        <div class="tipo-opt" onclick="selTipo(this,'Valutazione')">
+          <div class="tipo-ico">📊</div><div class="tipo-lbl">Valutazione</div>
+        </div>
+        <div class="tipo-opt" onclick="selTipo(this,'In ufficio')">
+          <div class="tipo-ico">🏢</div><div class="tipo-lbl">In ufficio</div>
+        </div>
+        <div class="tipo-opt" onclick="selTipo(this,'Personale')">
+          <div class="tipo-ico">👤</div><div class="tipo-lbl">Personale</div>
+        </div>
+      </div>
+      <div class="tipo-todo" id="tipo-todo" onclick="selTipo(null,'Cose da fare',true)">
+        <span style="font-size:22px">✅</span>
+        <div class="tipo-todo-lbl">Cose da fare</div>
+      </div>
+
+      <div class="pop-field" id="cerca-wrap" style="display:none">
+        <div class="pop-lbl">Specifica</div>
+        <input class="pop-input" id="f-cerca" placeholder="Es: bilocale con terrazzo…">
+      </div>
+
+      <div class="pop-field">
+        <div class="pop-lbl">Immobile</div>
+        <select class="pop-input" id="f-imm">
+          <option value="">— Seleziona immobile —</option>
+        </select>
+      </div>
+
+      <div class="pop-row">
+        <div class="pop-field">
+          <div class="pop-lbl">Data</div>
+          <input class="pop-input" id="f-data" type="date">
+        </div>
+        <div class="pop-field">
+          <div class="pop-lbl">Ora</div>
+          <input class="pop-input" id="f-ora" type="time" value="10:00">
+        </div>
+      </div>
+
+      <div class="pop-lbl" style="margin-bottom:8px">Agente</div>
+      <div class="ag-grid">
+        <div class="ag-opt matteo on" id="ag-matteo" onclick="selAg('matteo')">
+          <div class="ag-av">M</div><div class="ag-nm">Matteo</div>
+        </div>
+        <div class="ag-opt giuseppe" id="ag-giuseppe" onclick="selAg('giuseppe')">
+          <div class="ag-av">G</div><div class="ag-nm">Giuseppe</div>
+        </div>
+      </div>
+
+      <div class="pop-field">
+        <div class="pop-lbl">Note</div>
+        <input class="pop-input" id="f-note" placeholder="Note aggiuntive…">
+      </div>
+
+      <button class="pop-save" id="pop-save-btn" onclick="saveApt()">💾 Salva appuntamento</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ POPUP DETTAGLIO ═══ -->
+<div class="det-overlay" id="det-overlay" onclick="if(event.target===this)closeDet()">
+  <div class="det-sheet">
+    <div class="det-topbar" id="det-topbar"></div>
+    <div class="det-handle"></div>
+    <div class="det-body">
+      <div class="det-name" id="det-name">—</div>
+      <div id="det-fields"></div>
+      <div class="det-btns">
+        <button class="det-gc" onclick="openGcal()">📅 Google Calendar</button>
+        <button class="det-del" id="det-del-btn" onclick="deleteEv()">🗑 Elimina</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ TOAST ═══ -->
+<div class="toast" id="toast"></div>
+
+<script>
+/* ═══════════════════════════════════════════════════
+   CONFIG — modifica solo questi valori
+═══════════════════════════════════════════════════ */
+const CFG = {
+  N8N:       'https://n8n.edilnordre.it',
+  SAVE:      '/webhook/edilnord-salva-appuntamento',
+  LOAD:      '/webhook/edilnord-leggi-appuntamenti',
+  DEL:       '/webhook/edilnord-elimina-appuntamento',
+  IMMS:      '/webhook/edilnord-leggi-immobili',
+  PAST:      365,
+  FUT:       90,
+  WX_LAT:    45.5478,   // Brugherio
+  WX_LON:    9.2908,
+};
+
+/* ═══════════════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════════════ */
+let allEvents   = [];
+let selDate     = new Date();
+let viewDate    = new Date();
+let miniDate    = new Date();
+let selTipoVal  = '';
+let selAgente   = 'matteo';
+let detEvId     = null;
+let currentView = 'week';
+
+/* ═══════════════════════════════════════════════════
+   UTILS
+═══════════════════════════════════════════════════ */
+const fmt = d => {
+  const y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,'0'),dd=String(d.getDate()).padStart(2,'0');
+  return `${y}-${m}-${dd}`;
+};
+const parseDate = s => { const [y,m,d]=s.split('-'); return new Date(+y,+m-1,+d); };
+const DAYS_SH  = ['Dom','Lun','Mar','Mer','Gio','Ven','Sab'];
+const DAYS_MON = ['Lun','Mar','Mer','Gio','Ven','Sab','Dom']; // Mon-first
+const MESI     = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
+const MESI_SH  = ['Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott','Nov','Dic'];
+const GIORNI   = ['domenica','lunedì','martedì','mercoledì','giovedì','venerdì','sabato'];
+const HOURS    = ['08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00'];
+
+function toast(msg, dur=3000){
+  const el=document.getElementById('toast');
+  el.textContent=msg; el.classList.add('show');
+  clearTimeout(el._t);
+  el._t=setTimeout(()=>el.classList.remove('show'),dur);
+}
+
+function getWeekStart(d){
+  const dt=new Date(d); const day=dt.getDay();
+  dt.setDate(dt.getDate()+(day===0?-6:1-day));
+  dt.setHours(0,0,0,0); return dt;
+}
+
+/* ═══════════════════════════════════════════════════
+   N8N API
+═══════════════════════════════════════════════════ */
+async function n8nPost(path, body){
+  const r=await fetch(CFG.N8N+path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+  if(!r.ok) throw new Error(path+' '+r.status);
+  return r.json();
+}
+
+async function loadEvents(){
+  const today=new Date();
+  const past=new Date(); past.setDate(today.getDate()-CFG.PAST);
+  const fut=new Date();  fut.setDate(today.getDate()+CFG.FUT);
+  const data=await n8nPost(CFG.LOAD,{dateFrom:fmt(past),dateTo:fmt(fut)});
+  const arr=Array.isArray(data)?data:(data.events||[]);
+  return arr.map(e=>({
+    id:       e.id||e.gcalId||String(Date.now()+Math.random()),
+    nome:     e.nome||e.summary||'—',
+    tel:      e.tel||e.telefono||'',
+    tipo:     e.tipo||e.type||'Vecchio appuntamento',
+    immobile: e.immobile||'',
+    agente:   (e.agente||'matteo').toLowerCase(),
+    data:     (e.data||e.date||'').slice(0,10),
+    ora:      e.ora||e.time||'09:00',
+    note:     e.note||e.notes||'',
+    gcalLink: e.gcalLink||'',
+    isCRM:    !!(e.isCRM!==false && (e.tipo||e.nome)),
+  })).filter(e=>e.data);
+}
+
+/* ═══════════════════════════════════════════════════
+   METEO — Open-Meteo (free, no key)
+═══════════════════════════════════════════════════ */
+const WX_ICO={0:'☀️',1:'🌤',2:'⛅',3:'☁️',45:'🌫',48:'🌫',51:'🌦',53:'🌦',55:'🌧',61:'🌧',63:'🌧',65:'🌧',71:'🌨',73:'🌨',75:'❄️',80:'🌦',81:'🌧',82:'⛈',95:'⛈',96:'⛈',99:'⛈'};
+const WX_DSC={0:'Sole',1:'Parz. sole',2:'Nuvoloso',3:'Coperto',45:'Nebbia',48:'Nebbia',51:'Pioggerella',53:'Pioggerella',55:'Pioggia',61:'Pioggia',63:'Pioggia mod.',65:'Pioggia forte',71:'Neve lieve',73:'Neve',75:'Neve intensa',80:'Rovesci',81:'Rovesci',82:'Rovesci forti',95:'Temporale',96:'Temporale',99:'Temporale forte'};
+
+async function loadMeteo(){
+  try{
+    const url=`https://api.open-meteo.com/v1/forecast?latitude=${CFG.WX_LAT}&longitude=${CFG.WX_LON}&current=temperature_2m,weathercode,windspeed_10m,relativehumidity_2m&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Europe%2FRome&forecast_days=2`;
+    const d=(await (await fetch(url)).json());
+    const c=d.current;
+    const t=Math.round(c.temperature_2m);
+    const ico=WX_ICO[c.weathercode]||'🌡';
+    const dsc=WX_DSC[c.weathercode]||'—';
+    const hum=c.relativehumidity_2m+'%';
+    const win=Math.round(c.windspeed_10m)+' km/h';
+    const min='Min '+Math.round(d.daily.temperature_2m_min[0])+'°';
+    const t2_ico=WX_ICO[d.daily.weathercode[1]]||'🌡';
+    const t2_dsc=WX_DSC[d.daily.weathercode[1]]||'—';
+    const t2=Math.round(d.daily.temperature_2m_min[1])+'° / '+Math.round(d.daily.temperature_2m_max[1])+'°';
+    // desktop
+    setText('wx-ico',ico);setText('wx-tmp',t+'°');setText('wx-dsc',dsc);
+    setText('wx-hum',hum);setText('wx-wind',win);setText('wx-min',min);
+    setText('wt-ico',t2_ico);setText('wt-tmp',t2);setText('wt-dsc',t2_dsc);
+    // mobile
+    setText('mwx-ico',ico);setText('mwx-tmp',t+'°');setText('mwx-de',dsc);
+    setText('mwx-hum',hum);setText('mwx-wind',win);setText('mwx-min',min);
+    setText('mwt-ico',t2_ico);setText('mwt-tmp',t2);setText('mwt-dsc',t2_dsc);
+  }catch(e){ console.warn('meteo',e); }
+}
+function setText(id,v){ const el=document.getElementById(id); if(el) el.textContent=v; }
+
+/* ═══════════════════════════════════════════════════
+   NEWS — immobiliare.it RSS via proxy
+═══════════════════════════════════════════════════ */
+async function loadNews(){
+  try{
+    const feed='https://www.immobiliare.it/news/feed/';
+    const r=await fetch('https://api.allorigins.win/get?url='+encodeURIComponent(feed));
+    const xml=new DOMParser().parseFromString((await r.json()).contents,'text/xml');
+    const items=Array.from(xml.querySelectorAll('item')).slice(0,4);
+    document.getElementById('rp-news').innerHTML=items.map(it=>{
+      const title=it.querySelector('title')?.textContent||'';
+      const link=it.querySelector('link')?.textContent||'#';
+      const pub=it.querySelector('pubDate')?.textContent||'';
+      const when=pub?new Date(pub).toLocaleDateString('it-IT',{day:'numeric',month:'short'}):'';
+      return `<div class="news-item" onclick="window.open('${link}','_blank')">
+        <div class="news-dot"></div>
+        <div><div class="news-txt">${title}</div><div class="news-src">Immobiliare.it · ${when}</div></div>
+      </div>`;
+    }).join('')||'<div style="font-size:12px;color:var(--g300)">Nessuna news</div>';
+  }catch(e){
+    document.getElementById('rp-news').innerHTML='<div style="font-size:12px;color:var(--g300)">News non disponibili</div>';
+  }
+}
+
+/* ═══════════════════════════════════════════════════
+   IMMOBILI
+═══════════════════════════════════════════════════ */
+async function loadImms(){
+  try{
+    const data=await n8nPost(CFG.IMMS,{});
+    const arr=Array.isArray(data)?data:(data.immobili||[]);
+    const sel=document.getElementById('f-imm');
+    arr.forEach(im=>{
+      const v=im.nome||im; const o=document.createElement('option');
+      o.value=v; o.textContent=v; sel.appendChild(o);
+    });
+    setText('sb-imm-n',arr.length||'—');
+  }catch(e){ console.warn('imms',e); }
+}
+
+/* ═══════════════════════════════════════════════════
+   DATE HEADER (mobile)
+═══════════════════════════════════════════════════ */
+function updateMobDate(){
+  const n=new Date();
+  const g=GIORNI[n.getDay()];
+  setText('mob-date-main',g.charAt(0).toUpperCase()+g.slice(1)+' '+n.getDate()+' '+MESI[n.getMonth()]);
+  setText('mob-date-yr',String(n.getFullYear()));
+}
+
+/* ═══════════════════════════════════════════════════
+   DESKTOP WEEK RENDER
+═══════════════════════════════════════════════════ */
+function renderWeek(){
+  const ws=getWeekStart(viewDate);
+  const days=Array.from({length:7},(_,i)=>{ const d=new Date(ws); d.setDate(ws.getDate()+i); return d; });
+  const todayStr=fmt(new Date());
+
+  // title
+  const m1=MESI[days[0].getMonth()], m2=MESI[days[6].getMonth()];
+  setText('gcal-title', m1===m2?`${m1} ${days[0].getFullYear()}`:`${MESI_SH[days[0].getMonth()]} – ${MESI_SH[days[6].getMonth()]} ${days[6].getFullYear()}`);
+
+  // headers
+  const hdr=document.getElementById('gcal-hdr');
+  hdr.style.gridTemplateColumns='52px repeat(7,1fr)';
+  hdr.innerHTML='<div class="ghd-corner"></div>'+days.map(d=>{
+    const isT=fmt(d)===todayStr;
+    const dow=d.getDay(); const isSat=dow===6,isSun=dow===0;
+    const dn=DAYS_MON[(dow+6)%7];
+    return `<div class="ghd${isT?' td':''}${(isSat||isSun)?' wk':''}">
+      <div class="ghd-dn">${dn}</div><div class="ghd-dd">${d.getDate()}</div>
+    </div>`;
+  }).join('');
+
+  // grid
+  const grid=document.getElementById('gcal-grid');
+  grid.style.gridTemplateColumns='52px repeat(7,1fr)';
+  let html=`<div class="time-col">${HOURS.map(h=>`<div class="ts">${h}</div>`).join('')}</div>`;
+  days.forEach(d=>{
+    const ds=fmt(d);
+    const isT=ds===todayStr;
+    const dow=d.getDay(); const isSat=dow===6,isSun=dow===0;
+    const devs=allEvents.filter(e=>e.data===ds).sort((a,b)=>a.ora.localeCompare(b.ora));
+    const cells=HOURS.map(()=>'<div class="dc-cell"></div>').join('');
+    const evHtml=devs.map(e=>{
+      const [hh,mm]=(e.ora||'09:00').split(':').map(Number);
+      const top=Math.max(0,((hh-8)*60+mm)/60*56);
+      const cls=e.isCRM?e.agente:'old';
+      return `<div class="ev ${cls}" style="top:${top}px;height:52px" onclick="showDet('${e.id}')">
+        <div class="ev-name">${e.nome}</div>
+        <div class="ev-sub">${e.tipo}${e.immobile?' · '+e.immobile:''}</div>
+      </div>`;
+    }).join('');
+    html+=`<div class="day-col${isT?' td':''}${(isSat||isSun)?' wk':''}">${cells}${evHtml}</div>`;
+  });
+  grid.innerHTML=html;
+
+  // now line
+  const now=new Date();
+  const nowStr=fmt(now);
+  if(nowStr>=fmt(days[0])&&nowStr<=fmt(days[6])){
+    const startMin=(now.getHours()-8)*60+now.getMinutes();
+    const top=(startMin/60)*56;
+    const nl=document.getElementById('now-line');
+    nl.style.top=Math.max(0,top)+'px';
+    nl.style.display=top>=0?'block':'none';
+  } else {
+    document.getElementById('now-line').style.display='none';
+  }
+
+  renderUpcoming();
+}
+
+function navWeek(dir){ viewDate.setDate(viewDate.getDate()+dir*7); renderWeek(); }
+function goToday(){ viewDate=new Date(); selDate=new Date(); miniDate=new Date(); renderWeek(); renderMini(); renderMobApts(); }
+function setView(v,btn){ currentView=v; document.querySelectorAll('.gcv').forEach(b=>b.classList.remove('on')); btn.classList.add('on'); renderWeek(); }
+
+/* ═══════════════════════════════════════════════════
+   RIGHT PANEL — UPCOMING
+═══════════════════════════════════════════════════ */
+function renderUpcoming(){
+  const todayStr=fmt(new Date());
+  const evs=allEvents.filter(e=>e.data===todayStr&&e.isCRM).sort((a,b)=>a.ora.localeCompare(b.ora));
+  const el=document.getElementById('rp-upc');
+  if(!evs.length){ el.innerHTML='<div style="font-size:12px;color:var(--g300)">Nessun appuntamento oggi</div>'; return; }
+  el.innerHTML=evs.map(e=>{
+    const c=e.agente==='matteo'?'var(--matteo)':'var(--giuseppe)';
+    return `<div class="upc-item">
+      <div class="upc-dot" style="background:${c}"></div>
+      <div class="upc-info">
+        <div class="upc-name">${e.nome}</div>
+        <div class="upc-meta">${e.ora} · ${e.immobile||e.tipo}</div>
+        <div class="upc-type">${e.tipo}</div>
+        <button class="upc-gc" onclick="window.open('https://calendar.google.com','_blank')">📅 GCal</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* ═══════════════════════════════════════════════════
+   MOBILE MINI CALENDAR
+═══════════════════════════════════════════════════ */
+function renderMini(){
+  const y=miniDate.getFullYear(), mo=miniDate.getMonth();
+  setText('mini-mo',`${MESI[mo]} ${y}`);
+  const first=new Date(y,mo,1), last=new Date(y,mo+1,0);
+  const todayStr=fmt(new Date()), selStr=fmt(selDate);
+  let dow=first.getDay(); dow=dow===0?6:dow-1;
+  let html='';
+  for(let i=0;i<dow;i++){
+    const pd=new Date(y,mo,1-dow+i);
+    html+=`<div class="mday mu">${pd.getDate()}</div>`;
+  }
+  for(let d=1;d<=last.getDate();d++){
+    const ds=fmt(new Date(y,mo,d));
+    const isT=ds===todayStr,isSel=ds===selStr&&!isT;
+    const hasEv=allEvents.some(e=>e.data===ds);
+    const cls=[isT?'td':'',isSel?'sel':'',hasEv?'has':''].filter(Boolean).join(' ');
+    html+=`<div class="mday ${cls}" onclick="pickDay('${ds}')">${d}</div>`;
+  }
+  const rem=(7-(dow+last.getDate())%7)%7;
+  for(let d=1;d<=rem;d++) html+=`<div class="mday mu">${d}</div>`;
+  document.getElementById('mini-days').innerHTML=html;
+}
+function miniNav(dir){ miniDate.setMonth(miniDate.getMonth()+dir); renderMini(); }
+function pickDay(ds){ selDate=parseDate(ds); renderMini(); renderMobApts(); }
+
+/* ═══════════════════════════════════════════════════
+   MOBILE APPOINTMENTS
+═══════════════════════════════════════════════════ */
+function renderMobApts(){
+  const ds=fmt(selDate);
+  const evs=allEvents.filter(e=>e.data===ds).sort((a,b)=>a.ora.localeCompare(b.ora));
+  // section label
+  const todayStr=fmt(new Date());
+  const lbl=document.getElementById('mob-sec-lbl');
+  if(lbl) lbl.innerHTML=ds===todayStr?'Oggi <span class="mob-see">Vedi tutto →</span>':
+    selDate.getDate()+' '+MESI_SH[selDate.getMonth()]+' <span class="mob-see">Vedi tutto →</span>';
+  const el=document.getElementById('mob-apts');
+  if(!evs.length){ el.innerHTML='<div style="font-size:13px;color:var(--g300);padding:20px 0;text-align:center">Nessun appuntamento</div>'; return; }
+  el.innerHTML=evs.map(e=>{
+    const cls=e.isCRM?e.agente:'old';
+    return `<div class="apt-card" onclick="showDet('${e.id}')">
+      <div class="apt-time"><div class="apt-t">${e.ora}</div></div>
+      <div class="apt-bar ${cls}"></div>
+      <div class="apt-info">
+        <div class="apt-name">${e.nome}</div>
+        <div class="apt-prop">${e.immobile||'—'}</div>
+        <div class="apt-badge">${e.tipo}</div>
+        ${e.isCRM?`<button class="apt-gcal-btn" onclick="event.stopPropagation();window.open('https://calendar.google.com','_blank')">📅 GCal</button>`:''}
+      </div>
+      <div class="apt-chev">›</div>
+    </div>`;
+  }).join('');
+}
+
+/* ═══════════════════════════════════════════════════
+   DETAIL POPUP
+═══════════════════════════════════════════════════ */
+function showDet(id){
+  const e=allEvents.find(x=>x.id===id); if(!e) return;
+  detEvId=id;
+  const cls=e.isCRM?e.agente:'old';
+  document.getElementById('det-topbar').className='det-topbar '+cls;
+  setText('det-name',e.nome);
+  document.getElementById('det-del-btn').style.display=e.isCRM?'block':'none';
+  const dataFmt=e.data?e.data.split('-').reverse().join('/'):'—';
+  document.getElementById('det-fields').innerHTML=
+    (e.tel?`<div class="det-field"><div class="det-ico">📞</div><div><div class="det-val">${e.tel}</div><div class="det-sub">Telefono</div></div></div>`:'')+
+    (e.tipo?`<div class="det-field"><div class="det-ico">📋</div><div><div class="det-val">${e.tipo}</div><div class="det-sub">Tipo</div></div></div>`:'')+
+    (e.immobile?`<div class="det-field"><div class="det-ico">🏠</div><div><div class="det-val">${e.immobile}</div><div class="det-sub">Immobile</div></div></div>`:'')+
+    `<div class="det-field"><div class="det-ico">📅</div><div><div class="det-val">${dataFmt} · ${e.ora}</div><div class="det-sub">Data e ora</div></div></div>`+
+    `<div class="det-field"><div class="det-ico">👤</div><div><div class="det-val">${e.agente==='matteo'?'Matteo':'Giuseppe'}</div><div class="det-sub">Agente</div></div></div>`+
+    (e.note?`<div class="det-field"><div class="det-ico">📝</div><div><div class="det-val">${e.note}</div><div class="det-sub">Note</div></div></div>`:'');
+  document.getElementById('det-overlay').classList.add('show');
+}
+function closeDet(){ document.getElementById('det-overlay').classList.remove('show'); }
+function openGcal(){ window.open('https://calendar.google.com','_blank'); }
+async function deleteEv(){
+  if(!detEvId||!confirm('Eliminare questo appuntamento?')) return;
+  try{
+    await n8nPost(CFG.DEL,{id:detEvId});
+    allEvents=allEvents.filter(e=>e.id!==detEvId);
+    closeDet(); renderWeek(); renderMobApts(); renderMini();
+    toast('🗑 Appuntamento eliminato');
+  }catch(e){ toast('❌ Errore eliminazione. Controlla n8n.'); }
+}
+
+/* ═══════════════════════════════════════════════════
+   NEW APPOINTMENT
+═══════════════════════════════════════════════════ */
+function openNewApt(){
+  // reset
+  ['f-nome','f-tel','f-cerca','f-note'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
+  document.getElementById('f-data').value=fmt(selDate);
+  document.getElementById('f-ora').value='10:00';
+  document.getElementById('f-imm').value='';
+  document.getElementById('cerca-wrap').style.display='none';
+  selTipoVal='';
+  document.querySelectorAll('.tipo-opt').forEach(o=>o.classList.remove('on'));
+  document.getElementById('tipo-todo').classList.remove('on');
+  selAg('matteo');
+  // subtitle
+  const d=selDate;
+  const g=GIORNI[d.getDay()];
+  setText('pop-sub',g.charAt(0).toUpperCase()+g.slice(1)+' '+d.getDate()+' '+MESI[d.getMonth()]);
+  document.getElementById('apt-overlay').classList.add('show');
+}
+function closeApt(){ document.getElementById('apt-overlay').classList.remove('show'); }
+
+function selTipo(el,val,isTodo=false){
+  selTipoVal=val;
+  document.querySelectorAll('.tipo-opt').forEach(o=>o.classList.remove('on'));
+  document.getElementById('tipo-todo').classList.remove('on');
+  if(isTodo) document.getElementById('tipo-todo').classList.add('on');
+  else if(el) el.classList.add('on');
+  document.getElementById('cerca-wrap').style.display=(val==='In cerca di...')?'block':'none';
+}
+
+function selAg(ag){
+  selAgente=ag;
+  document.getElementById('ag-matteo').className='ag-opt matteo'+(ag==='matteo'?' on':'');
+  document.getElementById('ag-giuseppe').className='ag-opt giuseppe'+(ag==='giuseppe'?' on':'');
+  setText('sb-av',ag==='matteo'?'M':'G');
+  setText('sb-nm',ag==='matteo'?'Matteo':'Giuseppe');
+}
+
+async function saveApt(){
+  const nome=document.getElementById('f-nome').value.trim();
+  const tel =document.getElementById('f-tel').value.trim();
+  if(!nome||!tel||!selTipoVal){ toast('⚠️ Compila Nome, Telefono e Per cosa'); return; }
+  const cerca =document.getElementById('f-cerca').value.trim();
+  const imm   =document.getElementById('f-imm').value;
+  const note  =document.getElementById('f-note').value.trim();
+  const data  =document.getElementById('f-data').value;
+  const ora   =document.getElementById('f-ora').value;
+  const tipo  =selTipoVal+(cerca?` (${cerca})`:'');
+  const telP  =tel.replace(/^\+39\s?/,'').replace(/\+39/g,'').trim();
+  const gcalTitle=`${nome} – ${telP}${imm?' – '+imm:' – '+tipo}`;
+
+  const btn=document.getElementById('pop-save-btn');
+  btn.disabled=true; btn.textContent='Salvataggio…';
+  try{
+    const res=await n8nPost(CFG.SAVE,{nome,tel,tipo,immobile:imm,agente:selAgente,data,ora,note,gcalTitle});
+    allEvents.push({
+      id:res.id||String(Date.now()),nome,tel,tipo,immobile:imm,
+      agente:selAgente,data,ora,note,gcalLink:res.gcalLink||'',isCRM:true
+    });
+    closeApt();
+    renderWeek(); renderMobApts(); renderMini();
+    toast('✅ Appuntamento salvato!');
+  }catch(e){ toast('❌ Errore salvataggio. Controlla n8n.'); }
+  finally{ btn.disabled=false; btn.textContent='💾 Salva appuntamento'; }
+}
+
+/* search */
+function doSearch(q){
+  if(!q.trim()){ renderWeek(); return; }
+  // basic: filter allEvents and highlight
+  q=q.toLowerCase();
+  const found=allEvents.filter(e=>
+    e.nome.toLowerCase().includes(q)||
+    e.tipo.toLowerCase().includes(q)||
+    (e.immobile||'').toLowerCase().includes(q)||
+    (e.tel||'').includes(q)
+  );
+  // Re-render grid showing only found events (simplified)
+  toast(`🔍 ${found.length} risultati per "${q}"`);
+}
+
+/* ═══════════════════════════════════════════════════
+   MOBILE TABS
+═══════════════════════════════════════════════════ */
+function switchTab(tab){
+  ['agenda','oggi','news','note'].forEach(t=>{
+    const el=document.getElementById('bn-'+t);
+    if(el) el.classList.toggle('on',t===tab);
+  });
+}
+
+/* ═══════════════════════════════════════════════════
+   NOTES
+═══════════════════════════════════════════════════ */
+function initNotes(){
+  const ta=document.getElementById('notes-ta');
+  ta.value=localStorage.getItem('edilnord-notes')||'';
+  ta.addEventListener('input',()=>localStorage.setItem('edilnord-notes',ta.value));
+}
+
+/* ═══════════════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════════════ */
+async function init(){
+  updateMobDate();
+  renderMini();
+  renderMobApts();
+  renderWeek();
+  initNotes();
+
+  // parallel async loads
+  loadMeteo();
+  loadNews();
+  loadImms();
+
+  // load events from n8n
+  try{
+    allEvents=await loadEvents();
+    renderWeek();
+    renderMobApts();
+    renderMini();
+  }catch(err){
+    console.error('loadEvents',err);
+    toast('⚠️ Impossibile caricare eventi — controlla n8n');
+    document.getElementById('gcal-grid').innerHTML=
+      '<div style="padding:32px;color:var(--g500);font-size:13px;text-align:center">Impossibile caricare eventi.<br>Controlla la connessione a n8n.</div>';
+    document.getElementById('rp-upc').innerHTML=
+      '<div style="font-size:12px;color:var(--g300)">—</div>';
+  }
+
+  // refresh now-line every minute
+  setInterval(renderWeek, 60000);
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
