@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#1e2d24">
+<title>Edilnord RE</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#5a9a70;--gl:#9dc0aa;--gp:#e8f2ec;--gd:#2d5a3d;--gdk:#1e2d24;
+  --cream:#f5f7f4;--off:#faf8f5;
+  --g50:#f7f7f6;--g100:#eeede9;--g200:#dddbd5;--g300:#c5c3bc;
+  --g500:#8a8880;--g700:#4a4844;--g900:#1a1917;
+  --matteo:#4285f4;--matteo-l:#e8f0fe;
+  --giuseppe:#e07b39;--giuseppe-l:#fef0e6;
+  --red:#ea4335;--amber:#f4b400;
+  --serif:'Cormorant Garamond',serif;
+  --sans:'DM Sans',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;height:100dvh;}
+body{font-family:var(--sans);background:var(--cream);color:var(--g900);display:flex;flex-direction:column;height:100dvh;overflow:hidden;}
+
+/* ══════════════════════════
+   DESKTOP APP SHELL
+══════════════════════════ */
+.app{display:flex;flex:1;overflow:hidden;min-height:0;}
+
+/* ── SIDEBAR DARK ── */
+.sidebar{
+  width:210px;flex-shrink:0;
+  background:var(--gdk);
+  display:flex;flex-direction:column;
+  border-right:1px solid rgba(255,255,255,.04);
+}
+.sb-logo{
+  padding:20px 18px 16px;
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.sb-lm{font-family:var(--serif);font-size:20px;color:white;font-weight:500;letter-spacing:.3px;}
+.sb-ls{font-size:9px;color:rgba(255,255,255,.25);letter-spacing:1.5px;text-transform:uppercase;margin-top:3px;}
+
+.sb-nav{padding:10px 8px;flex:1;overflow-y:auto;}
+.sb-nl{font-size:9px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.2);padding:8px 12px 4px;font-weight:500;}
+.sb-ni{
+  display:flex;align-items:center;gap:9px;
+  padding:8px 12px;border-radius:8px;
+  color:rgba(255,255,255,.5);font-size:13px;
+  cursor:pointer;margin-bottom:1px;
+  transition:background .15s,color .15s;
+  user-select:none;
+}
+.sb-ni:hover{background:rgba(255,255,255,.06);color:rgba(255,255,255,.75);}
+.sb-ni.on{background:rgba(255,255,255,.1);color:white;font-weight:500;}
+.sb-ni .ic{font-size:14px;width:18px;text-align:center;}
+.sb-badge{
+  margin-left:auto;
+  background:rgba(255,255,255,.1);color:rgba(255,255,255,.6);
+  font-size:10px;font-weight:600;padding:1px 7px;border-radius:20px;
+}
+
+/* Meteo sidebar */
+.sb-wx{
+  margin:4px 10px 10px;
+  background:rgba(0,0,0,.2);
+  border-radius:12px;padding:13px;
+  border:1px solid rgba(255,255,255,.06);
+}
+.wx-lbl{font-size:9px;letter-spacing:.8px;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:9px;font-weight:500;}
+.wx-main{display:flex;align-items:center;gap:10px;margin-bottom:6px;}
+.wx-ico{font-size:28px;line-height:1;}
+.wx-tmp{font-family:var(--serif);font-size:30px;color:white;font-weight:300;line-height:1;}
+.wx-dsc{font-size:11px;color:rgba(255,255,255,.45);margin-top:2px;}
+.wx-details{display:flex;gap:10px;margin-bottom:7px;}
+.wd{font-size:9.5px;color:rgba(255,255,255,.3);}.wd span{color:rgba(255,255,255,.55);}
+.wx-sep{height:1px;background:rgba(255,255,255,.07);margin-bottom:7px;}
+.wx-tom{display:flex;align-items:center;gap:7px;font-size:11px;color:rgba(255,255,255,.35);}
+.wx-tom span{color:rgba(255,255,255,.6);}
+
+.sb-user{
+  padding:12px 16px;border-top:1px solid rgba(255,255,255,.07);
+  display:flex;align-items:center;gap:10px;
+}
+.sb-av{
+  width:32px;height:32px;border-radius:50%;
+  background:var(--gl);display:flex;align-items:center;
+  justify-content:center;font-size:13px;font-weight:700;color:var(--gd);
+}
+.sb-nm{font-size:12px;color:white;font-weight:500;}
+.sb-rl{font-size:10px;color:rgba(255,255,255,.3);}
+
+/* ── MAIN CALENDAR ── */
+.main{
+  flex:1;display:flex;flex-direction:column;
+  overflow:hidden;background:var(--cream);
+}
+
+/* top bar */
+.gcal-bar{
+  flex-shrink:0;padding:11px 16px 10px;
+  border-bottom:1px solid var(--g200);
+  display:flex;align-items:center;justify-content:space-between;
+  background:white;
+  box-shadow:0 1px 3px rgba(0,0,0,.04);
+}
+.gcal-left{display:flex;align-items:center;gap:8px;}
+.gcal-today{
+  background:white;border:1px solid var(--g200);
+  border-radius:6px;padding:6px 13px;
+  font-size:12.5px;font-weight:500;color:var(--g700);
+  cursor:pointer;font-family:var(--sans);
+  transition:background .1s;
+}
+.gcal-today:hover{background:var(--g50);}
+.gcal-nav{display:flex;gap:2px;}
+.gcal-nb{
+  width:28px;height:28px;border-radius:50%;
+  border:none;background:transparent;
+  cursor:pointer;font-size:16px;color:var(--g500);
+  display:flex;align-items:center;justify-content:center;
+  transition:background .1s;
+}
+.gcal-nb:hover{background:var(--g100);}
+.gcal-title{font-family:var(--serif);font-size:21px;font-weight:400;color:var(--g900);letter-spacing:.2px;}
+.gcal-right{display:flex;align-items:center;gap:8px;}
+.gcal-search{
+  background:var(--g50);border:1px solid var(--g200);
+  border-radius:8px;padding:6px 12px;font-size:12.5px;
+  font-family:var(--sans);color:var(--g900);outline:none;
+  width:180px;transition:border-color .15s,background .15s;
+}
+.gcal-search:focus{border-color:var(--green);background:white;}
+.gcal-search::placeholder{color:var(--g300);}
+.gcal-views{display:flex;border:1px solid var(--g200);border-radius:6px;overflow:hidden;}
+.gcv{padding:5px 12px;font-size:12px;font-weight:500;background:white;color:var(--g500);cursor:pointer;border:none;font-family:var(--sans);transition:background .1s;}
+.gcv.on{background:var(--gp);color:var(--gd);font-weight:600;}
+.gcal-new{
+  background:var(--green);color:white;
+  border:none;border-radius:20px;padding:7px 16px;
+  font-size:13px;font-weight:500;cursor:pointer;
+  font-family:var(--sans);
+  box-shadow:0 2px 10px rgba(90,154,112,.35);
+  transition:opacity .15s;
+}
+.gcal-new:hover{opacity:.88;}
+.sync-dot{width:8px;height:8px;border-radius:50%;background:var(--green);opacity:0;transition:opacity .4s;flex-shrink:0;}
+
+/* week header */
+.gcal-hdr{
+  flex-shrink:0;display:grid;
+  border-bottom:1px solid var(--g200);
+  background:white;
+}
+.ghd{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 0;cursor:pointer;transition:background .1s;}
+.ghd:hover{background:var(--g50);}
+.ghd-dn{font-size:10px;font-weight:600;color:var(--g500);letter-spacing:.5px;text-transform:uppercase;}
+.ghd-dd{
+  font-family:var(--serif);font-size:24px;font-weight:400;color:var(--g700);
+  width:36px;height:36px;display:flex;align-items:center;justify-content:center;
+  border-radius:50%;margin-top:2px;
+}
+.ghd.td .ghd-dn{color:var(--green);}
+.ghd.td .ghd-dd{background:var(--green);color:white;}
+.ghd.wk .ghd-dn,.ghd.wk .ghd-dd{color:var(--g300);}
+.ghd-corner{border-right:1px solid var(--g200);}
+
+/* scrollable grid */
+.gcal-scroll{flex:1;overflow-y:auto;overflow-x:hidden;position:relative;}
+.gcal-scroll::-webkit-scrollbar{width:5px;}
+.gcal-scroll::-webkit-scrollbar-thumb{background:var(--g200);border-radius:3px;}
+.gcal-grid{display:grid;position:relative;}
+.now-line{position:absolute;left:52px;right:0;height:2px;background:var(--red);z-index:10;pointer-events:none;display:none;}
+.now-line::before{content:'';position:absolute;left:-5px;top:-4px;width:10px;height:10px;border-radius:50%;background:var(--red);}
+.time-col{border-right:1px solid var(--g200);}
+.ts{height:56px;display:flex;align-items:flex-start;justify-content:flex-end;padding:4px 6px 0;font-size:9px;color:var(--g300);letter-spacing:.2px;}
+.day-col{border-right:1px solid var(--g200);position:relative;}
+.day-col:last-child{border-right:none;}
+.day-col.td{background:rgba(90,154,112,.025);}
+.day-col.wk{background:rgba(0,0,0,.012);}
+.dc-cell{height:56px;border-bottom:1px solid rgba(0,0,0,.04);cursor:pointer;transition:background .1s;}
+.dc-cell:hover{background:rgba(90,154,112,.06);}
+.ev{
+  position:absolute;left:3px;right:3px;
+  border-radius:6px;padding:4px 7px;
+  font-size:10.5px;font-weight:500;
+  cursor:pointer;overflow:hidden;color:white;
+  transition:opacity .15s,box-shadow .15s;z-index:5;
+}
+.ev:hover{opacity:.88;box-shadow:0 4px 12px rgba(0,0,0,.2);}
+.ev-name{font-weight:600;font-size:11px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;}
+.ev-sub{font-size:9.5px;opacity:.85;margin-top:1px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;}
+.ev.matteo{background:var(--matteo);}
+.ev.giuseppe{background:var(--giuseppe);}
+.ev.todo{background:var(--amber);}
+.ev.old{background:#9e9e9e;}
+
+/* search overlay */
+.search-ov{position:absolute;inset:0;background:white;overflow-y:auto;z-index:50;padding:16px;animation:fadeIn .15s ease;}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.search-ov::-webkit-scrollbar{width:5px;}
+.search-ov::-webkit-scrollbar-thumb{background:var(--g200);border-radius:3px;}
+.search-result{display:flex;gap:12px;padding:12px;border-radius:10px;border:1px solid var(--g100);margin-bottom:8px;cursor:pointer;background:white;align-items:flex-start;transition:background .1s;}
+.search-result:hover{background:var(--g50);}
+.sr-bar{width:3px;border-radius:2px;min-height:48px;flex-shrink:0;}
+.sr-nome{font-size:14px;font-weight:500;color:var(--g900);}
+.sr-meta{font-size:12px;color:var(--g500);margin-top:2px;}
+.sr-tipo{font-size:11px;color:var(--g500);margin-top:2px;}
+.sr-old{font-size:9px;background:var(--g100);color:var(--g500);padding:1px 6px;border-radius:4px;margin-left:6px;}
+
+/* ── RIGHT PANEL ── */
+.rpanel{
+  width:250px;flex-shrink:0;
+  background:var(--off);
+  display:flex;flex-direction:column;
+  overflow:hidden;border-left:1px solid var(--g200);
+}
+.rp-sec{padding:14px 15px;border-bottom:1px solid var(--g200);flex-shrink:0;}
+.rp-sec.grow{flex:1;overflow-y:auto;min-height:0;max-height:180px;}
+.rp-sec.news-sec{overflow-y:auto;flex:1.8;min-height:0;}
+.rp-title{
+  font-size:9px;font-weight:600;color:var(--g500);
+  letter-spacing:.8px;text-transform:uppercase;
+  margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;
+}
+.rp-add{
+  width:20px;height:20px;background:var(--gp);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:14px;color:var(--green);cursor:pointer;border:none;
+  line-height:1;transition:background .1s;
+}
+.rp-add:hover{background:var(--gl);}
+.upc-item{display:flex;gap:9px;padding:8px 0;border-bottom:1px solid var(--g100);}
+.upc-item:last-child{border-bottom:none;}
+.upc-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:3px;}
+.upc-name{font-size:12.5px;font-weight:500;color:var(--g900);}
+.upc-meta{font-size:10.5px;color:var(--g500);margin-top:1px;}
+.upc-type{display:inline-block;font-size:9.5px;padding:1px 6px;border-radius:4px;margin-top:3px;font-weight:500;background:var(--gp);color:var(--gd);}
+.notes-ta{
+  width:100%;height:100%;border:none;background:transparent;
+  resize:none;font-family:var(--sans);font-size:12.5px;
+  color:var(--g700);line-height:1.8;outline:none;
+}
+.news-item{display:flex;gap:9px;padding:8px 0;border-bottom:1px solid var(--g100);cursor:pointer;transition:background .1s;align-items:flex-start;}
+.news-item:hover .news-txt{color:var(--green);}
+.news-item:last-child{border-bottom:none;}
+.news-dot{width:6px;height:6px;border-radius:50%;background:var(--green);margin-top:4px;flex-shrink:0;}
+.news-txt{font-size:11.5px;color:var(--g700);line-height:1.45;font-weight:500;transition:color .15s;}
+.news-src{font-size:9.5px;color:var(--g300);margin-top:2px;}
+/* news panel header con badge */
+.news-panel-hdr{
+  background:linear-gradient(135deg,var(--gd),var(--green));
+  margin:-14px -15px 12px;padding:12px 15px 10px;
+  border-radius:0;display:flex;align-items:center;justify-content:space-between;
+}
+.news-panel-hdr-lbl{font-size:9px;font-weight:700;color:rgba(255,255,255,.7);letter-spacing:1px;text-transform:uppercase;}
+.news-panel-badge{font-size:9px;font-weight:600;background:rgba(255,255,255,.2);color:white;padding:2px 7px;border-radius:10px;}
+.news-panel-live{width:6px;height:6px;border-radius:50%;background:#4ade80;display:inline-block;margin-right:5px;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+/* desk panels */
+.desk-panel{display:none;flex:1;flex-direction:column;overflow:hidden;background:var(--cream);padding:28px;}
+.desk-panel.on{display:flex;}
+.desk-panel-title{font-family:var(--serif);font-size:30px;color:var(--g900);margin-bottom:20px;font-weight:400;}
+.desk-panel-empty{color:var(--g500);font-size:14px;margin-top:40px;text-align:center;}
+
+/* ══════════════════════════
+   MOBILE HEADER
+══════════════════════════ */
+.mob-header{
+  background:var(--gdk);
+  padding:env(safe-area-inset-top,14px) 20px 18px;
+  position:relative;overflow:hidden;flex-shrink:0;
+}
+.mob-header::before{content:'';position:absolute;top:-80px;right:-80px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.03);}
+.mob-hdr-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px;position:relative;z-index:1;}
+.mob-logo{font-family:var(--serif);font-size:20px;color:white;font-weight:500;}
+.mob-logo-sub{font-size:9px;color:rgba(255,255,255,.28);letter-spacing:1.3px;text-transform:uppercase;margin-top:2px;}
+.mob-agents{display:flex;}
+.mob-ag{
+  width:30px;height:30px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;border:2.5px solid var(--gdk);
+}
+.mob-ag.matteo{background:var(--gl);color:var(--gd);}
+.mob-ag.giuseppe{background:#c5b9a8;color:#4a3a28;margin-left:-8px;}
+.mob-date{margin-bottom:12px;position:relative;z-index:1;}
+.mob-date-main{font-family:var(--serif);font-size:26px;color:white;letter-spacing:.2px;font-weight:400;}
+.mob-date-yr{font-size:11px;color:rgba(255,255,255,.33);margin-top:2px;}
+.mob-wx{
+  background:rgba(0,0,0,.22);border-radius:14px;
+  padding:12px 14px;border:1px solid rgba(255,255,255,.07);
+  position:relative;z-index:1;
+}
+.mwx-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.mwx-l{display:flex;align-items:center;gap:10px;}
+.mwx-i{font-size:30px;line-height:1;}
+.mwx-ci{font-size:10px;color:rgba(255,255,255,.38);}
+.mwx-de{font-size:13px;color:rgba(255,255,255,.75);font-weight:500;margin-top:1px;}
+.mwx-tm{font-family:var(--serif);font-size:36px;color:white;line-height:1;font-weight:300;}
+.mwx-ds{display:flex;gap:12px;margin-bottom:8px;}
+.mwx-d{font-size:10px;color:rgba(255,255,255,.38);}.mwx-d span{color:rgba(255,255,255,.65);font-weight:500;}
+.mwx-sp{height:1px;background:rgba(255,255,255,.07);margin-bottom:8px;}
+.mwx-tom{display:flex;align-items:center;gap:8px;}
+.mwt-l{font-size:12px;color:rgba(255,255,255,.4);flex:1;}
+.mwt-i{font-size:18px;}
+.mwt-t{font-size:13px;font-weight:500;color:rgba(255,255,255,.7);}
+.mwt-d{font-size:10px;color:rgba(255,255,255,.33);margin-top:1px;}
+
+/* ══════════════════════════
+   MOBILE SCREENS
+══════════════════════════ */
+.mob-screen{flex:1;overflow-y:auto;display:none;min-height:0;}
+.mob-screen::-webkit-scrollbar{display:none;}
+.mob-screen.on{display:block;}
+.mob-body{padding:16px;}
+
+/* mini calendar */
+.mini-cal{
+  background:white;border-radius:14px;
+  padding:14px;border:1px solid var(--g200);
+  box-shadow:0 1px 4px rgba(0,0,0,.06);
+  margin-bottom:16px;
+}
+.mini-cal-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.mini-cal-mo{font-family:var(--serif);font-size:17px;font-weight:500;color:var(--g900);}
+.mini-cal-nav{display:flex;gap:4px;}
+.mcnb{
+  width:26px;height:26px;border-radius:6px;
+  border:1px solid var(--g200);background:transparent;
+  font-size:12px;cursor:pointer;display:flex;
+  align-items:center;justify-content:center;color:var(--g500);
+}
+.mini-dhd{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;margin-bottom:4px;}
+.mini-dl{font-size:10px;font-weight:600;color:var(--g300);padding:3px 0;}
+.mini-dl.wk{color:#ddd;}
+.mini-days{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;row-gap:2px;}
+.mday{padding:5px 0;font-size:12.5px;color:var(--g700);border-radius:50%;cursor:pointer;position:relative;margin:0 auto;width:28px;transition:background .1s;}
+.mday.td{background:var(--green);color:white;font-weight:600;}
+.mday.mu{color:var(--g300);}
+.mday.sel:not(.td){background:var(--gp);color:var(--gd);}
+.mday.has::after{content:'';position:absolute;bottom:1px;left:50%;transform:translateX(-50%);width:3px;height:3px;border-radius:50%;background:var(--green);}
+.mday.td.has::after{background:rgba(255,255,255,.7);}
+
+/* apt cards mobile */
+.mob-sec{
+  font-size:10.5px;font-weight:600;color:var(--g500);
+  letter-spacing:.7px;text-transform:uppercase;
+  margin-bottom:11px;display:flex;align-items:center;justify-content:space-between;
+}
+.mob-see{font-size:11px;color:var(--green);font-weight:500;text-transform:none;letter-spacing:0;cursor:pointer;}
+.apt-card{
+  background:white;border-radius:16px;padding:13px 14px;
+  margin-bottom:8px;border:1px solid var(--g200);
+  box-shadow:0 1px 4px rgba(0,0,0,.05);
+  display:flex;gap:12px;align-items:flex-start;cursor:pointer;
+  transition:box-shadow .15s;
+}
+.apt-card:hover{box-shadow:0 4px 16px rgba(0,0,0,.1);}
+.apt-time{min-width:38px;text-align:right;flex-shrink:0;padding-top:2px;}
+.apt-t{font-family:var(--serif);font-size:15px;font-weight:500;color:var(--g500);}
+.apt-bar{width:3px;border-radius:2px;min-height:44px;flex-shrink:0;}
+.apt-bar.matteo{background:var(--matteo);}
+.apt-bar.giuseppe{background:var(--giuseppe);}
+.apt-bar.todo{background:var(--amber);}
+.apt-bar.old{background:var(--g300);}
+.apt-info{flex:1;}
+.apt-name{font-size:14px;font-weight:500;color:var(--g900);}
+.apt-prop{font-size:12px;color:var(--g500);margin-top:2px;}
+.apt-badge{display:inline-flex;align-items:center;font-size:10px;font-weight:500;padding:2px 8px;border-radius:20px;margin-top:5px;background:var(--g50);color:var(--g500);}
+.apt-chev{color:var(--g300);font-size:18px;font-weight:300;padding-top:2px;}
+
+/* oggi screen */
+.oggi-body{padding:16px;}
+.oggi-date{font-family:var(--serif);font-size:28px;color:var(--g900);font-weight:400;margin-bottom:4px;}
+.oggi-sub{font-size:13px;color:var(--g500);margin-bottom:20px;}
+
+/* news screen */
+.news-body{padding:16px;}
+.mob-news-item{
+  background:white;border-radius:14px;padding:14px;
+  margin-bottom:10px;border:1px solid var(--g200);
+  box-shadow:0 1px 4px rgba(0,0,0,.05);cursor:pointer;
+}
+.mob-news-title{font-size:14px;font-weight:500;color:var(--g900);line-height:1.4;margin-bottom:5px;}
+.mob-news-src{font-size:11px;color:var(--g500);}
+
+/* note screen */
+.note-body{padding:16px;display:flex;flex-direction:column;height:100%;}
+.note-title{font-family:var(--serif);font-size:24px;color:var(--g900);font-weight:400;margin-bottom:12px;}
+.note-ta{
+  flex:1;width:100%;border:1.5px solid var(--g200);
+  background:white;border-radius:14px;padding:14px;
+  font-family:var(--sans);font-size:14px;color:var(--g700);
+  line-height:1.8;outline:none;resize:none;min-height:300px;
+  transition:border-color .15s;
+}
+.note-ta:focus{border-color:var(--green);}
+
+/* ══════════════════════════
+   BOTTOM NAV
+══════════════════════════ */
+.bot-nav{
+  background:white;
+  border-top:1px solid rgba(0,0,0,.07);
+  display:grid;grid-template-columns:repeat(5,1fr);
+  box-shadow:0 -4px 24px rgba(0,0,0,.07);
+  flex-shrink:0;height:56px;
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+.bn-item{
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:center;gap:3px;cursor:pointer;
+  position:relative;padding:8px 4px 6px;user-select:none;
+}
+.bn-item.on::before{
+  content:'';position:absolute;top:8px;left:50%;transform:translateX(-50%);
+  width:46px;height:28px;background:var(--gp);border-radius:20px;
+}
+.bn-ico{font-size:20px;position:relative;z-index:1;line-height:1;}
+.bn-lbl{font-size:9.5px;font-weight:500;color:var(--g500);position:relative;z-index:1;}
+.bn-item.on .bn-lbl{color:var(--green);font-weight:600;}
+.bn-add{padding:0;justify-content:flex-start;padding-top:4px;}
+.bn-add-ico{
+  width:46px;height:46px;background:var(--green);border-radius:14px;
+  display:flex;align-items:center;justify-content:center;
+  font-size:26px;color:white;
+  box-shadow:0 4px 16px rgba(90,154,112,.45);
+  position:relative;z-index:1;margin-top:-10px;
+}
+.bn-add .bn-lbl{margin-top:2px;}
+
+/* ══════════════════════════
+   POPUP SHEETS
+══════════════════════════ */
+.sheet-overlay{
+  position:fixed;inset:0;
+  background:rgba(10,10,8,.45);
+  backdrop-filter:blur(6px);
+  z-index:100;display:none;
+  align-items:flex-end;justify-content:center;
+}
+.sheet-overlay.show{display:flex;}
+.pop-sheet{
+  background:white;border-radius:24px 24px 0 0;
+  width:100%;max-width:520px;max-height:94vh;
+  overflow-y:auto;
+  padding-bottom:env(safe-area-inset-bottom,16px);
+  box-shadow:0 -8px 48px rgba(0,0,0,.2);
+  animation:slideUp .25s ease;position:relative;touch-action:pan-y;
+}
+.pop-sheet::-webkit-scrollbar{display:none;}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.pop-handle-wrap{position:sticky;top:0;z-index:10;background:white;padding:12px 0 0;border-radius:24px 24px 0 0;}
+.pop-handle{width:40px;height:4px;background:var(--g200);border-radius:2px;margin:0 auto 2px;}
+.pop-hdr{padding:10px 20px 0;}
+.pop-title{font-family:var(--serif);font-size:24px;color:var(--g900);font-weight:400;}
+.pop-sub{font-size:12px;color:var(--g500);margin-top:3px;}
+.pop-body{padding:16px 20px;}
+.pop-lbl{font-size:10px;font-weight:600;color:var(--g500);letter-spacing:.5px;text-transform:uppercase;margin-bottom:5px;}
+.pop-field{margin-bottom:12px;}
+.pop-input{
+  width:100%;background:var(--g50);border:1.5px solid var(--g200);
+  border-radius:10px;padding:11px 13px;font-size:14px;color:var(--g900);
+  font-family:var(--sans);outline:none;transition:border-color .15s,background .15s;
+  appearance:none;
+}
+.pop-input:focus{border-color:var(--green);background:white;}
+.pop-input::placeholder{color:var(--g300);}
+.pop-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+
+/* tipo grid */
+.tipo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px;}
+.tipo-opt{
+  border:1.5px solid var(--g200);border-radius:12px;
+  padding:12px 6px;display:flex;flex-direction:column;
+  align-items:center;gap:5px;cursor:pointer;background:white;
+  transition:all .15s;user-select:none;
+}
+.tipo-opt:active{transform:scale(.96);}
+.tipo-opt.on{border-color:var(--green);background:var(--gp);}
+.tipo-ico{font-size:22px;line-height:1;}
+.tipo-lbl{font-size:11px;font-weight:500;color:var(--g700);text-align:center;line-height:1.2;}
+.tipo-opt.on .tipo-lbl{color:var(--gd);}
+
+/* Cose da fare — separato con bordo amber */
+.tipo-todo{
+  border:1.5px solid var(--amber);border-radius:12px;
+  padding:12px;display:flex;align-items:center;
+  justify-content:center;gap:8px;cursor:pointer;
+  background:#fffdf0;margin-bottom:12px;transition:all .15s;
+}
+.tipo-todo.on{background:#fff8e1;border-width:2px;}
+.tipo-todo-lbl{font-size:13px;font-weight:500;color:var(--amber);}
+
+/* Cose da fare textarea */
+.todo-ta-wrap{display:none;margin-bottom:12px;}
+.todo-ta{
+  width:100%;min-height:90px;background:var(--g50);
+  border:1.5px solid var(--amber);border-radius:10px;
+  padding:11px 13px;font-size:14px;color:var(--g900);
+  font-family:var(--sans);outline:none;resize:vertical;
+  transition:border-color .15s;
+}
+.todo-ta:focus{border-color:#c8890a;background:#fffdf0;}
+.todo-ta::placeholder{color:var(--g300);}
+
+/* agenti */
+.ag-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;}
+.ag-opt{border-radius:12px;padding:12px;border:2px solid var(--g200);text-align:center;cursor:pointer;background:white;transition:all .15s;}
+.ag-opt.on.matteo{border-color:var(--matteo);background:var(--matteo-l);}
+.ag-opt.on.giuseppe{border-color:var(--giuseppe);background:var(--giuseppe-l);}
+.ag-av{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;margin:0 auto 6px;}
+.ag-opt.matteo .ag-av{background:var(--matteo-l);color:var(--matteo);}
+.ag-opt.on.matteo .ag-av{background:var(--matteo);color:white;}
+.ag-opt.giuseppe .ag-av{background:var(--giuseppe-l);color:var(--giuseppe);}
+.ag-opt.on.giuseppe .ag-av{background:var(--giuseppe);color:white;}
+.ag-nm{font-size:13px;font-weight:600;color:var(--g900);}
+.pop-save{
+  width:100%;background:var(--green);color:white;
+  border:none;border-radius:12px;padding:15px;
+  font-size:15px;font-weight:600;font-family:var(--sans);
+  cursor:pointer;box-shadow:0 4px 16px rgba(90,154,112,.35);
+  transition:opacity .15s;
+}
+.pop-save:hover{opacity:.88;}
+.pop-save:disabled{opacity:.5;cursor:not-allowed;}
+
+/* ── DETTAGLIO ── */
+.det-overlay{position:fixed;inset:0;background:rgba(10,10,8,.45);backdrop-filter:blur(6px);z-index:200;display:none;align-items:flex-end;justify-content:center;}
+.det-overlay.show{display:flex;}
+.det-sheet{background:white;border-radius:24px 24px 0 0;width:100%;max-width:520px;padding-bottom:env(safe-area-inset-bottom,16px);box-shadow:0 -8px 48px rgba(0,0,0,.2);animation:slideUp .22s ease;touch-action:pan-y;}
+.det-topbar{height:5px;}
+.det-topbar.matteo{background:var(--matteo);}
+.det-topbar.giuseppe{background:var(--giuseppe);}
+.det-topbar.todo{background:var(--amber);}
+.det-topbar.old{background:var(--g300);}
+.det-handle-wrap{padding:12px 0 4px;text-align:center;}
+.det-handle{width:40px;height:4px;background:var(--g200);border-radius:2px;margin:0 auto;}
+.det-body{padding:12px 20px 16px;}
+.det-name{font-family:var(--serif);font-size:24px;color:var(--g900);margin-bottom:14px;font-weight:400;}
+.det-field{display:flex;gap:12px;margin-bottom:11px;align-items:flex-start;}
+.det-ico{font-size:18px;width:24px;flex-shrink:0;}
+.det-val{font-size:14px;color:var(--g900);}
+.det-sub{font-size:11px;color:var(--g500);margin-top:1px;}
+.det-btns{display:flex;gap:8px;margin-top:16px;}
+.det-gc{flex:1;background:var(--g50);border:1px solid var(--g200);border-radius:10px;padding:12px;font-size:13px;font-weight:500;color:var(--g700);cursor:pointer;font-family:var(--sans);}
+.det-del{background:#fdecea;border:1px solid #fca5a5;border-radius:10px;padding:12px 16px;font-size:13px;font-weight:500;color:var(--red);cursor:pointer;font-family:var(--sans);}
+
+/* toast */
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--g900);color:white;padding:10px 20px;border-radius:20px;font-size:13px;font-weight:500;opacity:0;transition:all .3s;z-index:300;white-space:nowrap;pointer-events:none;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+
+/* loading */
+.loading{display:flex;align-items:center;justify-content:center;padding:40px;color:var(--g500);font-size:13px;gap:8px;}
+.spin{width:18px;height:18px;border:2px solid var(--g200);border-top-color:var(--green);border-radius:50%;animation:spin .8s linear infinite;flex-shrink:0;}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ══════════════════════════
+   RESPONSIVE
+══════════════════════════ */
+@media(max-width:768px){
+  .sidebar,.rpanel,.main,.desk-panel{display:none!important;}
+  .app{display:none;}
+  .mob-shell{display:flex;flex-direction:column;height:100dvh;overflow:hidden;}
+  .mob-header{flex-shrink:0;}
+  .mob-screen{flex:1;overflow-y:auto;min-height:0;}
+  .bot-nav{flex-shrink:0;}
+}
+@media(min-width:769px){
+  .mob-shell,.mob-header,.bot-nav,.mob-screen{display:none!important;}
+  .main{display:flex;}
+}
+</style>
+</head>
+<body>
+
+<!-- ═══════════ DESKTOP ═══════════ -->
+<div class="app" id="app">
+
+  <!-- SIDEBAR DARK -->
+  <div class="sidebar">
+    <div class="sb-logo">
+      <div class="sb-lm">Edilnord RE</div>
+      <div class="sb-ls">Brugherio</div>
+    </div>
+    <div class="sb-nav">
+      <div class="sb-nl">Principale</div>
+      <div class="sb-ni on" onclick="deskNav('cal',this)"><span class="ic">📅</span> Calendario</div>
+      <div class="sb-ni" onclick="deskNav('imm',this)"><span class="ic">🏠</span> Immobili <span class="sb-badge" id="sb-imm-n">—</span></div>
+      <div class="sb-ni" onclick="deskNav('cli',this)"><span class="ic">👥</span> Clienti</div>
+      <div class="sb-ni" onclick="deskNav('app',this)"><span class="ic">📋</span> Appunti</div>
+      <div class="sb-nl" style="margin-top:8px">Strumenti</div>
+      <div class="sb-ni" onclick="deskNav('news',this)"><span class="ic">📰</span> News</div>
+      <div class="sb-ni"><span class="ic">⚙️</span> Impostazioni</div>
+    </div>
+    <div class="sb-wx">
+      <div class="wx-lbl">🌤 Meteo · Brugherio</div>
+      <div class="wx-main"><div class="wx-ico" id="wx-ico">⛅</div><div><div class="wx-tmp" id="wx-tmp">—°</div><div class="wx-dsc" id="wx-dsc">Caricamento…</div></div></div>
+      <div class="wx-details">
+        <div class="wd">💧 <span id="wx-hum">—</span></div>
+        <div class="wd">💨 <span id="wx-wind">—</span></div>
+        <div class="wd">🌡 <span id="wx-min">—</span></div>
+      </div>
+      <div class="wx-sep"></div>
+      <div class="wx-tom">Domani <span id="wt-ico">—</span> <span id="wt-tmp">—</span> · <span id="wt-dsc" style="color:rgba(255,255,255,.35)">—</span></div>
+    </div>
+    <div class="sb-user">
+      <div class="sb-av" id="sb-av">M</div>
+      <div><div class="sb-nm" id="sb-nm">Matteo</div><div class="sb-rl">Agente</div></div>
+    </div>
+  </div>
+
+  <!-- MAIN CALENDAR -->
+  <div class="main" id="desk-cal">
+    <div class="gcal-bar">
+      <div class="gcal-left">
+        <button class="gcal-today" onclick="goToday()">Oggi</button>
+        <div class="gcal-nav">
+          <button class="gcal-nb" onclick="navWeek(-1)">‹</button>
+          <button class="gcal-nb" onclick="navWeek(1)">›</button>
+        </div>
+        <span class="gcal-title" id="gcal-title">—</span>
+      </div>
+      <div class="gcal-right">
+        <input class="gcal-search" placeholder="🔍 Cerca evento…" id="search-input" oninput="doSearch(this.value)" onblur="setTimeout(()=>{if(!document.activeElement.closest('.search-ov'))closeSearch()},200)">
+        <div class="gcal-views">
+          <button class="gcv" onclick="setView('day',this)">Giorno</button>
+          <button class="gcv on" onclick="setView('week',this)">Settimana</button>
+          <button class="gcv" onclick="setView('month',this)">Mese</button>
+        </div>
+        <button class="gcal-new" onclick="openNewApt()">＋ Nuovo</button>
+        <div class="sync-dot" id="sync-dot" title="Sincronizzato"></div>
+      </div>
+    </div>
+    <div class="gcal-hdr" id="gcal-hdr"></div>
+    <div class="gcal-scroll" id="gcal-scroll">
+      <div class="now-line" id="now-line"></div>
+      <div class="gcal-grid" id="gcal-grid">
+        <div class="loading"><div class="spin"></div>Caricamento eventi…</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DESK PANELS -->
+  <div class="desk-panel" id="desk-imm">
+    <div class="desk-panel-title">Immobili</div>
+    <div id="desk-imm-list"><div class="desk-panel-empty">Caricamento…</div></div>
+  </div>
+  <div class="desk-panel" id="desk-cli">
+    <div class="desk-panel-title">Clienti</div>
+    <div class="desk-panel-empty">Prossimamente</div>
+  </div>
+  <div class="desk-panel" id="desk-app">
+    <div class="desk-panel-title">Appunti</div>
+    <textarea class="notes-ta" id="notes-ta-desk" style="width:100%;height:calc(100% - 60px);border:1.5px solid var(--g200);border-radius:14px;padding:16px;font-family:var(--sans);font-size:14px;color:var(--g700);line-height:1.8;outline:none;resize:none;background:white;transition:border-color .15s;" placeholder="Scrivi i tuoi appunti…"></textarea>
+  </div>
+  <div class="desk-panel" id="desk-news">
+    <div class="desk-panel-title">News Mercato</div>
+    <div id="desk-news-list"><div class="loading"><div class="spin"></div></div></div>
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="rpanel" id="rpanel">
+    <div class="rp-sec">
+      <div class="rp-title">Oggi <button class="rp-add" onclick="openNewApt()">+</button></div>
+      <div id="rp-upc"><div class="loading" style="padding:8px 0"><div class="spin"></div></div></div>
+    </div>
+    <div class="rp-sec grow">
+      <div class="rp-title">Appunti <button class="rp-add" onclick="deskNav('app',null)">✏️</button></div>
+      <textarea class="notes-ta" id="notes-ta" placeholder="Appunti settimanali…"></textarea>
+    </div>
+    <div class="rp-sec news-sec">
+      <div class="news-panel-hdr">
+        <div class="news-panel-hdr-lbl"><span class="news-panel-live"></span>News Mercato</div>
+        <span class="news-panel-badge" id="rp-news-count">—</span>
+      </div>
+      <div id="rp-news"><div class="loading" style="padding:6px 0"><div class="spin"></div></div></div>
+    </div>
+  </div>
+
+</div><!-- .app -->
+
+<!-- ═══════════ MOBILE ═══════════ -->
+<div class="mob-shell" id="mob-shell">
+
+<div class="mob-header" id="mob-header">
+  <div class="mob-hdr-top">
+    <div><div class="mob-logo">Edilnord RE</div><div class="mob-logo-sub">Brugherio</div></div>
+    <div class="mob-agents">
+      <div class="mob-ag matteo">M</div>
+      <div class="mob-ag giuseppe">G</div>
+    </div>
+  </div>
+  <div class="mob-date">
+    <div class="mob-date-main" id="mob-date-main">—</div>
+    <div class="mob-date-yr" id="mob-date-yr">—</div>
+  </div>
+  <div class="mob-wx">
+    <div class="mwx-top">
+      <div class="mwx-l"><div class="mwx-i" id="mwx-ico">⛅</div><div><div class="mwx-ci">Brugherio</div><div class="mwx-de" id="mwx-de">Caricamento…</div></div></div>
+      <div class="mwx-tm" id="mwx-tmp">—°</div>
+    </div>
+    <div class="mwx-ds">
+      <div class="mwx-d">💧 <span id="mwx-hum">—</span></div>
+      <div class="mwx-d">💨 <span id="mwx-wind">—</span></div>
+      <div class="mwx-d">🌡 <span id="mwx-min">—</span></div>
+    </div>
+    <div class="mwx-sp"></div>
+    <div class="mwx-tom"><div class="mwt-l">Domani</div><div class="mwt-i" id="mwt-ico">—</div><div><div class="mwt-t" id="mwt-tmp">—</div><div class="mwt-d" id="mwt-dsc">—</div></div></div>
+  </div>
+</div>
+
+<!-- SCREENS -->
+<div class="mob-screen on" id="scr-agenda">
+  <div class="mob-body">
+    <div class="mini-cal">
+      <div class="mini-cal-hd">
+        <div class="mini-cal-mo" id="mini-mo">—</div>
+        <div class="mini-cal-nav">
+          <button class="mcnb" onclick="miniNav(-1)">‹</button>
+          <button class="mcnb" onclick="miniNav(1)">›</button>
+        </div>
+      </div>
+      <div class="mini-dhd">
+        <div class="mini-dl">L</div><div class="mini-dl">M</div><div class="mini-dl">M</div>
+        <div class="mini-dl">G</div><div class="mini-dl">V</div>
+        <div class="mini-dl wk">S</div><div class="mini-dl wk">D</div>
+      </div>
+      <div class="mini-days" id="mini-days"></div>
+    </div>
+    <div class="mob-sec" id="mob-sec-lbl">Oggi <span class="mob-see">Vedi tutto →</span></div>
+    <div id="mob-apts"></div>
+  </div>
+</div>
+
+<div class="mob-screen" id="scr-oggi">
+  <div class="oggi-body">
+    <div class="oggi-date" id="oggi-date">—</div>
+    <div class="oggi-sub" id="oggi-sub">—</div>
+    <div id="oggi-apts"></div>
+  </div>
+</div>
+
+<div class="mob-screen" id="scr-news">
+  <div class="news-body">
+    <div class="mob-sec" style="margin-bottom:14px">News Mercato</div>
+    <div id="mob-news-list"><div class="loading"><div class="spin"></div></div></div>
+  </div>
+</div>
+
+<div class="mob-screen" id="scr-note">
+  <div class="note-body">
+    <div class="note-title">Appunti</div>
+    <textarea class="note-ta" id="notes-ta-mob" placeholder="Scrivi i tuoi appunti…"></textarea>
+  </div>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="bot-nav" id="bot-nav">
+  <div class="bn-item on" id="bn-agenda" onclick="switchTab('agenda')">
+    <div class="bn-ico">📅</div><div class="bn-lbl">Agenda</div>
+  </div>
+  <div class="bn-item" id="bn-oggi" onclick="switchTab('oggi')">
+    <div class="bn-ico">⭐</div><div class="bn-lbl">Oggi</div>
+  </div>
+  <div class="bn-item bn-add" onclick="openNewApt()">
+    <div class="bn-add-ico">＋</div><div class="bn-lbl">Nuovo</div>
+  </div>
+  <div class="bn-item" id="bn-news" onclick="switchTab('news')">
+    <div class="bn-ico">📰</div><div class="bn-lbl">News</div>
+  </div>
+  <div class="bn-item" id="bn-note" onclick="switchTab('note')">
+    <div class="bn-ico">🔔</div><div class="bn-lbl">Note</div>
+  </div>
+</div>
+
+</div><!-- mob-shell -->
+
+<!-- ═══════════ POPUP NUOVO APPUNTAMENTO ═══════════ -->
+<div class="sheet-overlay" id="apt-overlay" onclick="if(event.target===this)closeApt()">
+  <div class="pop-sheet" id="apt-sheet">
+    <div class="pop-handle-wrap" id="apt-handle-wrap">
+      <div class="pop-handle"></div>
+    </div>
+    <div class="pop-hdr">
+      <div class="pop-title">Nuovo appuntamento</div>
+      <div class="pop-sub" id="pop-sub">—</div>
+    </div>
+    <div class="pop-body">
+      <div class="pop-field">
+        <div class="pop-lbl">Nome</div>
+        <input class="pop-input" id="f-nome" placeholder="Marco Rossi (facoltativo)" autocomplete="name">
+      </div>
+      <div class="pop-field">
+        <div class="pop-lbl">Telefono</div>
+        <input class="pop-input" id="f-tel" placeholder="333 000 0000 (facoltativo)" type="tel">
+      </div>
+
+      <div class="pop-lbl" style="margin-bottom:8px">Per cosa</div>
+      <div class="tipo-grid">
+        <div class="tipo-opt" onclick="selTipo(this,'Visita acquisto')"><div class="tipo-ico">🏠</div><div class="tipo-lbl">Visita acquisto</div></div>
+        <div class="tipo-opt" onclick="selTipo(this,'Visita affitto')"><div class="tipo-ico">🔑</div><div class="tipo-lbl">Visita affitto</div></div>
+        <div class="tipo-opt" onclick="selTipo(this,'In cerca di...')"><div class="tipo-ico">🔍</div><div class="tipo-lbl">In cerca di…</div></div>
+        <div class="tipo-opt" onclick="selTipo(this,'Valutazione')"><div class="tipo-ico">📊</div><div class="tipo-lbl">Valutazione</div></div>
+        <div class="tipo-opt" onclick="selTipo(this,'In ufficio')"><div class="tipo-ico">🏢</div><div class="tipo-lbl">In ufficio</div></div>
+        <div class="tipo-opt" onclick="selTipo(this,'Personale')"><div class="tipo-ico">👤</div><div class="tipo-lbl">Personale</div></div>
+      </div>
+
+      <!-- COSE DA FARE — separato, con textarea dedicata -->
+      <div class="tipo-todo" id="tipo-todo" onclick="selTodo()">
+        <span style="font-size:22px">✅</span>
+        <div class="tipo-todo-lbl">Cose da fare</div>
+      </div>
+      <div class="todo-ta-wrap" id="todo-ta-wrap">
+        <div class="pop-lbl" style="margin-bottom:6px">Descrivi cosa fare</div>
+        <textarea class="todo-ta" id="f-todo" placeholder="Es: Chiamare notaio per compromesso Via Roma 4…" rows="3"></textarea>
+      </div>
+
+      <div class="pop-field" id="cerca-wrap" style="display:none">
+        <div class="pop-lbl">Specifica</div>
+        <input class="pop-input" id="f-cerca" placeholder="Es: bilocale con terrazzo…">
+      </div>
+
+      <div class="pop-field">
+        <div class="pop-lbl">Immobile</div>
+        <select class="pop-input" id="f-imm"><option value="">— Seleziona immobile (facoltativo) —</option></select>
+      </div>
+      <div class="pop-row">
+        <div class="pop-field"><div class="pop-lbl">Data</div><input class="pop-input" id="f-data" type="date"></div>
+        <div class="pop-field"><div class="pop-lbl">Ora</div><input class="pop-input" id="f-ora" type="time" value="10:00"></div>
+      </div>
+      <div class="pop-lbl" style="margin-bottom:8px">Agente</div>
+      <div class="ag-grid">
+        <div class="ag-opt matteo on" id="ag-matteo" onclick="selAg('matteo')"><div class="ag-av">M</div><div class="ag-nm">Matteo</div></div>
+        <div class="ag-opt giuseppe" id="ag-giuseppe" onclick="selAg('giuseppe')"><div class="ag-av">G</div><div class="ag-nm">Giuseppe</div></div>
+      </div>
+      <div class="pop-field"><div class="pop-lbl">Note aggiuntive</div><input class="pop-input" id="f-note" placeholder="Note (facoltativo)…"></div>
+      <button class="pop-save" id="pop-save-btn" onclick="saveApt()">💾 Salva appuntamento</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════ POPUP DETTAGLIO ═══════════ -->
+<div class="det-overlay" id="det-overlay" onclick="if(event.target===this)closeDet()">
+  <div class="det-sheet" id="det-sheet">
+    <div class="det-topbar" id="det-topbar"></div>
+    <div class="det-handle-wrap"><div class="det-handle"></div></div>
+    <div class="det-body">
+      <div class="det-name" id="det-name">—</div>
+      <div id="det-fields"></div>
+      <div class="det-btns">
+        <button class="det-gc" onclick="openGcal()">📅 Google Calendar</button>
+        <button class="det-del" id="det-del-btn" onclick="deleteEv()">🗑 Elimina</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const CFG={
+  N8N:'https://n8n.edilnordre.it',
+  SAVE:'/webhook/edilnord-salva-appuntamento',
+  LOAD:'/webhook/edilnord-leggi-appuntamenti',
+  DEL:'/webhook/edilnord-elimina-appuntamento',
+  IMMS:'/webhook/edilnord-leggi-immobili',
+  PAST:365,FUT:90,
+  WX_LAT:45.5478,WX_LON:9.2908,
+};
+
+let allEvents=[],selDate=new Date(),viewDate=new Date(),miniDate=new Date();
+let selTipoVal='',selAgente='matteo',detEvId=null,isTodoMode=false;
+let currentTab='agenda',newsCache=[];
+
+const fmt=d=>{const y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,'0'),dd=String(d.getDate()).padStart(2,'0');return`${y}-${m}-${dd}`;};
+const parseDate=s=>{const[y,m,d]=s.split('-');return new Date(+y,+m-1,+d);};
+const DAYS_MON=['Lun','Mar','Mer','Gio','Ven','Sab','Dom'];
+const MESI=['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
+const MESI_SH=['Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott','Nov','Dic'];
+const GIORNI=['domenica','lunedì','martedì','mercoledì','giovedì','venerdì','sabato'];
+const HOURS=['08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00'];
+
+function setText(id,v){const el=document.getElementById(id);if(el)el.textContent=v;}
+
+function toast(msg,dur=3000){
+  const el=document.getElementById('toast');
+  el.textContent=msg;el.classList.add('show');
+  clearTimeout(el._t);el._t=setTimeout(()=>el.classList.remove('show'),dur);
+}
+
+function getWeekStart(d){
+  const dt=new Date(d),day=dt.getDay();
+  dt.setDate(dt.getDate()+(day===0?-6:1-day));
+  dt.setHours(0,0,0,0);return dt;
+}
+
+async function n8nPost(path,body){
+  const r=await fetch(CFG.N8N+path,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+  if(!r.ok)throw new Error(path+' '+r.status);
+  return r.json();
+}
+
+async function loadEvents(){
+  const today=new Date(),past=new Date(),fut=new Date();
+  past.setDate(today.getDate()-CFG.PAST);fut.setDate(today.getDate()+CFG.FUT);
+  const data=await n8nPost(CFG.LOAD,{dateFrom:fmt(past),dateTo:fmt(fut)});
+  const arr=Array.isArray(data)?data:(data.events||[]);
+  return arr.map(e=>({
+    id:e.id||e.gcalId||String(Date.now()+Math.random()),
+    nome:e.nome||e.summary||'—',
+    tel:e.tel||e.telefono||'',
+    tipo:e.tipo||e.type||'Vecchio appuntamento',
+    immobile:e.immobile||'',
+    agente:(e.agente||'matteo').toLowerCase(),
+    data:(e.data||e.date||'').slice(0,10),
+    ora:e.ora||e.time||'09:00',
+    note:e.note||e.notes||'',
+    gcalLink:e.gcalLink||'',
+    isCRM:!!(e.isCRM!==false&&(e.tipo||e.nome)),
+    isTodo:!!(e.isTodo||e.tipo==='Cose da fare'),
+  })).filter(e=>e.data);
+}
+
+/* METEO */
+const WX_ICO={0:'☀️',1:'🌤',2:'⛅',3:'☁️',45:'🌫',48:'🌫',51:'🌦',53:'🌦',55:'🌧',61:'🌧',63:'🌧',65:'🌧',71:'🌨',73:'🌨',75:'❄️',80:'🌦',81:'🌧',82:'⛈',95:'⛈',96:'⛈',99:'⛈'};
+const WX_DSC={0:'Sole',1:'Parz. sole',2:'Nuvoloso',3:'Coperto',45:'Nebbia',48:'Nebbia',51:'Pioggerella',53:'Pioggerella',55:'Pioggia',61:'Pioggia',63:'Pioggia mod.',65:'Pioggia forte',71:'Neve lieve',73:'Neve',75:'Neve intensa',80:'Rovesci',81:'Rovesci',82:'Rovesci forti',95:'Temporale',96:'Temporale',99:'Temporale forte'};
+
+async function loadMeteo(){
+  try{
+    const url=`https://api.open-meteo.com/v1/forecast?latitude=${CFG.WX_LAT}&longitude=${CFG.WX_LON}&current=temperature_2m,weathercode,windspeed_10m,relativehumidity_2m&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Europe%2FRome&forecast_days=2`;
+    const d=await(await fetch(url)).json();
+    const c=d.current;
+    const t=Math.round(c.temperature_2m);
+    const ico=WX_ICO[c.weathercode]||'🌡',dsc=WX_DSC[c.weathercode]||'—';
+    const hum=c.relativehumidity_2m+'%',win=Math.round(c.windspeed_10m)+' km/h';
+    const min='Min '+Math.round(d.daily.temperature_2m_min[0])+'°';
+    const t2i=WX_ICO[d.daily.weathercode[1]]||'🌡',t2d=WX_DSC[d.daily.weathercode[1]]||'—';
+    const t2=Math.round(d.daily.temperature_2m_min[1])+'° / '+Math.round(d.daily.temperature_2m_max[1])+'°';
+    setText('wx-ico',ico);setText('wx-tmp',t+'°');setText('wx-dsc',dsc);
+    setText('wx-hum',hum);setText('wx-wind',win);setText('wx-min',min);
+    setText('wt-ico',t2i);setText('wt-tmp',t2);setText('wt-dsc',t2d);
+    setText('mwx-ico',ico);setText('mwx-tmp',t+'°');setText('mwx-de',dsc);
+    setText('mwx-hum',hum);setText('mwx-wind',win);setText('mwx-min',min);
+    setText('mwt-ico',t2i);setText('mwt-tmp',t2);setText('mwt-dsc',t2d);
+  }catch(e){console.warn('meteo',e);}
+}
+
+/* NEWS */
+async function loadNews(){
+  const feeds=[
+    {url:'https://www.immobiliare.it/news/feed/',src:'Immobiliare.it'},
+    {url:'https://www.casa.it/notizie/feed/',src:'Casa.it'},
+    {url:'https://www.idealista.it/news/feed/',src:'Idealista'},
+  ];
+  const proxies=['https://api.allorigins.win/get?url=','https://corsproxy.io/?'];
+  let items=[];
+  for(const feed of feeds){
+    for(const proxy of proxies){
+      try{
+        const url=proxy.includes('allorigins')?proxy+encodeURIComponent(feed.url):proxy+encodeURIComponent(feed.url);
+        const r=await fetch(url,{signal:AbortSignal.timeout(6000)});
+        if(!r.ok)continue;
+        const text=proxy.includes('allorigins')?(await r.json()).contents:(await r.text());
+        const xml=new DOMParser().parseFromString(text,'text/xml');
+        const parsed=Array.from(xml.querySelectorAll('item')).map(it=>({
+          title:it.querySelector('title')?.textContent||'',
+          link:it.querySelector('link')?.textContent||'#',
+          pub:it.querySelector('pubDate')?.textContent||'',
+          src:feed.src,
+        })).filter(n=>n.title);
+        if(parsed.length>0){items=[...items,...parsed];break;}
+      }catch(e){continue;}
+    }
+    if(items.length>=20)break;
+  }
+  if(items.length===0){
+    // fallback statico
+    items=[
+      {title:'Mercato immobiliare: prezzi in crescita nelle grandi città',link:'https://www.immobiliare.it/news/',pub:new Date().toISOString(),src:'Immobiliare.it'},
+      {title:'Mutui 2026: tassi in lieve calo, opportunità per i compratori',link:'https://www.immobiliare.it/news/',pub:new Date().toISOString(),src:'Immobiliare.it'},
+      {title:'Superbonus: proroga per gli interventi già avviati',link:'https://www.immobiliare.it/news/',pub:new Date().toISOString(),src:'Immobiliare.it'},
+      {title:'Milano: aumentano le richieste di bilocali in periferia',link:'https://www.immobiliare.it/news/',pub:new Date().toISOString(),src:'Immobiliare.it'},
+      {title:'Monza-Brianza: zona sempre più ambita dalle famiglie',link:'https://www.immobiliare.it/news/',pub:new Date().toISOString(),src:'Immobiliare.it'},
+    ];
+  }
+  // deduplication per titolo e ordina per data
+  const seen=new Set();
+  newsCache=items.filter(n=>{
+    const k=n.title.slice(0,40);
+    if(seen.has(k))return false;seen.add(k);return true;
+  }).sort((a,b)=>new Date(b.pub)-new Date(a.pub)).slice(0,30);
+  renderNews();
+}
+
+function renderNews(){
+  if(!newsCache.length)return;
+  const badge=document.getElementById('rp-news-count');
+  if(badge)badge.textContent=newsCache.length+' notizie';
+  // right panel desktop — fino a 20
+  document.getElementById('rp-news').innerHTML=newsCache.slice(0,20).map(n=>{
+    const when=n.pub?new Date(n.pub).toLocaleDateString('it-IT',{day:'numeric',month:'short'}):'';
+    return`<div class="news-item" onclick="window.open('${n.link}','_blank')">
+      <div class="news-dot"></div>
+      <div><div class="news-txt">${n.title}</div><div class="news-src">${n.src||'Immobiliare.it'} · ${when}</div></div>
+    </div>`;
+  }).join('');
+  // mobile news screen — tutte
+  document.getElementById('mob-news-list').innerHTML=newsCache.map(n=>{
+    const when=n.pub?new Date(n.pub).toLocaleDateString('it-IT',{day:'numeric',month:'short',year:'numeric'}):'';
+    return`<div class="mob-news-item" onclick="window.open('${n.link}','_blank')">
+      <div class="mob-news-title">${n.title}</div>
+      <div class="mob-news-src">${n.src||'Immobiliare.it'} · ${when}</div>
+    </div>`;
+  }).join('');
+  const dn=document.getElementById('desk-news-list');
+  if(dn)dn.innerHTML=newsCache.map(n=>{
+    const when=n.pub?new Date(n.pub).toLocaleDateString('it-IT',{day:'numeric',month:'short',year:'numeric'}):'';
+    return`<div class="mob-news-item" style="max-width:680px;" onclick="window.open('${n.link}','_blank')">
+      <div class="mob-news-title">${n.title}</div>
+      <div class="mob-news-src">${n.src||'Immobiliare.it'} · ${when}</div>
+    </div>`;
+  }).join('');
+}
+
+/* IMMOBILI */
+async function loadImms(){
+  try{
+    const data=await n8nPost(CFG.IMMS,{});
+    const arr=Array.isArray(data)?data:(data.immobili||[]);
+    const sel=document.getElementById('f-imm');
+    arr.forEach(im=>{const v=im.nome||im,o=document.createElement('option');o.value=v;o.textContent=v;sel.appendChild(o);});
+    setText('sb-imm-n',arr.length||'—');
+    const dl=document.getElementById('desk-imm-list');
+    if(dl)dl.innerHTML=arr.length?arr.map(im=>`<div style="background:white;border:1px solid var(--g200);border-radius:12px;padding:14px 16px;margin-bottom:8px;font-size:14px;max-width:640px;">🏠 ${im.nome||im}</div>`).join(''):'<div style="color:var(--g500);font-size:14px">Nessun immobile caricato</div>';
+  }catch(e){console.warn('imms',e);}
+}
+
+/* DATE HEADER */
+function updateMobDate(){
+  const n=new Date(),g=GIORNI[n.getDay()];
+  setText('mob-date-main',g.charAt(0).toUpperCase()+g.slice(1)+' '+n.getDate()+' '+MESI[n.getMonth()]);
+  setText('mob-date-yr',String(n.getFullYear()));
+}
+
+/* DESKTOP CALENDAR */
+function renderWeek(){
+  const ws=getWeekStart(viewDate);
+  const days=Array.from({length:7},(_,i)=>{const d=new Date(ws);d.setDate(ws.getDate()+i);return d;});
+  const todayStr=fmt(new Date());
+  const m1=MESI[days[0].getMonth()],m2=MESI[days[6].getMonth()];
+  setText('gcal-title',m1===m2?`${m1} ${days[0].getFullYear()}`:`${MESI_SH[days[0].getMonth()]} – ${MESI_SH[days[6].getMonth()]} ${days[6].getFullYear()}`);
+
+  const hdr=document.getElementById('gcal-hdr');
+  hdr.style.gridTemplateColumns='52px repeat(7,1fr)';
+  hdr.innerHTML='<div class="ghd-corner"></div>'+days.map(d=>{
+    const isT=fmt(d)===todayStr,dow=d.getDay(),isSat=dow===6,isSun=dow===0;
+    return`<div class="ghd${isT?' td':''}${(isSat||isSun)?' wk':''}" onclick="clickDayHeader('${fmt(d)}')">
+      <div class="ghd-dn">${DAYS_MON[(dow+6)%7]}</div>
+      <div class="ghd-dd">${d.getDate()}</div>
+    </div>`;
+  }).join('');
+
+  const grid=document.getElementById('gcal-grid');
+  grid.style.gridTemplateColumns='52px repeat(7,1fr)';
+  let html=`<div class="time-col">${HOURS.map(h=>`<div class="ts">${h}</div>`).join('')}</div>`;
+  days.forEach(d=>{
+    const ds=fmt(d),isT=ds===todayStr,dow=d.getDay(),isSat=dow===6,isSun=dow===0;
+    const devs=allEvents.filter(e=>e.data===ds).sort((a,b)=>a.ora.localeCompare(b.ora));
+    const cells=HOURS.map(h=>`<div class="dc-cell" onclick="clickCell('${ds}','${h}')"></div>`).join('');
+    const evHtml=devs.map(e=>{
+      const[hh,mm]=(e.ora||'09:00').split(':').map(Number);
+      const top=Math.max(0,((hh-8)*60+mm)/60*56);
+      const cls=e.isTodo?'todo':e.isCRM?e.agente:'old';
+      return`<div class="ev ${cls}" style="top:${top}px;height:52px" onclick="event.stopPropagation();showDet('${e.id}')">
+        <div class="ev-name">${e.nome}</div>
+        <div class="ev-sub">${e.tipo}${e.immobile?' · '+e.immobile:''}</div>
+      </div>`;
+    }).join('');
+    html+=`<div class="day-col${isT?' td':''}${(isSat||isSun)?' wk':''}">${cells}${evHtml}</div>`;
+  });
+  grid.innerHTML=html;
+
+  const now=new Date(),nowStr=fmt(now);
+  if(nowStr>=fmt(days[0])&&nowStr<=fmt(days[6])){
+    const top=((now.getHours()-8)*60+now.getMinutes())/60*56;
+    const nl=document.getElementById('now-line');
+    nl.style.top=Math.max(0,top)+'px';nl.style.display=top>=0?'block':'none';
+  }else document.getElementById('now-line').style.display='none';
+
+  renderUpcoming();
+}
+
+function clickDayHeader(ds){selDate=parseDate(ds);openNewApt();}
+function clickCell(ds,hour){selDate=parseDate(ds);openNewApt(hour);}
+function navWeek(dir){viewDate.setDate(viewDate.getDate()+dir*7);renderWeek();}
+function goToday(){viewDate=new Date();selDate=new Date();miniDate=new Date();renderWeek();renderMini();renderMobApts();}
+function setView(v,btn){document.querySelectorAll('.gcv').forEach(b=>b.classList.remove('on'));btn.classList.add('on');renderWeek();}
+
+/* DESK NAV */
+function deskNav(sec,btn){
+  ['desk-cal','desk-imm','desk-cli','desk-app','desk-news'].forEach(id=>{
+    const el=document.getElementById(id);if(!el)return;
+    el.style.display='none';
+    if(el.classList.contains('desk-panel'))el.classList.remove('on');
+  });
+  document.getElementById('rpanel').style.display='none';
+  document.querySelectorAll('.sb-ni').forEach(n=>n.classList.remove('on'));
+  if(btn)btn.classList.add('on');
+  if(sec==='cal'){
+    document.getElementById('desk-cal').style.display='flex';
+    document.getElementById('rpanel').style.display='flex';
+  }else{
+    const panel=document.getElementById('desk-'+sec);
+    if(panel){panel.style.display='flex';panel.classList.add('on');}
+  }
+}
+
+/* SEARCH */
+function doSearch(q){
+  q=q.trim();
+  if(!q){closeSearch();renderWeek();return;}
+  const ql=q.toLowerCase();
+  const found=allEvents.filter(e=>
+    (e.nome||'').toLowerCase().includes(ql)||
+    (e.tipo||'').toLowerCase().includes(ql)||
+    (e.immobile||'').toLowerCase().includes(ql)||
+    (e.tel||'').includes(ql)||
+    (e.note||'').toLowerCase().includes(ql)
+  ).sort((a,b)=>b.data.localeCompare(a.data));
+  let ov=document.getElementById('search-ov');
+  if(!ov){ov=document.createElement('div');ov.id='search-ov';ov.className='search-ov';document.getElementById('gcal-scroll').appendChild(ov);}
+  if(!found.length){ov.innerHTML=`<div style="padding:40px;text-align:center;color:var(--g500);font-size:13px">Nessun risultato per "<b>${q}</b>"</div>`;return;}
+  ov.innerHTML=`<div style="font-size:11px;color:var(--g500);margin-bottom:12px;font-weight:600;letter-spacing:.5px;text-transform:uppercase">${found.length} risultat${found.length===1?'o':'i'}</div>`+
+  found.map(e=>{
+    const cls=e.isTodo?'var(--amber)':e.isCRM?e.agente==='matteo'?'var(--matteo)':'var(--giuseppe)':'var(--g300)';
+    const ds=e.data?e.data.split('-').reverse().join('/'):'—';
+    return`<div class="search-result" onclick="showDet('${e.id}')">
+      <div class="sr-bar" style="background:${cls}"></div>
+      <div>
+        <div class="sr-nome">${e.nome}</div>
+        <div class="sr-meta">${ds} · ${e.ora}${e.agente?' · '+(e.agente==='matteo'?'Matteo':'Giuseppe'):''}</div>
+        <div class="sr-tipo">${e.tipo}${e.immobile?' · '+e.immobile:''}</div>
+        ${e.tel?`<div class="sr-tipo">📞 ${e.tel}</div>`:''}
+      </div>
+    </div>`;
+  }).join('');
+}
+function closeSearch(){const ov=document.getElementById('search-ov');if(ov)ov.remove();}
+
+/* UPCOMING RIGHT PANEL */
+function renderUpcoming(){
+  const todayStr=fmt(new Date());
+  const evs=allEvents.filter(e=>e.data===todayStr&&e.isCRM).sort((a,b)=>a.ora.localeCompare(b.ora));
+  const el=document.getElementById('rp-upc');
+  if(!evs.length){el.innerHTML='<div style="font-size:12px;color:var(--g300)">Nessun appuntamento oggi</div>';return;}
+  el.innerHTML=evs.map(e=>{
+    const cls=e.isTodo?'var(--amber)':e.agente==='matteo'?'var(--matteo)':'var(--giuseppe)';
+    return`<div class="upc-item">
+      <div class="upc-dot" style="background:${cls}"></div>
+      <div class="upc-info">
+        <div class="upc-name">${e.nome}</div>
+        <div class="upc-meta">${e.ora} · ${e.immobile||e.tipo}</div>
+        <div class="upc-type">${e.tipo}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+/* MINI CALENDAR */
+function renderMini(){
+  const y=miniDate.getFullYear(),mo=miniDate.getMonth();
+  setText('mini-mo',`${MESI[mo]} ${y}`);
+  const first=new Date(y,mo,1),last=new Date(y,mo+1,0);
+  const todayStr=fmt(new Date()),selStr=fmt(selDate);
+  let dow=first.getDay();dow=dow===0?6:dow-1;
+  let html='';
+  for(let i=0;i<dow;i++){const pd=new Date(y,mo,1-dow+i);html+=`<div class="mday mu">${pd.getDate()}</div>`;}
+  for(let d=1;d<=last.getDate();d++){
+    const ds=fmt(new Date(y,mo,d));
+    const isT=ds===todayStr,isSel=ds===selStr&&!isT,hasEv=allEvents.some(e=>e.data===ds);
+    html+=`<div class="mday${isT?' td':''}${isSel?' sel':''}${hasEv?' has':''}" onclick="pickDay('${ds}')">${d}</div>`;
+  }
+  const rem=(7-(dow+last.getDate())%7)%7;
+  for(let d=1;d<=rem;d++)html+=`<div class="mday mu">${d}</div>`;
+  document.getElementById('mini-days').innerHTML=html;
+}
+function miniNav(dir){miniDate.setMonth(miniDate.getMonth()+dir);renderMini();}
+function pickDay(ds){selDate=parseDate(ds);renderMini();renderMobApts();}
+
+/* MOBILE APT LIST */
+function renderMobApts(){
+  const ds=fmt(selDate);
+  const evs=allEvents.filter(e=>e.data===ds).sort((a,b)=>a.ora.localeCompare(b.ora));
+  const todayStr=fmt(new Date());
+  const lbl=document.getElementById('mob-sec-lbl');
+  if(lbl)lbl.innerHTML=(ds===todayStr?'Oggi':'<span style="font-family:var(--serif);font-size:14px;text-transform:none;letter-spacing:0;font-weight:400;">'+selDate.getDate()+' '+MESI_SH[selDate.getMonth()]+'</span>')+' <span class="mob-see">Vedi tutto →</span>';
+  const el=document.getElementById('mob-apts');
+  if(!evs.length){el.innerHTML='<div style="font-size:13px;color:var(--g300);padding:20px 0;text-align:center">Nessun appuntamento</div>';return;}
+  el.innerHTML=evs.map(e=>{
+    const barCls=e.isTodo?'todo':e.isCRM?e.agente:'old';
+    return`<div class="apt-card" onclick="showDet('${e.id}')">
+      <div class="apt-time"><div class="apt-t">${e.ora}</div></div>
+      <div class="apt-bar ${barCls}"></div>
+      <div class="apt-info">
+        <div class="apt-name">${e.nome}</div>
+        <div class="apt-prop">${e.immobile||'—'}</div>
+        <div class="apt-badge">${e.tipo}</div>
+      </div>
+      <div class="apt-chev">›</div>
+    </div>`;
+  }).join('');
+}
+
+/* OGGI SCREEN */
+function renderOggi(){
+  const todayStr=fmt(new Date()),n=new Date();
+  const g=GIORNI[n.getDay()];
+  setText('oggi-date',g.charAt(0).toUpperCase()+g.slice(1)+' '+n.getDate()+' '+MESI[n.getMonth()]+' '+n.getFullYear());
+  const evs=allEvents.filter(e=>e.data===todayStr).sort((a,b)=>a.ora.localeCompare(b.ora));
+  const el=document.getElementById('oggi-apts');
+  if(!evs.length){el.innerHTML='<div style="font-size:13px;color:var(--g300);padding:20px 0;text-align:center">Nessun appuntamento oggi</div>';return;}
+  el.innerHTML=evs.map(e=>{
+    const barCls=e.isTodo?'todo':e.isCRM?e.agente:'old';
+    return`<div class="apt-card" onclick="showDet('${e.id}')">
+      <div class="apt-time"><div class="apt-t">${e.ora}</div></div>
+      <div class="apt-bar ${barCls}"></div>
+      <div class="apt-info">
+        <div class="apt-name">${e.nome}</div>
+        <div class="apt-prop">${e.immobile||'—'}</div>
+        <div class="apt-badge">${e.tipo}</div>
+      </div>
+      <div class="apt-chev">›</div>
+    </div>`;
+  }).join('');
+}
+
+/* TABS MOBILE */
+const TABS={agenda:'scr-agenda',oggi:'scr-oggi',news:'scr-news',note:'scr-note'};
+function switchTab(tab){
+  currentTab=tab;
+  Object.keys(TABS).forEach(t=>{
+    const s=document.getElementById(TABS[t]);if(s)s.classList.toggle('on',t===tab);
+    const b=document.getElementById('bn-'+t);if(b)b.classList.toggle('on',t===tab);
+  });
+  if(tab==='oggi')renderOggi();
+  if(tab==='note'){
+    const ta=document.getElementById('notes-ta-mob');
+    if(ta)ta.value=localStorage.getItem('edilnord-notes')||'';
+  }
+}
+
+/* SWIPE TO CLOSE */
+function initSwipe(sheetId,closeFn){
+  const sheet=document.getElementById(sheetId);if(!sheet)return;
+  let startY=0,dragging=false;
+  sheet.addEventListener('touchstart',e=>{startY=e.touches[0].clientY;dragging=true;},{passive:true});
+  sheet.addEventListener('touchmove',e=>{
+    if(!dragging)return;
+    const dy=e.touches[0].clientY-startY;
+    if(dy>0&&sheet.scrollTop<=0){sheet.style.transform=`translateY(${dy}px)`;sheet.style.transition='none';}
+  },{passive:true});
+  sheet.addEventListener('touchend',e=>{
+    if(!dragging)return;dragging=false;
+    const dy=e.changedTouches[0].clientY-startY;
+    if(dy>80){
+      sheet.style.transition='transform .25s ease';sheet.style.transform='translateY(100%)';
+      setTimeout(()=>{sheet.style.transform='';sheet.style.transition='';closeFn();},240);
+    }else{sheet.style.transition='transform .2s ease';sheet.style.transform='';setTimeout(()=>sheet.style.transition='',200);}
+  },{passive:true});
+}
+
+/* DETAIL POPUP */
+function showDet(id){
+  const e=allEvents.find(x=>x.id===id);if(!e)return;
+  detEvId=id;
+  const cls=e.isTodo?'todo':e.isCRM?e.agente:'old';
+  document.getElementById('det-topbar').className='det-topbar '+cls;
+  setText('det-name',e.nome);
+  document.getElementById('det-del-btn').style.display=e.isCRM?'block':'none';
+  const ds=e.data?e.data.split('-').reverse().join('/'):'—';
+  document.getElementById('det-fields').innerHTML=
+    (e.tel?`<div class="det-field"><div class="det-ico">📞</div><div><div class="det-val">${e.tel}</div><div class="det-sub">Telefono</div></div></div>`:'')+
+    (e.tipo?`<div class="det-field"><div class="det-ico">📋</div><div><div class="det-val">${e.tipo}</div><div class="det-sub">Tipo</div></div></div>`:'')+
+    (e.immobile?`<div class="det-field"><div class="det-ico">🏠</div><div><div class="det-val">${e.immobile}</div><div class="det-sub">Immobile</div></div></div>`:'')+
+    `<div class="det-field"><div class="det-ico">📅</div><div><div class="det-val">${ds} · ${e.ora}</div><div class="det-sub">Data e ora</div></div></div>`+
+    `<div class="det-field"><div class="det-ico">👤</div><div><div class="det-val">${e.agente==='matteo'?'Matteo':'Giuseppe'}</div><div class="det-sub">Agente</div></div></div>`+
+    (e.note?`<div class="det-field"><div class="det-ico">📝</div><div><div class="det-val">${e.note}</div><div class="det-sub">Note</div></div></div>`:'');
+  document.getElementById('det-overlay').classList.add('show');
+}
+function closeDet(){document.getElementById('det-overlay').classList.remove('show');}
+function openGcal(){window.open('https://calendar.google.com','_blank');}
+async function deleteEv(){
+  if(!detEvId||!confirm('Eliminare questo appuntamento?'))return;
+  try{
+    await n8nPost(CFG.DEL,{id:detEvId});
+    allEvents=allEvents.filter(e=>e.id!==detEvId);
+    closeDet();renderWeek();renderMobApts();renderMini();renderOggi();
+    toast('🗑 Appuntamento eliminato');
+  }catch(e){toast('❌ Errore eliminazione. Controlla n8n.');}
+}
+
+/* NEW APPOINTMENT */
+function openNewApt(presetHour){
+  ['f-nome','f-tel','f-cerca','f-note'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  document.getElementById('f-todo').value='';
+  document.getElementById('f-data').value=fmt(selDate);
+  document.getElementById('f-ora').value=presetHour||'10:00';
+  document.getElementById('f-imm').value='';
+  document.getElementById('cerca-wrap').style.display='none';
+  document.getElementById('todo-ta-wrap').style.display='none';
+  selTipoVal='';isTodoMode=false;
+  document.querySelectorAll('.tipo-opt').forEach(o=>o.classList.remove('on'));
+  document.getElementById('tipo-todo').classList.remove('on');
+  selAg('matteo');
+  const d=selDate,g=GIORNI[d.getDay()];
+  setText('pop-sub',g.charAt(0).toUpperCase()+g.slice(1)+' '+d.getDate()+' '+MESI[d.getMonth()]);
+  document.getElementById('apt-overlay').classList.add('show');
+  setTimeout(()=>{const s=document.getElementById('apt-sheet');if(s)s.scrollTop=0;},50);
+}
+function closeApt(){document.getElementById('apt-overlay').classList.remove('show');}
+
+function selTipo(el,val){
+  selTipoVal=val;isTodoMode=false;
+  document.querySelectorAll('.tipo-opt').forEach(o=>o.classList.remove('on'));
+  document.getElementById('tipo-todo').classList.remove('on');
+  document.getElementById('todo-ta-wrap').style.display='none';
+  if(el)el.classList.add('on');
+  document.getElementById('cerca-wrap').style.display=(val==='In cerca di...')?'block':'none';
+}
+
+function selTodo(){
+  isTodoMode=true;selTipoVal='Cose da fare';
+  document.querySelectorAll('.tipo-opt').forEach(o=>o.classList.remove('on'));
+  document.getElementById('tipo-todo').classList.add('on');
+  document.getElementById('cerca-wrap').style.display='none';
+  document.getElementById('todo-ta-wrap').style.display='block';
+  // focus sulla textarea
+  setTimeout(()=>{const ta=document.getElementById('f-todo');if(ta)ta.focus();},100);
+}
+
+function selAg(ag){
+  selAgente=ag;
+  document.getElementById('ag-matteo').className='ag-opt matteo'+(ag==='matteo'?' on':'');
+  document.getElementById('ag-giuseppe').className='ag-opt giuseppe'+(ag==='giuseppe'?' on':'');
+  setText('sb-av',ag==='matteo'?'M':'G');
+  setText('sb-nm',ag==='matteo'?'Matteo':'Giuseppe');
+}
+
+async function saveApt(){
+  const nome=document.getElementById('f-nome').value.trim()||'—';
+  const tel=document.getElementById('f-tel').value.trim();
+  const cerca=document.getElementById('f-cerca').value.trim();
+  const imm=document.getElementById('f-imm').value;
+  const note=isTodoMode
+    ?document.getElementById('f-todo').value.trim()
+    :document.getElementById('f-note').value.trim();
+  const data=document.getElementById('f-data').value;
+  const ora=document.getElementById('f-ora').value;
+  // nessun campo obbligatorio — solo controlliamo che ci sia una data
+  if(!data){toast('⚠️ Seleziona almeno la data');return;}
+  const tipo=selTipoVal||'Appuntamento';
+  const tipoFin=tipo+(cerca?` (${cerca})`:'');
+  const telP=tel.replace(/^\+39\s?/,'').replace(/\+39/g,'').trim();
+  const gcalTitle=nome==='—'?tipoFin:`${nome}${telP?' – '+telP:''} – ${imm||tipoFin}`;
+  const btn=document.getElementById('pop-save-btn');
+  btn.disabled=true;btn.textContent='Salvataggio…';
+  try{
+    const res=await n8nPost(CFG.SAVE,{nome,tel,tipo:tipoFin,immobile:imm,agente:selAgente,data,ora,note,gcalTitle,isTodo:isTodoMode});
+    allEvents.push({id:res.id||String(Date.now()),nome,tel,tipo:tipoFin,immobile:imm,agente:selAgente,data,ora,note,gcalLink:res.gcalLink||'',isCRM:true,isTodo:isTodoMode});
+    closeApt();renderWeek();renderMobApts();renderMini();renderOggi();
+    toast('✅ Salvato!');
+  }catch(e){toast('❌ Errore. Controlla n8n.');}
+  finally{btn.disabled=false;btn.textContent='💾 Salva appuntamento';}
+}
+
+/* NOTES */
+function initNotes(){
+  const saved=localStorage.getItem('edilnord-notes')||'';
+  ['notes-ta','notes-ta-desk','notes-ta-mob'].forEach(id=>{
+    const ta=document.getElementById(id);if(!ta)return;
+    ta.value=saved;
+    ta.addEventListener('input',()=>{
+      const v=ta.value;localStorage.setItem('edilnord-notes',v);
+      ['notes-ta','notes-ta-desk','notes-ta-mob'].forEach(i2=>{
+        const t2=document.getElementById(i2);if(t2&&t2!==ta)t2.value=v;
+      });
+    });
+  });
+}
+
+/* ══════════════════════════════════════
+   NOTIFICHE + SUONO 15 MIN PRIMA
+══════════════════════════════════════ */
+let notifiedEvents=new Set(); // traccia eventi già notificati
+
+function playAlertSound(){
+  try{
+    const ctx=new(window.AudioContext||window.webkitAudioContext)();
+    // Tre note piacevoli — do, mi, sol
+    [[0,523.25],[0.18,659.25],[0.36,783.99]].forEach(([t,freq])=>{
+      const osc=ctx.createOscillator();
+      const gain=ctx.createGain();
+      osc.connect(gain);gain.connect(ctx.destination);
+      osc.type='sine';osc.frequency.value=freq;
+      gain.gain.setValueAtTime(0,ctx.currentTime+t);
+      gain.gain.linearRampToValueAtTime(0.35,ctx.currentTime+t+0.04);
+      gain.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+t+0.5);
+      osc.start(ctx.currentTime+t);osc.stop(ctx.currentTime+t+0.55);
+    });
+  }catch(e){console.warn('audio',e);}
+}
+
+function requestNotifPermission(){
+  if('Notification' in window&&Notification.permission==='default'){
+    Notification.requestPermission();
+  }
+}
+
+function checkUpcomingNotifications(){
+  const now=new Date();
+  const todayStr=fmt(now);
+  const upcoming=allEvents.filter(e=>e.data===todayStr&&e.isCRM);
+  upcoming.forEach(e=>{
+    if(notifiedEvents.has(e.id))return;
+    const[hh,mm]=(e.ora||'00:00').split(':').map(Number);
+    const evTime=new Date(now.getFullYear(),now.getMonth(),now.getDate(),hh,mm,0);
+    const diffMs=evTime-now;
+    const diffMin=diffMs/60000;
+    // finestra: tra 14 e 16 minuti prima
+    if(diffMin>=14&&diffMin<=16){
+      notifiedEvents.add(e.id);
+      playAlertSound();
+      toast(`🔔 Tra 15 min: ${e.nome} — ${e.tipo}`,6000);
+      if('Notification' in window&&Notification.permission==='granted'){
+        new Notification('Edilnord RE — Appuntamento tra 15 minuti',{
+          body:`${e.nome}\n${e.tipo}${e.immobile?' · '+e.immobile:''}`,
+          icon:'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="8" fill="%231e2d24"/><text x="16" y="22" text-anchor="middle" font-size="18">🏠</text></svg>',
+          tag:'edilnord-apt-'+e.id,
+          requireInteraction:true,
+        });
+      }
+    }
+  });
+}
+
+/* INIT */
+async function init(){
+  updateMobDate();
+  renderMini();renderMobApts();renderWeek();
+  initNotes();
+  initSwipe('apt-sheet',closeApt);
+  initSwipe('det-sheet',closeDet);
+  requestNotifPermission();
+  loadMeteo();loadNews();loadImms();
+  try{
+    allEvents=await loadEvents();
+    renderWeek();renderMobApts();renderMini();renderOggi();
+  }catch(err){
+    console.error('loadEvents',err);
+    toast('⚠️ Impossibile caricare eventi — controlla n8n');
+    document.getElementById('gcal-grid').innerHTML='<div style="padding:32px;color:var(--g500);font-size:13px;text-align:center">Impossibile caricare eventi.<br>Controlla la connessione a n8n.</div>';
+    document.getElementById('rp-upc').innerHTML='<div style="font-size:12px;color:var(--g300)">—</div>';
+  }
+  // controlla notifiche ogni minuto
+  setInterval(checkUpcomingNotifications, 60000);
+  checkUpcomingNotifications();
+
+  setInterval(async()=>{
+    try{
+      allEvents=await loadEvents();
+      renderWeek();renderMobApts();renderMini();renderOggi();renderUpcoming();
+      checkUpcomingNotifications();
+      const dot=document.getElementById('sync-dot');
+      if(dot){dot.style.opacity='1';setTimeout(()=>dot.style.opacity='0',1000);}
+    }catch(e){console.warn('sync fallita',e);}
+  },60000);
+}
+
+document.addEventListener('DOMContentLoaded',init);
+</script>
+</body>
+</html>
