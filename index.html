@@ -1,0 +1,1518 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#1e2d24">
+<title>Edilnord RE</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --green:#5a9a70;--gl:#9dc0aa;--gp:#e8f2ec;--gd:#2d5a3d;--gdk:#1e2d24;
+  --cream:#f5f7f4;--off:#faf8f5;
+  --g50:#f7f7f6;--g100:#eeede9;--g200:#dddbd5;--g300:#c5c3bc;
+  --g500:#8a8880;--g700:#4a4844;--g900:#1a1917;
+  --matteo:#4285f4;--matteo-l:#e8f0fe;
+  --giuseppe:#e07b39;--giuseppe-l:#fef0e6;
+  --red:#ea4335;--amber:#f4b400;
+  --serif:'Cormorant Garamond',serif;
+  --sans:'DM Sans',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent;}
+html,body{height:100%;height:100dvh;}
+body{font-family:var(--sans);background:var(--cream);color:var(--g900);display:flex;flex-direction:column;height:100dvh;overflow:hidden;}
+
+/* APP SHELL */
+.app{display:flex;flex:1;overflow:hidden;min-height:0;}
+
+/* SIDEBAR */
+.sidebar{width:210px;flex-shrink:0;background:var(--gdk);display:flex;flex-direction:column;}
+.sb-logo{padding:20px 18px 16px;border-bottom:1px solid rgba(255,255,255,.06);}
+.sb-lm{font-family:var(--serif);font-size:20px;color:white;font-weight:500;letter-spacing:.3px;}
+.sb-ls{font-size:9px;color:rgba(255,255,255,.25);letter-spacing:1.5px;text-transform:uppercase;margin-top:3px;}
+.sb-nav{padding:10px 8px;flex:1;overflow-y:auto;}
+.sb-nl{font-size:9px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.2);padding:8px 12px 4px;font-weight:500;}
+.sb-ni{display:flex;align-items:center;gap:9px;padding:8px 12px;border-radius:8px;color:rgba(255,255,255,.5);font-size:13px;cursor:pointer;margin-bottom:1px;transition:background .15s,color .15s;user-select:none;}
+.sb-ni:hover{background:rgba(255,255,255,.06);color:rgba(255,255,255,.75);}
+.sb-ni.on{background:rgba(255,255,255,.1);color:white;font-weight:500;}
+.sb-ni .ic{font-size:14px;width:18px;text-align:center;}
+.sb-badge{margin-left:auto;background:rgba(255,255,255,.1);color:rgba(255,255,255,.6);font-size:10px;font-weight:600;padding:1px 7px;border-radius:20px;}
+.sb-wx{margin:4px 10px 10px;background:rgba(0,0,0,.2);border-radius:12px;padding:13px;border:1px solid rgba(255,255,255,.06);}
+.wx-lbl{font-size:9px;letter-spacing:.8px;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:9px;font-weight:500;}
+.wx-main{display:flex;align-items:center;gap:10px;margin-bottom:6px;}
+.wx-ico{font-size:28px;line-height:1;}
+.wx-tmp{font-family:var(--serif);font-size:30px;color:white;font-weight:300;line-height:1;}
+.wx-dsc{font-size:11px;color:rgba(255,255,255,.45);margin-top:2px;}
+.wx-details{display:flex;gap:10px;margin-bottom:7px;}
+.wd{font-size:9.5px;color:rgba(255,255,255,.3);}
+.wd span{color:rgba(255,255,255,.55);}
+.wx-sep{height:1px;background:rgba(255,255,255,.07);margin-bottom:7px;}
+.wx-tom{display:flex;align-items:center;gap:7px;font-size:11px;color:rgba(255,255,255,.35);}
+.wx-tom span{color:rgba(255,255,255,.6);}
+.sb-user{padding:12px 16px;border-top:1px solid rgba(255,255,255,.07);display:flex;align-items:center;gap:10px;}
+.sb-av{width:32px;height:32px;border-radius:50%;background:var(--gl);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--gd);}
+.sb-nm{font-size:12px;color:white;font-weight:500;}
+.sb-rl{font-size:10px;color:rgba(255,255,255,.3);}
+
+/* MAIN CALENDAR */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;background:var(--cream);}
+.gcal-bar{flex-shrink:0;padding:11px 16px 10px;border-bottom:1px solid var(--g200);display:flex;align-items:center;justify-content:space-between;background:white;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+.gcal-left{display:flex;align-items:center;gap:8px;}
+.gcal-today{background:white;border:1px solid var(--g200);border-radius:6px;padding:6px 13px;font-size:12.5px;font-weight:500;color:var(--g700);cursor:pointer;font-family:var(--sans);}
+.gcal-today:hover{background:var(--g50);}
+.gcal-nav{display:flex;gap:2px;}
+.gcal-nb{width:28px;height:28px;border-radius:50%;border:none;background:transparent;cursor:pointer;font-size:16px;color:var(--g500);display:flex;align-items:center;justify-content:center;}
+.gcal-nb:hover{background:var(--g100);}
+.gcal-title{font-family:var(--serif);font-size:21px;font-weight:400;color:var(--g900);}
+.gcal-right{display:flex;align-items:center;gap:8px;}
+.gcal-search{background:var(--g50);border:1px solid var(--g200);border-radius:8px;padding:6px 12px;font-size:12.5px;font-family:var(--sans);color:var(--g900);outline:none;width:180px;transition:border-color .15s;}
+.gcal-search:focus{border-color:var(--green);background:white;}
+.gcal-search::placeholder{color:var(--g300);}
+.gcal-views{display:flex;border:1px solid var(--g200);border-radius:6px;overflow:hidden;}
+.gcv{padding:5px 12px;font-size:12px;font-weight:500;background:white;color:var(--g500);cursor:pointer;border:none;font-family:var(--sans);}
+.gcv.on{background:var(--gp);color:var(--gd);font-weight:600;}
+.gcal-new{background:var(--green);color:white;border:none;border-radius:20px;padding:7px 16px;font-size:13px;font-weight:500;cursor:pointer;font-family:var(--sans);box-shadow:0 2px 10px rgba(90,154,112,.35);}
+.gcal-new:hover{opacity:.88;}
+.sync-dot{width:8px;height:8px;border-radius:50%;background:var(--green);opacity:0;transition:opacity .4s;flex-shrink:0;}
+.gcal-hdr{flex-shrink:0;display:grid;border-bottom:1px solid var(--g200);background:white;}
+.ghd{display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 0;cursor:pointer;}
+.ghd:hover{background:var(--g50);}
+.ghd-dn{font-size:10px;font-weight:600;color:var(--g500);letter-spacing:.5px;text-transform:uppercase;}
+.ghd-dd{font-family:var(--serif);font-size:24px;font-weight:400;color:var(--g700);width:36px;height:36px;display:flex;align-items:center;justify-content:center;border-radius:50%;margin-top:2px;}
+.ghd.td .ghd-dn{color:var(--green);}
+.ghd.td .ghd-dd{background:var(--green);color:white;}
+.ghd.wk .ghd-dn,.ghd.wk .ghd-dd{color:var(--g300);}
+.ghd-corner{border-right:1px solid var(--g200);}
+.gcal-scroll{flex:1;overflow-y:auto;overflow-x:hidden;position:relative;}
+.gcal-scroll::-webkit-scrollbar{width:5px;}
+.gcal-scroll::-webkit-scrollbar-thumb{background:var(--g200);border-radius:3px;}
+.gcal-grid{display:grid;position:relative;}
+.now-line{position:absolute;left:52px;right:0;height:2px;background:var(--red);z-index:10;pointer-events:none;display:none;}
+.now-line::before{content:'';position:absolute;left:-5px;top:-4px;width:10px;height:10px;border-radius:50%;background:var(--red);}
+.time-col{border-right:1px solid var(--g200);}
+.ts{height:56px;display:flex;align-items:flex-start;justify-content:flex-end;padding:4px 6px 0;font-size:9px;color:var(--g300);}
+.day-col{border-right:1px solid var(--g200);position:relative;}
+.day-col:last-child{border-right:none;}
+.day-col.td{background:rgba(90,154,112,.025);}
+.day-col.wk{background:rgba(0,0,0,.012);}
+.dc-cell{height:56px;border-bottom:1px solid rgba(0,0,0,.04);cursor:pointer;transition:background .1s;}
+.dc-cell:hover{background:rgba(90,154,112,.06);}
+.ev{position:absolute;left:3px;right:3px;border-radius:6px;padding:4px 7px;font-size:10.5px;font-weight:500;cursor:pointer;overflow:hidden;color:white;transition:opacity .15s;z-index:5;}
+.ev:hover{opacity:.88;}
+.ev-name{font-weight:600;font-size:11px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;}
+.ev-sub{font-size:9.5px;opacity:.85;margin-top:1px;white-space:nowrap;text-overflow:ellipsis;overflow:hidden;}
+.ev.matteo{background:var(--matteo);}
+.ev.giuseppe{background:var(--giuseppe);}
+.ev.todo{background:var(--amber);}
+.ev.old{background:#9e9e9e;}
+.search-ov{position:absolute;inset:0;background:white;overflow-y:auto;z-index:50;padding:16px;animation:fadeIn .15s ease;}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.search-result{display:flex;gap:12px;padding:12px;border-radius:10px;border:1px solid var(--g100);margin-bottom:8px;cursor:pointer;background:white;align-items:flex-start;transition:background .1s;}
+.search-result:hover{background:var(--g50);}
+.sr-bar{width:3px;border-radius:2px;min-height:48px;flex-shrink:0;}
+.sr-nome{font-size:14px;font-weight:500;color:var(--g900);}
+.sr-meta{font-size:12px;color:var(--g500);margin-top:2px;}
+.sr-tipo{font-size:11px;color:var(--g500);margin-top:2px;}
+
+/* RIGHT PANEL */
+.rpanel{width:250px;flex-shrink:0;background:var(--off);display:flex;flex-direction:column;overflow:hidden;border-left:1px solid var(--g200);}
+.rp-sec{padding:14px 15px;border-bottom:1px solid var(--g200);flex-shrink:0;}
+.rp-sec.grow{flex:1;overflow-y:auto;min-height:0;}
+.rp-sec.news-sec{overflow-y:auto;flex:1.8;min-height:0;}
+.rp-title{font-size:9px;font-weight:600;color:var(--g500);letter-spacing:.8px;text-transform:uppercase;margin-bottom:10px;display:flex;align-items:center;justify-content:space-between;}
+.rp-add{width:20px;height:20px;background:var(--gp);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;color:var(--green);cursor:pointer;border:none;}
+.upc-item{display:flex;gap:9px;padding:8px 0;border-bottom:1px solid var(--g100);}
+.upc-item:last-child{border-bottom:none;}
+.upc-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;margin-top:3px;}
+.upc-name{font-size:12.5px;font-weight:500;color:var(--g900);}
+.upc-meta{font-size:10.5px;color:var(--g500);margin-top:1px;}
+.upc-type{display:inline-block;font-size:9.5px;padding:1px 6px;border-radius:4px;margin-top:3px;font-weight:500;background:var(--gp);color:var(--gd);}
+.notes-ta{width:100%;height:100%;border:none;background:transparent;resize:none;font-family:var(--sans);font-size:12.5px;color:var(--g700);line-height:1.8;outline:none;}
+.news-panel-hdr{background:linear-gradient(135deg,var(--gd),var(--green));margin:-14px -15px 12px;padding:12px 15px 10px;display:flex;align-items:center;justify-content:space-between;}
+.news-panel-hdr-lbl{font-size:9px;font-weight:700;color:rgba(255,255,255,.7);letter-spacing:1px;text-transform:uppercase;}
+.news-panel-badge{font-size:9px;font-weight:600;background:rgba(255,255,255,.2);color:white;padding:2px 7px;border-radius:10px;}
+.news-panel-live{width:6px;height:6px;border-radius:50%;background:#4ade80;display:inline-block;margin-right:5px;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+.news-item{display:flex;gap:9px;padding:8px 0;border-bottom:1px solid var(--g100);cursor:pointer;}
+.news-item:last-child{border-bottom:none;}
+.news-item:hover .news-txt{color:var(--green);}
+.news-dot{width:6px;height:6px;border-radius:50%;background:var(--green);margin-top:4px;flex-shrink:0;}
+.news-txt{font-size:11.5px;color:var(--g700);line-height:1.45;font-weight:500;transition:color .15s;}
+.news-src{font-size:9.5px;color:var(--g300);margin-top:2px;}
+
+/* DESK PANELS */
+.desk-panel{display:none;flex:1;flex-direction:column;overflow:hidden;background:var(--cream);padding:28px;}
+.desk-panel.noPad{padding:0;}
+.desk-panel.on{display:flex;}
+.desk-panel-title{font-family:var(--serif);font-size:30px;color:var(--g900);margin-bottom:20px;font-weight:400;}
+.desk-panel-empty{color:var(--g500);font-size:14px;margin-top:40px;text-align:center;}
+
+/* ============ CRM PIPELINE ============ */
+.crm-wrap{display:flex;flex:1;flex-direction:column;overflow:hidden;}
+.crm-topbar{background:white;padding:10px 16px;border-bottom:1px solid var(--g200);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+.crm-title{font-family:var(--serif);font-size:20px;font-weight:400;color:var(--g900);}
+.crm-stats{display:flex;gap:14px;}
+.crm-stat-item{text-align:center;}
+.crm-stat-n{font-family:var(--serif);font-size:18px;color:var(--g900);line-height:1;}
+.crm-stat-n.c{color:#e65100;}
+.crm-stat-n.f{color:var(--red);}
+.crm-stat-l{font-size:8px;color:var(--g500);font-weight:600;letter-spacing:.5px;text-transform:uppercase;}
+.crm-search-inp{background:var(--g50);border:1px solid var(--g200);border-radius:8px;padding:6px 12px;font-size:12px;font-family:var(--sans);color:var(--g900);outline:none;width:170px;}
+.crm-search-inp:focus{border-color:var(--green);}
+.crm-search-inp::placeholder{color:var(--g300);}
+/* filter rows */
+.crm-filters-wrap{flex-shrink:0;}
+.crm-tab-row{background:white;padding:0 16px;border-bottom:1px solid var(--g200);display:flex;gap:0;overflow-x:auto;}
+.crm-tab-row::-webkit-scrollbar{display:none;}
+.crm-tab{padding:8px 14px;font-size:12px;font-weight:500;color:var(--g500);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;transition:all .15s;}
+.crm-tab:hover{color:var(--g700);}
+.crm-tab.on{color:var(--gd);border-bottom-color:var(--green);font-weight:600;}
+.crm-tab-sep{width:1px;background:var(--g200);margin:8px 0;}
+.crm-row2{background:var(--off);padding:6px 16px;border-bottom:1px solid var(--g200);display:flex;gap:6px;flex-wrap:wrap;align-items:center;}
+.crm-row-lbl{font-size:9px;font-weight:600;color:var(--g500);letter-spacing:.6px;text-transform:uppercase;margin-right:4px;flex-shrink:0;}
+.crm-chip{font-size:10.5px;font-weight:500;padding:3px 10px;border-radius:20px;border:1px solid var(--g200);background:white;color:var(--g700);cursor:pointer;white-space:nowrap;transition:all .15s;}
+.crm-chip:hover{border-color:var(--g300);}
+.crm-chip.on{background:var(--gp);color:var(--gd);border-color:var(--green);}
+.crm-chip.urg{border-color:var(--amber);color:#854f0b;background:#faeeda;}
+.crm-chip.on-m{background:#e8f0fe;color:#1565c0;border-color:#90caf9;}
+.crm-chip.on-g{background:#fef0e6;color:#bf360c;border-color:#ffb74d;}
+/* board */
+.crm-board{display:flex;gap:10px;padding:12px;flex:1;overflow-x:auto;overflow-y:hidden;}
+.crm-board::-webkit-scrollbar{height:5px;}
+.crm-board::-webkit-scrollbar-thumb{background:var(--g200);border-radius:3px;}
+.k-col{flex:0 0 180px;display:flex;flex-direction:column;background:white;border-radius:12px;border:1px solid var(--g200);overflow:hidden;}
+.k-col-hdr{padding:10px 12px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--g100);flex-shrink:0;}
+.k-col-hdr.h-blu{background:#e8f0fe;}
+.k-col-hdr.h-gial{background:#fff8e1;}
+.k-col-hdr.h-aran{background:#fff3e0;}
+.k-col-hdr.h-ross{background:#fdecea;}
+.k-col-hdr.h-verd{background:#e8f2ec;}
+.k-col-hdr.h-grig{background:var(--g50);}
+.k-col-ttl{font-size:10px;font-weight:600;letter-spacing:.5px;text-transform:uppercase;}
+.k-col-ttl.c-blu{color:#1565c0;}
+.k-col-ttl.c-gial{color:#854f0b;}
+.k-col-ttl.c-aran{color:#e65100;}
+.k-col-ttl.c-ross{color:#c62828;}
+.k-col-ttl.c-verd{color:#2d5a3d;}
+.k-col-ttl.c-grig{color:var(--g700);}
+.k-col-n{font-size:10px;font-weight:700;padding:1px 7px;border-radius:10px;background:rgba(0,0,0,.07);}
+.k-col-body{flex:1;overflow-y:auto;padding:8px;display:flex;flex-direction:column;gap:7px;}
+.k-col-body::-webkit-scrollbar{width:3px;}
+.k-col-body::-webkit-scrollbar-thumb{background:var(--g100);border-radius:2px;}
+/* cards */
+.kc{background:var(--cream);border-radius:9px;padding:9px 10px;border:0.5px solid var(--g200);cursor:pointer;transition:box-shadow .15s,transform .1s;border-left:3px solid transparent;}
+.kc:hover{box-shadow:0 4px 12px rgba(0,0,0,.09);transform:translateY(-1px);}
+.kc.urg{border-left-color:var(--red);}
+.kc.warm{border-left-color:var(--amber);}
+.kc.rog{border-left-color:var(--green);}
+.kc-top{display:flex;align-items:center;gap:7px;margin-bottom:5px;}
+.kc-av{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;color:white;flex-shrink:0;}
+.kc-av.m{background:var(--matteo);}
+.kc-av.g{background:var(--giuseppe);}
+.kc-name{font-size:12px;font-weight:500;color:var(--g900);flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.kc-tipo{display:inline-flex;font-size:9.5px;font-weight:500;padding:2px 7px;border-radius:10px;margin-bottom:4px;}
+.kc-tipo.acq{background:var(--gp);color:var(--gd);}
+.kc-tipo.aff{background:#e8f0fe;color:#1565c0;}
+.kc-tipo.val{background:#faeeda;color:#854f0b;}
+.kc-tipo.rog{background:var(--gp);color:var(--gd);}
+.kc-tipo.loc{background:#e8f0fe;color:#1565c0;}
+.kc-sub{font-size:10px;color:var(--g500);margin-bottom:2px;}
+.kc-fu{font-size:9.5px;font-weight:500;margin-top:4px;}
+.kc-fu.over{color:var(--red);}
+.kc-fu.warn{color:var(--amber);}
+.kc-wa{display:flex;align-items:center;gap:5px;margin-top:6px;background:#e8f5e9;border-radius:7px;padding:5px 8px;font-size:10px;font-weight:600;color:#2e7d32;cursor:pointer;border:none;font-family:var(--sans);width:100%;}
+.kc-wa:hover{background:#c8e6c9;}
+.k-empty{font-size:11px;color:var(--g300);text-align:center;padding:16px 0;}
+
+/* ============ DETAIL PANEL ============ */
+.det-overlay{position:fixed;inset:0;background:rgba(10,10,8,.4);backdrop-filter:blur(4px);z-index:400;display:none;align-items:flex-start;justify-content:flex-end;}
+.det-overlay.show{display:flex;}
+.det-panel{background:white;width:380px;height:100%;overflow-y:auto;box-shadow:-8px 0 32px rgba(0,0,0,.15);display:flex;flex-direction:column;}
+.det-panel::-webkit-scrollbar{width:4px;}
+.det-panel::-webkit-scrollbar-thumb{background:var(--g200);border-radius:2px;}
+.det-hdr{padding:20px;border-bottom:1px solid var(--g200);flex-shrink:0;position:sticky;top:0;background:white;z-index:1;}
+.det-close{position:absolute;top:16px;right:16px;width:28px;height:28px;border-radius:50%;background:var(--g100);border:none;cursor:pointer;font-size:14px;color:var(--g700);display:flex;align-items:center;justify-content:center;}
+.det-av{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:700;color:white;margin-bottom:10px;}
+.det-av.m{background:var(--matteo);}
+.det-av.g{background:var(--giuseppe);}
+.det-name{font-family:var(--serif);font-size:24px;font-weight:400;color:var(--g900);}
+.det-tel{font-size:13px;margin-top:3px;}
+.det-tel a{color:var(--green);text-decoration:none;}
+.det-body{padding:16px 20px;flex:1;}
+.det-sec{margin-bottom:20px;}
+.det-sec-ttl{font-size:9px;font-weight:700;color:var(--g500);letter-spacing:.8px;text-transform:uppercase;margin-bottom:10px;padding-bottom:6px;border-bottom:1px solid var(--g100);}
+.det-kpi{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px;}
+.det-kpi-card{background:var(--g50);border-radius:10px;padding:10px 12px;text-align:center;}
+.det-kpi-n{font-family:var(--serif);font-size:22px;color:var(--g900);line-height:1;}
+.det-kpi-l{font-size:9px;color:var(--g500);font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-top:2px;}
+.det-pipe{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:16px;}
+.det-pipe-btn{font-size:10px;font-weight:600;padding:4px 10px;border-radius:20px;border:1.5px solid var(--g200);background:white;color:var(--g500);cursor:pointer;font-family:var(--sans);transition:all .15s;}
+.det-pipe-btn.on-blu{background:#e8f0fe;color:#1565c0;border-color:#90caf9;}
+.det-pipe-btn.on-gial{background:#fff8e1;color:#854f0b;border-color:#ffb74d;}
+.det-pipe-btn.on-aran{background:#fff3e0;color:#e65100;border-color:#ffb74d;}
+.det-pipe-btn.on-ross{background:#fdecea;color:#c62828;border-color:#ef9a9a;}
+.det-pipe-btn.on-verd{background:#e8f2ec;color:#2d5a3d;border-color:var(--green);}
+.det-pipe-btn.on-grig{background:var(--g100);color:var(--g700);border-color:var(--g300);}
+.det-hist{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--g100);}
+.det-hist:last-child{border-bottom:none;}
+.det-hist-date{font-size:11px;color:var(--g500);min-width:50px;text-align:right;}
+.det-hist-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;margin-top:4px;}
+.det-hist-dot.m{background:var(--matteo);}
+.det-hist-dot.g{background:var(--giuseppe);}
+.det-hist-tipo{font-size:12px;font-weight:500;color:var(--g900);}
+.det-hist-imm{font-size:11px;color:var(--g500);margin-top:1px;}
+.det-note-ta{width:100%;min-height:70px;background:var(--g50);border:1.5px solid var(--g200);border-radius:9px;padding:10px 12px;font-size:13px;color:var(--g700);font-family:var(--sans);outline:none;resize:none;line-height:1.7;transition:border-color .15s;}
+.det-note-ta:focus{border-color:var(--green);background:white;}
+.det-save-btn{margin-top:7px;background:var(--green);color:white;border:none;border-radius:8px;padding:7px 16px;font-size:12px;font-weight:500;cursor:pointer;font-family:var(--sans);}
+.det-wa-btn{display:flex;align-items:center;gap:6px;background:#e8f5e9;border:none;border-radius:9px;padding:9px 14px;font-size:12.5px;font-weight:600;color:#2e7d32;cursor:pointer;font-family:var(--sans);width:100%;margin-top:8px;}
+.det-wa-btn:hover{background:#c8e6c9;}
+.det-new-apt{display:flex;align-items:center;gap:6px;background:var(--green);border:none;border-radius:9px;padding:9px 14px;font-size:12.5px;font-weight:500;color:white;cursor:pointer;font-family:var(--sans);width:100%;margin-top:8px;box-shadow:0 2px 8px rgba(90,154,112,.3);}
+
+/* ============ WA POPUP ============ */
+.wa-overlay{position:fixed;inset:0;background:rgba(10,10,8,.5);backdrop-filter:blur(6px);z-index:500;display:none;align-items:center;justify-content:center;padding:20px;}
+.wa-overlay.show{display:flex;}
+.wa-popup{background:white;border-radius:20px;width:100%;max-width:440px;padding:24px;box-shadow:0 24px 64px rgba(0,0,0,.2);}
+.wa-popup-title{font-family:var(--serif);font-size:22px;font-weight:400;color:var(--g900);margin-bottom:4px;}
+.wa-popup-sub{font-size:12px;color:var(--g500);margin-bottom:16px;}
+.wa-ta{width:100%;min-height:120px;background:var(--g50);border:1.5px solid var(--g200);border-radius:10px;padding:12px 14px;font-size:13px;color:var(--g900);font-family:var(--sans);outline:none;resize:vertical;line-height:1.7;margin-bottom:12px;}
+.wa-ta:focus{border-color:#25D366;}
+.wa-btns{display:flex;gap:8px;}
+.wa-send{flex:1;background:#25D366;color:white;border:none;border-radius:10px;padding:12px;font-size:14px;font-weight:600;cursor:pointer;font-family:var(--sans);}
+.wa-send:hover{opacity:.88;}
+.wa-cancel{background:var(--g50);border:1px solid var(--g200);border-radius:10px;padding:12px 16px;font-size:14px;font-weight:500;color:var(--g700);cursor:pointer;font-family:var(--sans);}
+
+/* MOBILE HEADER */
+.mob-header{background:var(--gdk);padding:env(safe-area-inset-top,14px) 20px 18px;position:relative;overflow:hidden;flex-shrink:0;}
+.mob-header::before{content:'';position:absolute;top:-80px;right:-80px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.03);}
+.mob-hdr-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px;position:relative;z-index:1;}
+.mob-logo{font-family:var(--serif);font-size:20px;color:white;font-weight:500;}
+.mob-logo-sub{font-size:9px;color:rgba(255,255,255,.28);letter-spacing:1.3px;text-transform:uppercase;margin-top:2px;}
+.mob-agents{display:flex;}
+.mob-ag{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;border:2.5px solid var(--gdk);}
+.mob-ag.matteo{background:var(--gl);color:var(--gd);}
+.mob-ag.giuseppe{background:#c5b9a8;color:#4a3a28;margin-left:-8px;}
+.mob-date{margin-bottom:12px;position:relative;z-index:1;}
+.mob-date-main{font-family:var(--serif);font-size:26px;color:white;letter-spacing:.2px;font-weight:400;}
+.mob-date-yr{font-size:11px;color:rgba(255,255,255,.33);margin-top:2px;}
+.mob-wx{background:rgba(0,0,0,.22);border-radius:14px;padding:12px 14px;border:1px solid rgba(255,255,255,.07);position:relative;z-index:1;}
+.mwx-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.mwx-l{display:flex;align-items:center;gap:10px;}
+.mwx-i{font-size:30px;line-height:1;}
+.mwx-ci{font-size:10px;color:rgba(255,255,255,.38);}
+.mwx-de{font-size:13px;color:rgba(255,255,255,.75);font-weight:500;margin-top:1px;}
+.mwx-tm{font-family:var(--serif);font-size:36px;color:white;line-height:1;font-weight:300;}
+.mwx-ds{display:flex;gap:12px;margin-bottom:8px;}
+.mwx-d{font-size:10px;color:rgba(255,255,255,.38);}
+.mwx-d span{color:rgba(255,255,255,.65);font-weight:500;}
+.mwx-sp{height:1px;background:rgba(255,255,255,.07);margin-bottom:8px;}
+.mwx-tom{display:flex;align-items:center;gap:8px;}
+.mwt-l{font-size:12px;color:rgba(255,255,255,.4);flex:1;}
+.mwt-i{font-size:18px;}
+.mwt-t{font-size:13px;font-weight:500;color:rgba(255,255,255,.7);}
+.mwt-d{font-size:10px;color:rgba(255,255,255,.33);margin-top:1px;}
+
+/* MOBILE SCREENS */
+.mob-screen{flex:1;overflow-y:auto;display:none;min-height:0;}
+.mob-screen::-webkit-scrollbar{display:none;}
+.mob-screen.on{display:block;}
+.mob-body{padding:16px;}
+.mini-cal{background:white;border-radius:14px;padding:14px;border:1px solid var(--g200);box-shadow:0 1px 4px rgba(0,0,0,.06);margin-bottom:16px;}
+.mini-cal-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.mini-cal-mo{font-family:var(--serif);font-size:17px;font-weight:500;color:var(--g900);}
+.mini-cal-nav{display:flex;gap:4px;}
+.mcnb{width:26px;height:26px;border-radius:6px;border:1px solid var(--g200);background:transparent;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--g500);}
+.mini-dhd{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;margin-bottom:4px;}
+.mini-dl{font-size:10px;font-weight:600;color:var(--g300);padding:3px 0;}
+.mini-dl.wk{color:#ddd;}
+.mini-days{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;row-gap:2px;}
+.mday{padding:5px 0;font-size:12.5px;color:var(--g700);border-radius:50%;cursor:pointer;position:relative;margin:0 auto;width:28px;transition:background .1s;}
+.mday.td{background:var(--green);color:white;font-weight:600;}
+.mday.mu{color:var(--g300);}
+.mday.sel:not(.td){background:var(--gp);color:var(--gd);}
+.mday.has::after{content:'';position:absolute;bottom:1px;left:50%;transform:translateX(-50%);width:3px;height:3px;border-radius:50%;background:var(--green);}
+.mday.td.has::after{background:rgba(255,255,255,.7);}
+.mob-sec{font-size:10.5px;font-weight:600;color:var(--g500);letter-spacing:.7px;text-transform:uppercase;margin-bottom:11px;display:flex;align-items:center;justify-content:space-between;}
+.mob-see{font-size:11px;color:var(--green);font-weight:500;text-transform:none;letter-spacing:0;cursor:pointer;}
+.apt-card{background:white;border-radius:16px;padding:13px 14px;margin-bottom:8px;border:1px solid var(--g200);box-shadow:0 1px 4px rgba(0,0,0,.05);display:flex;gap:12px;align-items:flex-start;cursor:pointer;}
+.apt-time{min-width:38px;text-align:right;flex-shrink:0;padding-top:2px;}
+.apt-t{font-family:var(--serif);font-size:15px;font-weight:500;color:var(--g500);}
+.apt-bar{width:3px;border-radius:2px;min-height:44px;flex-shrink:0;}
+.apt-bar.matteo{background:var(--matteo);}
+.apt-bar.giuseppe{background:var(--giuseppe);}
+.apt-bar.todo{background:var(--amber);}
+.apt-bar.old{background:var(--g300);}
+.apt-info{flex:1;}
+.apt-name{font-size:14px;font-weight:500;color:var(--g900);}
+.apt-prop{font-size:12px;color:var(--g500);margin-top:2px;}
+.apt-badge{display:inline-flex;align-items:center;font-size:10px;font-weight:500;padding:2px 8px;border-radius:20px;margin-top:5px;background:var(--g50);color:var(--g500);}
+.apt-chev{color:var(--g300);font-size:18px;font-weight:300;padding-top:2px;}
+.oggi-body{padding:16px;}
+.oggi-date{font-family:var(--serif);font-size:28px;color:var(--g900);font-weight:400;margin-bottom:4px;}
+.oggi-sub{font-size:13px;color:var(--g500);margin-bottom:20px;}
+.news-body{padding:16px;}
+.mob-news-item{background:white;border-radius:14px;padding:14px;margin-bottom:10px;border:1px solid var(--g200);box-shadow:0 1px 4px rgba(0,0,0,.05);cursor:pointer;}
+.mob-news-title{font-size:14px;font-weight:500;color:var(--g900);line-height:1.4;margin-bottom:5px;}
+.mob-news-src{font-size:11px;color:var(--g500);}
+.note-body{padding:16px;display:flex;flex-direction:column;height:100%;}
+.note-title{font-family:var(--serif);font-size:24px;color:var(--g900);font-weight:400;margin-bottom:12px;}
+.note-ta{flex:1;width:100%;border:1.5px solid var(--g200);background:white;border-radius:14px;padding:14px;font-family:var(--sans);font-size:14px;color:var(--g700);line-height:1.8;outline:none;resize:none;min-height:300px;}
+.note-ta:focus{border-color:var(--green);}
+
+/* BOTTOM NAV */
+.bot-nav{background:white;border-top:1px solid rgba(0,0,0,.07);display:grid;grid-template-columns:repeat(5,1fr);box-shadow:0 -4px 24px rgba(0,0,0,.07);flex-shrink:0;height:56px;padding-bottom:env(safe-area-inset-bottom,0px);}
+.bn-item{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;cursor:pointer;position:relative;padding:8px 4px 6px;user-select:none;}
+.bn-item.on::before{content:'';position:absolute;top:8px;left:50%;transform:translateX(-50%);width:46px;height:28px;background:var(--gp);border-radius:20px;}
+.bn-ico{font-size:20px;position:relative;z-index:1;line-height:1;}
+.bn-lbl{font-size:9.5px;font-weight:500;color:var(--g500);position:relative;z-index:1;}
+.bn-item.on .bn-lbl{color:var(--green);font-weight:600;}
+.bn-add{padding:0;justify-content:flex-start;padding-top:4px;}
+.bn-add-ico{width:46px;height:46px;background:var(--green);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:26px;color:white;box-shadow:0 4px 16px rgba(90,154,112,.45);position:relative;z-index:1;margin-top:-10px;}
+.bn-add .bn-lbl{margin-top:2px;}
+
+/* POPUP SHEETS */
+.sheet-overlay{position:fixed;inset:0;background:rgba(10,10,8,.45);backdrop-filter:blur(6px);z-index:100;display:none;align-items:flex-end;justify-content:center;}
+.sheet-overlay.show{display:flex;}
+.pop-sheet{background:white;border-radius:24px 24px 0 0;width:100%;max-width:520px;max-height:94vh;overflow-y:auto;padding-bottom:env(safe-area-inset-bottom,16px);box-shadow:0 -8px 48px rgba(0,0,0,.2);animation:slideUp .25s ease;touch-action:pan-y;}
+.pop-sheet::-webkit-scrollbar{display:none;}
+@keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+.pop-handle-wrap{position:sticky;top:0;z-index:10;background:white;padding:12px 0 0;border-radius:24px 24px 0 0;}
+.pop-handle{width:40px;height:4px;background:var(--g200);border-radius:2px;margin:0 auto 2px;}
+.pop-hdr{padding:10px 20px 0;}
+.pop-title{font-family:var(--serif);font-size:24px;color:var(--g900);font-weight:400;}
+.pop-sub{font-size:12px;color:var(--g500);margin-top:3px;}
+.pop-body{padding:16px 20px;}
+.pop-lbl{font-size:10px;font-weight:600;color:var(--g500);letter-spacing:.5px;text-transform:uppercase;margin-bottom:5px;}
+.pop-field{margin-bottom:12px;}
+.pop-input{width:100%;background:var(--g50);border:1.5px solid var(--g200);border-radius:10px;padding:11px 13px;font-size:14px;color:var(--g900);font-family:var(--sans);outline:none;transition:border-color .15s;appearance:none;}
+.pop-input:focus{border-color:var(--green);background:white;}
+.pop-input::placeholder{color:var(--g300);}
+.pop-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.tipo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px;}
+.tipo-opt{border:1.5px solid var(--g200);border-radius:12px;padding:12px 6px;display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;background:white;transition:all .15s;user-select:none;}
+.tipo-opt:active{transform:scale(.96);}
+.tipo-opt.on{border-color:var(--green);background:var(--gp);}
+.tipo-ico{font-size:22px;line-height:1;}
+.tipo-lbl{font-size:11px;font-weight:500;color:var(--g700);text-align:center;line-height:1.2;}
+.tipo-opt.on .tipo-lbl{color:var(--gd);}
+.tipo-todo{border:1.5px solid var(--amber);border-radius:12px;padding:12px;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;background:#fffdf0;margin-bottom:12px;transition:all .15s;}
+.tipo-todo.on{background:#fff8e1;border-width:2px;}
+.tipo-todo-lbl{font-size:13px;font-weight:500;color:var(--amber);}
+.todo-ta-wrap{display:none;margin-bottom:12px;}
+.todo-ta{width:100%;min-height:90px;background:var(--g50);border:1.5px solid var(--amber);border-radius:10px;padding:11px 13px;font-size:14px;color:var(--g900);font-family:var(--sans);outline:none;resize:vertical;transition:border-color .15s;}
+.todo-ta:focus{border-color:#c8890a;background:#fffdf0;}
+.todo-ta::placeholder{color:var(--g300);}
+.ag-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;}
+.ag-opt{border-radius:12px;padding:12px;border:2px solid var(--g200);text-align:center;cursor:pointer;background:white;transition:all .15s;}
+.ag-opt.on.matteo{border-color:var(--matteo);background:var(--matteo-l);}
+.ag-opt.on.giuseppe{border-color:var(--giuseppe);background:var(--giuseppe-l);}
+.ag-av{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;margin:0 auto 6px;}
+.ag-opt.matteo .ag-av{background:var(--matteo-l);color:var(--matteo);}
+.ag-opt.on.matteo .ag-av{background:var(--matteo);color:white;}
+.ag-opt.giuseppe .ag-av{background:var(--giuseppe-l);color:var(--giuseppe);}
+.ag-opt.on.giuseppe .ag-av{background:var(--giuseppe);color:white;}
+.ag-nm{font-size:13px;font-weight:600;color:var(--g900);}
+.pop-save{width:100%;background:var(--green);color:white;border:none;border-radius:12px;padding:15px;font-size:15px;font-weight:600;font-family:var(--sans);cursor:pointer;box-shadow:0 4px 16px rgba(90,154,112,.35);transition:opacity .15s;}
+.pop-save:hover{opacity:.88;}
+.pop-save:disabled{opacity:.5;cursor:not-allowed;}
+/* det apt sheet */
+.dapt-overlay{position:fixed;inset:0;background:rgba(10,10,8,.45);backdrop-filter:blur(4px);z-index:200;display:none;align-items:flex-end;justify-content:center;}
+.dapt-overlay.show{display:flex;}
+.dapt-sheet{background:white;border-radius:24px 24px 0 0;width:100%;max-width:520px;padding-bottom:env(safe-area-inset-bottom,16px);box-shadow:0 -8px 48px rgba(0,0,0,.2);animation:slideUp .22s ease;touch-action:pan-y;}
+.dapt-topbar{height:5px;}
+.dapt-topbar.matteo{background:var(--matteo);}
+.dapt-topbar.giuseppe{background:var(--giuseppe);}
+.dapt-topbar.todo{background:var(--amber);}
+.dapt-topbar.old{background:var(--g300);}
+.dapt-handle-wrap{padding:12px 0 4px;text-align:center;}
+.dapt-handle{width:40px;height:4px;background:var(--g200);border-radius:2px;margin:0 auto;}
+.dapt-body{padding:12px 20px 16px;}
+.dapt-name{font-family:var(--serif);font-size:24px;color:var(--g900);margin-bottom:14px;font-weight:400;}
+.dapt-field{display:flex;gap:12px;margin-bottom:11px;align-items:flex-start;}
+.dapt-ico{font-size:18px;width:24px;flex-shrink:0;}
+.dapt-val{font-size:14px;color:var(--g900);}
+.dapt-sub{font-size:11px;color:var(--g500);margin-top:1px;}
+.dapt-btns{display:flex;gap:8px;margin-top:16px;}
+.dapt-gc{flex:1;background:var(--g50);border:1px solid var(--g200);border-radius:10px;padding:12px;font-size:13px;font-weight:500;color:var(--g700);cursor:pointer;font-family:var(--sans);}
+.dapt-del{background:#fdecea;border:1px solid #fca5a5;border-radius:10px;padding:12px 16px;font-size:13px;font-weight:500;color:var(--red);cursor:pointer;font-family:var(--sans);}
+
+/* UTILS */
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--g900);color:white;padding:10px 20px;border-radius:20px;font-size:13px;font-weight:500;opacity:0;transition:all .3s;z-index:600;white-space:nowrap;pointer-events:none;}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0);}
+.loading{display:flex;align-items:center;justify-content:center;padding:40px;color:var(--g500);font-size:13px;gap:8px;}
+.spin{width:18px;height:18px;border:2px solid var(--g200);border-top-color:var(--green);border-radius:50%;animation:spin .8s linear infinite;flex-shrink:0;}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+  .sidebar,.rpanel,.main,.desk-panel{display:none!important;}
+  .app{display:none;}
+  .mob-shell{display:flex;flex-direction:column;height:100dvh;overflow:hidden;}
+}
+@media(min-width:769px){
+  .mob-shell,.mob-header,.bot-nav,.mob-screen{display:none!important;}
+  .main{display:flex;}
+}
+</style>
+</head>
+<body>
+
+<!-- DESKTOP -->
+<div class="app" id="app">
+  <div class="sidebar">
+    <div class="sb-logo">
+      <div class="sb-lm">Edilnord RE</div>
+      <div class="sb-ls">Brugherio</div>
+    </div>
+    <div class="sb-nav">
+      <div class="sb-nl">Principale</div>
+      <div class="sb-ni on" onclick="deskNav('cal',this)"><span class="ic">📅</span> Calendario</div>
+      <div class="sb-ni" onclick="deskNav('imm',this)"><span class="ic">🏠</span> Immobili <span class="sb-badge" id="sb-imm-n">—</span></div>
+      <div class="sb-ni" onclick="deskNav('cli',this)"><span class="ic">👥</span> Clienti</div>
+      <div class="sb-ni" onclick="deskNav('app',this)"><span class="ic">📋</span> Appunti</div>
+      <div class="sb-nl" style="margin-top:8px">Strumenti</div>
+      <div class="sb-ni" onclick="deskNav('news',this)"><span class="ic">📰</span> News</div>
+      <div class="sb-ni"><span class="ic">⚙️</span> Impostazioni</div>
+    </div>
+    <div class="sb-wx">
+      <div class="wx-lbl">🌤 Meteo · Brugherio</div>
+      <div class="wx-main"><div class="wx-ico" id="wx-ico">⛅</div><div><div class="wx-tmp" id="wx-tmp">—°</div><div class="wx-dsc" id="wx-dsc">Caricamento…</div></div></div>
+      <div class="wx-details">
+        <div class="wd">💧 <span id="wx-hum">—</span></div>
+        <div class="wd">💨 <span id="wx-wind">—</span></div>
+        <div class="wd">🌡 <span id="wx-min">—</span></div>
+      </div>
+      <div class="wx-sep"></div>
+      <div class="wx-tom">Domani <span id="wt-ico">—</span> <span id="wt-tmp">—</span></div>
+    </div>
+    <div class="sb-user">
+      <div class="sb-av" id="sb-av">M</div>
+      <div><div class="sb-nm" id="sb-nm">Matteo</div><div class="sb-rl">Agente</div></div>
+    </div>
+  </div>
+
+  <div class="main" id="desk-cal">
+    <div class="gcal-bar">
+      <div class="gcal-left">
+        <button class="gcal-today" onclick="goToday()">Oggi</button>
+        <div class="gcal-nav">
+          <button class="gcal-nb" onclick="navWeek(-1)">‹</button>
+          <button class="gcal-nb" onclick="navWeek(1)">›</button>
+        </div>
+        <span class="gcal-title" id="gcal-title">—</span>
+      </div>
+      <div class="gcal-right">
+        <input class="gcal-search" placeholder="🔍 Cerca evento…" id="search-input" oninput="doSearch(this.value)" onblur="setTimeout(function(){if(!document.activeElement.closest('.search-ov'))closeSearch()},200)">
+        <div class="gcal-views">
+          <button class="gcv" onclick="setView('day',this)">Giorno</button>
+          <button class="gcv on" onclick="setView('week',this)">Settimana</button>
+          <button class="gcv" onclick="setView('month',this)">Mese</button>
+        </div>
+        <button class="gcal-new" onclick="openNewApt()">＋ Nuovo</button>
+        <div class="sync-dot" id="sync-dot"></div>
+      </div>
+    </div>
+    <div class="gcal-hdr" id="gcal-hdr"></div>
+    <div class="gcal-scroll" id="gcal-scroll">
+      <div class="now-line" id="now-line"></div>
+      <div class="gcal-grid" id="gcal-grid"><div class="loading"><div class="spin"></div>Caricamento eventi…</div></div>
+    </div>
+  </div>
+
+  <div class="desk-panel" id="desk-imm">
+    <div class="desk-panel-title">Immobili</div>
+    <div id="desk-imm-list"><div class="desk-panel-empty">Caricamento…</div></div>
+  </div>
+
+  <div class="desk-panel noPad" id="desk-cli">
+    <div class="crm-wrap">
+      <div class="crm-topbar">
+        <div style="display:flex;align-items:center;gap:16px;">
+          <div class="crm-title">Clienti CRM</div>
+          <div class="crm-stats">
+            <div class="crm-stat-item"><div class="crm-stat-n" id="crm-n-tot">—</div><div class="crm-stat-l">Totale</div></div>
+            <div class="crm-stat-item"><div class="crm-stat-n c" id="crm-n-cal">—</div><div class="crm-stat-l">In proposta</div></div>
+            <div class="crm-stat-item"><div class="crm-stat-n f" id="crm-n-fu">—</div><div class="crm-stat-l">Follow-up</div></div>
+          </div>
+        </div>
+        <input class="crm-search-inp" id="crm-q" placeholder="🔍 Cerca nome, telefono…" oninput="crmRender()">
+      </div>
+      <div class="crm-filters-wrap">
+        <div class="crm-tab-row" id="crm-tabs">
+          <div class="crm-tab on" data-tipo="">Tutti</div>
+          <div class="crm-tab" data-tipo="acquisto">🏠 Acquisto</div>
+          <div class="crm-tab" data-tipo="affitto">🔑 Affitto</div>
+          <div class="crm-tab" data-tipo="valutazione">📊 Valutazione</div>
+          <div class="crm-tab-sep"></div>
+          <div class="crm-tab" data-tipo="rogito" style="color:var(--green)">📝 Rogiti</div>
+          <div class="crm-tab" data-tipo="locazione" style="color:var(--matteo)">🔑 Locazioni</div>
+        </div>
+        <div class="crm-row2" id="crm-imm-row">
+          <span class="crm-row-lbl">Immobile</span>
+          <div class="crm-chip on" data-imm="">Tutti</div>
+        </div>
+        <div class="crm-row2">
+          <span class="crm-row-lbl">Agente</span>
+          <div class="crm-chip on" id="ag-tutti" onclick="crmSetAg('',this)">Entrambi</div>
+          <div class="crm-chip" id="ag-m" onclick="crmSetAg('matteo',this)">Matteo</div>
+          <div class="crm-chip" id="ag-g" onclick="crmSetAg('giuseppe',this)">Giuseppe</div>
+        </div>
+      </div>
+      <div class="crm-board" id="crm-board"><div class="loading"><div class="spin"></div>Caricamento clienti…</div></div>
+    </div>
+  </div>
+
+  <div class="desk-panel" id="desk-app">
+    <div class="desk-panel-title">Appunti</div>
+    <textarea class="notes-ta" id="notes-ta-desk" style="width:100%;height:calc(100% - 60px);border:1.5px solid var(--g200);border-radius:14px;padding:16px;font-family:var(--sans);font-size:14px;color:var(--g700);line-height:1.8;outline:none;resize:none;background:white;" placeholder="Scrivi i tuoi appunti…"></textarea>
+  </div>
+
+  <div class="desk-panel" id="desk-news">
+    <div class="desk-panel-title">News Mercato</div>
+    <div id="desk-news-list"><div class="loading"><div class="spin"></div></div></div>
+  </div>
+
+  <div class="rpanel" id="rpanel">
+    <div class="rp-sec">
+      <div class="rp-title">Oggi <button class="rp-add" onclick="openNewApt()">+</button></div>
+      <div id="rp-upc"><div class="loading" style="padding:8px 0"><div class="spin"></div></div></div>
+    </div>
+    <div class="rp-sec grow">
+      <div class="rp-title">Appunti <button class="rp-add" onclick="deskNav('app',null)">✏️</button></div>
+      <textarea class="notes-ta" id="notes-ta" placeholder="Appunti settimanali…"></textarea>
+    </div>
+    <div class="rp-sec news-sec">
+      <div class="news-panel-hdr">
+        <div class="news-panel-hdr-lbl"><span class="news-panel-live"></span>News Mercato</div>
+        <span class="news-panel-badge" id="rp-news-count">—</span>
+      </div>
+      <div id="rp-news"><div class="loading" style="padding:6px 0"><div class="spin"></div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- MOBILE -->
+<div class="mob-shell" id="mob-shell">
+  <div class="mob-header">
+    <div class="mob-hdr-top">
+      <div><div class="mob-logo">Edilnord RE</div><div class="mob-logo-sub">Brugherio</div></div>
+      <div class="mob-agents"><div class="mob-ag matteo">M</div><div class="mob-ag giuseppe">G</div></div>
+    </div>
+    <div class="mob-date">
+      <div class="mob-date-main" id="mob-date-main">—</div>
+      <div class="mob-date-yr" id="mob-date-yr">—</div>
+    </div>
+    <div class="mob-wx">
+      <div class="mwx-top">
+        <div class="mwx-l"><div class="mwx-i" id="mwx-ico">⛅</div><div><div class="mwx-ci">Brugherio</div><div class="mwx-de" id="mwx-de">Caricamento…</div></div></div>
+        <div class="mwx-tm" id="mwx-tmp">—°</div>
+      </div>
+      <div class="mwx-ds">
+        <div class="mwx-d">💧 <span id="mwx-hum">—</span></div>
+        <div class="mwx-d">💨 <span id="mwx-wind">—</span></div>
+        <div class="mwx-d">🌡 <span id="mwx-min">—</span></div>
+      </div>
+      <div class="mwx-sp"></div>
+      <div class="mwx-tom"><div class="mwt-l">Domani</div><div class="mwt-i" id="mwt-ico">—</div><div><div class="mwt-t" id="mwt-tmp">—</div><div class="mwt-d" id="mwt-dsc">—</div></div></div>
+    </div>
+  </div>
+  <div class="mob-screen on" id="scr-agenda">
+    <div class="mob-body">
+      <div class="mini-cal">
+        <div class="mini-cal-hd">
+          <div class="mini-cal-mo" id="mini-mo">—</div>
+          <div class="mini-cal-nav"><button class="mcnb" onclick="miniNav(-1)">‹</button><button class="mcnb" onclick="miniNav(1)">›</button></div>
+        </div>
+        <div class="mini-dhd">
+          <div class="mini-dl">L</div><div class="mini-dl">M</div><div class="mini-dl">M</div>
+          <div class="mini-dl">G</div><div class="mini-dl">V</div>
+          <div class="mini-dl wk">S</div><div class="mini-dl wk">D</div>
+        </div>
+        <div class="mini-days" id="mini-days"></div>
+      </div>
+      <div class="mob-sec" id="mob-sec-lbl">Oggi <span class="mob-see">Vedi tutto →</span></div>
+      <div id="mob-apts"></div>
+    </div>
+  </div>
+  <div class="mob-screen" id="scr-oggi">
+    <div class="oggi-body">
+      <div class="oggi-date" id="oggi-date">—</div>
+      <div class="oggi-sub" id="oggi-sub">—</div>
+      <div id="oggi-apts"></div>
+    </div>
+  </div>
+  <div class="mob-screen" id="scr-news">
+    <div class="news-body">
+      <div class="mob-sec" style="margin-bottom:14px">News Mercato</div>
+      <div id="mob-news-list"><div class="loading"><div class="spin"></div></div></div>
+    </div>
+  </div>
+  <div class="mob-screen" id="scr-note">
+    <div class="note-body">
+      <div class="note-title">Appunti</div>
+      <textarea class="note-ta" id="notes-ta-mob" placeholder="Scrivi i tuoi appunti…"></textarea>
+    </div>
+  </div>
+  <div class="bot-nav">
+    <div class="bn-item on" id="bn-agenda" onclick="switchTab('agenda')"><div class="bn-ico">📅</div><div class="bn-lbl">Agenda</div></div>
+    <div class="bn-item" id="bn-oggi" onclick="switchTab('oggi')"><div class="bn-ico">⭐</div><div class="bn-lbl">Oggi</div></div>
+    <div class="bn-item bn-add" onclick="openNewApt()"><div class="bn-add-ico">＋</div><div class="bn-lbl">Nuovo</div></div>
+    <div class="bn-item" id="bn-news" onclick="switchTab('news')"><div class="bn-ico">📰</div><div class="bn-lbl">News</div></div>
+    <div class="bn-item" id="bn-note" onclick="switchTab('note')"><div class="bn-ico">🔔</div><div class="bn-lbl">Note</div></div>
+  </div>
+</div>
+
+<!-- POPUP NUOVO APT -->
+<div class="sheet-overlay" id="apt-overlay" onclick="if(event.target===this)closeApt()">
+  <div class="pop-sheet" id="apt-sheet">
+    <div class="pop-handle-wrap"><div class="pop-handle"></div></div>
+    <div class="pop-hdr"><div class="pop-title">Nuovo appuntamento</div><div class="pop-sub" id="pop-sub">—</div></div>
+    <div class="pop-body">
+      <div class="pop-field"><div class="pop-lbl">Nome</div><input class="pop-input" id="f-nome" placeholder="Marco Rossi (facoltativo)"></div>
+      <div class="pop-field"><div class="pop-lbl">Telefono</div><input class="pop-input" id="f-tel" placeholder="333 000 0000 (facoltativo)" type="tel"></div>
+      <div class="pop-lbl" style="margin-bottom:8px">Per cosa</div>
+      <div class="tipo-grid">
+        <div class="tipo-opt" onclick="selTipo(this,'Visita acquisto')"><div class="tipo-ico">🏠</div><div class="tipo-lbl">Visita acquisto</div></div>
+        <div class="tipo-opt" onclick="selTipo(this,'Visita affitto')"><div class="tipo-ico">🔑</div><div class="tipo-lbl">Visita affitto</div></div>
+        <div class="tipo-opt" onclick="selTipo(this,'In cerca di...')"><div class="tipo-ico">🔍</div><div class="tipo-lbl">In cerca di…</div></div>
+        <div class="tipo-opt" onclick="selTipo(this,'Valutazione')"><div class="tipo-ico">📊</div><div class="tipo-lbl">Valutazione</div></div>
+        <div class="tipo-opt" onclick="selTipo(this,'In ufficio')"><div class="tipo-ico">🏢</div><div class="tipo-lbl">In ufficio</div></div>
+        <div class="tipo-opt" onclick="selTipo(this,'Personale')"><div class="tipo-ico">👤</div><div class="tipo-lbl">Personale</div></div>
+      </div>
+      <div class="tipo-grid" style="margin-bottom:12px;">
+        <div class="tipo-opt" onclick="selTipo(this,'Rogito')"><div class="tipo-ico">📝</div><div class="tipo-lbl">Rogito</div></div>
+        <div class="tipo-opt" onclick="selTipo(this,'Contratto locazione')"><div class="tipo-ico">🔑</div><div class="tipo-lbl">Contratto locazione</div></div>
+        <div class="tipo-opt" style="border:none;background:transparent;cursor:default;"></div>
+      </div>
+      <div class="tipo-todo" id="tipo-todo" onclick="selTodo()"><span style="font-size:22px">✅</span><div class="tipo-todo-lbl">Cose da fare</div></div>
+      <div class="todo-ta-wrap" id="todo-ta-wrap"><div class="pop-lbl" style="margin-bottom:6px">Descrivi cosa fare</div><textarea class="todo-ta" id="f-todo" placeholder="Es: Chiamare notaio…" rows="3"></textarea></div>
+      <div class="pop-field" id="cerca-wrap" style="display:none"><div class="pop-lbl">Specifica</div><input class="pop-input" id="f-cerca" placeholder="Es: bilocale con terrazzo…"></div>
+      <div class="pop-field"><div class="pop-lbl">Immobile</div><select class="pop-input" id="f-imm"><option value="">— Seleziona immobile (facoltativo) —</option></select></div>
+      <div class="pop-row">
+        <div class="pop-field"><div class="pop-lbl">Data</div><input class="pop-input" id="f-data" type="date"></div>
+        <div class="pop-field"><div class="pop-lbl">Ora</div><input class="pop-input" id="f-ora" type="time" value="10:00"></div>
+      </div>
+      <div class="pop-lbl" style="margin-bottom:8px">Agente</div>
+      <div class="ag-grid">
+        <div class="ag-opt matteo on" id="ag-matteo" onclick="selAg('matteo')"><div class="ag-av">M</div><div class="ag-nm">Matteo</div></div>
+        <div class="ag-opt giuseppe" id="ag-giuseppe" onclick="selAg('giuseppe')"><div class="ag-av">G</div><div class="ag-nm">Giuseppe</div></div>
+      </div>
+      <div class="pop-field"><div class="pop-lbl">Note</div><input class="pop-input" id="f-note" placeholder="Note (facoltativo)…"></div>
+      <button class="pop-save" id="pop-save-btn" onclick="saveApt()">💾 Salva appuntamento</button>
+    </div>
+  </div>
+</div>
+
+<!-- POPUP DETTAGLIO APT -->
+<div class="dapt-overlay" id="dapt-overlay" onclick="if(event.target===this)closeDapt()">
+  <div class="dapt-sheet" id="dapt-sheet">
+    <div class="dapt-topbar" id="dapt-topbar"></div>
+    <div class="dapt-handle-wrap"><div class="dapt-handle"></div></div>
+    <div class="dapt-body">
+      <div class="dapt-name" id="dapt-name">—</div>
+      <div id="dapt-fields"></div>
+      <div class="dapt-btns">
+        <button class="dapt-gc" onclick="window.open('https://calendar.google.com','_blank')">📅 Google Calendar</button>
+        <button class="dapt-del" id="dapt-del-btn" onclick="deleteEv()">🗑 Elimina</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CRM DETAIL PANEL -->
+<div class="det-overlay" id="det-overlay" onclick="if(event.target===this)closeDet()">
+  <div class="det-panel">
+    <div class="det-hdr">
+      <button class="det-close" onclick="closeDet()">✕</button>
+      <div class="det-av m" id="det-av">M</div>
+      <div class="det-name" id="det-name">—</div>
+      <div class="det-tel" id="det-tel">—</div>
+    </div>
+    <div class="det-body">
+      <div class="det-sec"><div class="det-sec-ttl">Fase pipeline</div><div class="det-pipe" id="det-pipe"></div></div>
+      <div class="det-kpi" id="det-kpi"></div>
+      <div class="det-sec">
+        <div class="det-sec-ttl">Azioni rapide</div>
+        <button class="det-new-apt" onclick="newAptFromDet()">📅 Nuovo appuntamento</button>
+        <button class="det-wa-btn" onclick="openWaDet('followup')">💬 WhatsApp follow-up</button>
+        <button class="det-wa-btn" onclick="openWaDet('recensione')" id="det-wa-rec" style="display:none">⭐ Richiesta recensione</button>
+      </div>
+      <div class="det-sec"><div class="det-sec-ttl">Storico</div><div id="det-storico"></div></div>
+      <div class="det-sec">
+        <div class="det-sec-ttl">Note</div>
+        <textarea class="det-note-ta" id="det-note-ta" placeholder="Aggiungi note…"></textarea>
+        <button class="det-save-btn" onclick="saveDetNote()">Salva nota</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- WA POPUP -->
+<div class="wa-overlay" id="wa-overlay" onclick="if(event.target===this)closeWa()">
+  <div class="wa-popup">
+    <div class="wa-popup-title" id="wa-title">Messaggio WhatsApp</div>
+    <div class="wa-popup-sub" id="wa-sub">Modifica il testo prima di inviare</div>
+    <textarea class="wa-ta" id="wa-ta"></textarea>
+    <div class="wa-btns">
+      <button class="wa-send" onclick="sendWa()">💬 Apri WhatsApp</button>
+      <button class="wa-cancel" onclick="closeWa()">Annulla</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+var CFG = {
+  N8N: 'https://n8n.edilnordre.it',
+  SAVE: '/webhook/edilnord-salva-appuntamento',
+  LOAD: '/webhook/edilnord-leggi-appuntamenti',
+  DEL:  '/webhook/edilnord-elimina-appuntamento',
+  IMMS: '/webhook/edilnord-leggi-immobili',
+  CLIENTI: '/webhook/edilnord-leggi-clienti',
+  UPD_STATO: '/webhook/edilnord-aggiorna-stato-cliente',
+  WX_LAT: 45.5478, WX_LON: 9.2908
+};
+
+var allEvents = [], allClienti = [], newsCache = [];
+var selDate = new Date(), viewDate = new Date(), miniDate = new Date();
+var selTipoVal = '', selAgente = 'matteo', isTodoMode = false, detEvId = null;
+var currentTab = 'agenda';
+var crmTipo = '', crmImm = '', crmAg = '', selClienteDet = null;
+
+var MESI = ['Gennaio','Febbraio','Marzo','Aprile','Maggio','Giugno','Luglio','Agosto','Settembre','Ottobre','Novembre','Dicembre'];
+var MESI_SH = ['Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott','Nov','Dic'];
+var GIORNI = ['domenica','lunedì','martedì','mercoledì','giovedì','venerdì','sabato'];
+var DAYS_MON = ['Lun','Mar','Mer','Gio','Ven','Sab','Dom'];
+var HOURS = ['08:00','09:00','10:00','11:00','12:00','13:00','14:00','15:00','16:00','17:00','18:00','19:00','20:00'];
+var PIPELINE = [
+  {id:'primo',  label:'Primo contatto', h:'h-blu',  c:'c-blu',  ob:'on-blu'},
+  {id:'visitato',label:'Visitato',      h:'h-gial', c:'c-gial', ob:'on-gial'},
+  {id:'attesa', label:'Attesa match',   h:'h-aran', c:'c-aran', ob:'on-aran'},
+  {id:'proposta',label:'In proposta',   h:'h-ross', c:'c-ross', ob:'on-ross'},
+  {id:'rogito', label:'Rogito / Firma', h:'h-verd', c:'c-verd', ob:'on-verd'},
+  {id:'archiviato',label:'Archiviato', h:'h-grig', c:'c-grig', ob:'on-grig'}
+];
+
+// ─── UTILS ───
+function fmt(d){ var y=d.getFullYear(),m=String(d.getMonth()+1).padStart(2,'0'),dd=String(d.getDate()).padStart(2,'0'); return y+'-'+m+'-'+dd; }
+function parseDate(s){ var p=s.split('-'); return new Date(+p[0],+p[1]-1,+p[2]); }
+function setText(id,v){ var el=document.getElementById(id); if(el) el.textContent=v; }
+function toast(msg,dur){ var el=document.getElementById('toast'); el.textContent=msg; el.classList.add('show'); clearTimeout(el._t); el._t=setTimeout(function(){ el.classList.remove('show'); },dur||3000); }
+function getWeekStart(d){ var dt=new Date(d),day=dt.getDay(); dt.setDate(dt.getDate()+(day===0?-6:1-day)); dt.setHours(0,0,0,0); return dt; }
+
+// ─── N8N ───
+function n8nPost(path, body) {
+  return fetch(CFG.N8N + path, {
+    method: 'POST',
+    headers: {'Content-Type':'application/json'},
+    body: JSON.stringify(body)
+  }).then(function(r){ if(!r.ok) throw new Error(path+' '+r.status); return r.json(); });
+}
+
+// ─── EVENTS ───
+function loadEvents() {
+  var today = new Date(), past = new Date(), fut = new Date();
+  past.setDate(today.getDate()-365); fut.setDate(today.getDate()+90);
+  return n8nPost(CFG.LOAD, {dateFrom:fmt(past),dateTo:fmt(fut)}).then(function(data){
+    var arr = Array.isArray(data) ? data : (data.events||[]);
+    return arr.map(function(e){
+      return {
+        id: e.id||e.gcalId||String(Date.now()+Math.random()),
+        nome: e.nome||e.summary||'—',
+        tel: e.tel||e.telefono||'',
+        tipo: e.tipo||e.type||'Vecchio appuntamento',
+        immobile: e.immobile||'',
+        agente: (e.agente||'matteo').toLowerCase(),
+        data: (e.data||e.date||'').slice(0,10),
+        ora: e.ora||e.time||'09:00',
+        note: e.note||e.notes||'',
+        gcalLink: e.gcalLink||'',
+        isCRM: !!(e.isCRM!==false&&(e.tipo||e.nome)),
+        isTodo: !!(e.isTodo||((e.tipo||'').toLowerCase().includes('cose da fare')))
+      };
+    }).filter(function(e){ return !!e.data; });
+  });
+}
+
+// ─── METEO ───
+var WX_ICO={0:'☀️',1:'🌤',2:'⛅',3:'☁️',45:'🌫',51:'🌦',61:'🌧',71:'🌨',75:'❄️',80:'🌦',95:'⛈'};
+var WX_DSC={0:'Sole',1:'Parz. sole',2:'Nuvoloso',3:'Coperto',45:'Nebbia',51:'Pioggerella',61:'Pioggia',71:'Neve',75:'Neve',80:'Rovesci',95:'Temporale'};
+function loadMeteo(){
+  var url='https://api.open-meteo.com/v1/forecast?latitude='+CFG.WX_LAT+'&longitude='+CFG.WX_LON+'&current=temperature_2m,weathercode,windspeed_10m,relativehumidity_2m&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=Europe%2FRome&forecast_days=2';
+  fetch(url).then(function(r){return r.json();}).then(function(d){
+    var c=d.current, t=Math.round(c.temperature_2m);
+    var ico=WX_ICO[c.weathercode]||'🌡', dsc=WX_DSC[c.weathercode]||'—';
+    var hum=c.relativehumidity_2m+'%', win=Math.round(c.windspeed_10m)+' km/h', min='Min '+Math.round(d.daily.temperature_2m_min[0])+'°';
+    var t2i=WX_ICO[d.daily.weathercode[1]]||'🌡', t2=Math.round(d.daily.temperature_2m_min[1])+'°/'+Math.round(d.daily.temperature_2m_max[1])+'°';
+    setText('wx-ico',ico);setText('wx-tmp',t+'°');setText('wx-dsc',dsc);setText('wx-hum',hum);setText('wx-wind',win);setText('wx-min',min);setText('wt-ico',t2i);setText('wt-tmp',t2);
+    setText('mwx-ico',ico);setText('mwx-tmp',t+'°');setText('mwx-de',dsc);setText('mwx-hum',hum);setText('mwx-wind',win);setText('mwx-min',min);setText('mwt-ico',t2i);setText('mwt-tmp',t2);
+  }).catch(function(e){console.warn('meteo',e);});
+}
+
+// ─── NEWS ───
+function loadNews(){
+  var feeds=[
+    {url:'https://www.immobiliare.it/news/feed/',src:'Immobiliare.it'},
+    {url:'https://www.casa.it/notizie/feed/',src:'Casa.it'}
+  ];
+  var proxies=['https://api.allorigins.win/get?url=','https://corsproxy.io/?'];
+  var items=[];
+  function tryFeed(fi,pi){
+    if(fi>=feeds.length){finalizeNews(items);return;}
+    if(pi>=proxies.length){tryFeed(fi+1,0);return;}
+    var feed=feeds[fi], proxy=proxies[pi];
+    var url=proxy+encodeURIComponent(feed.url);
+    fetch(url,{signal:AbortSignal.timeout(5000)}).then(function(r){
+      if(!r.ok)throw new Error('bad');
+      return proxy.includes('allorigins')?r.json().then(function(j){return j.contents;}):r.text();
+    }).then(function(text){
+      var xml=new DOMParser().parseFromString(text,'text/xml');
+      var its=Array.from(xml.querySelectorAll('item'));
+      if(!its.length)throw new Error('empty');
+      its.forEach(function(it){
+        items.push({title:(it.querySelector('title')||{}).textContent||'',link:(it.querySelector('link')||{}).textContent||'#',pub:(it.querySelector('pubDate')||{}).textContent||'',src:feed.src});
+      });
+      tryFeed(fi+1,0);
+    }).catch(function(){tryFeed(fi,pi+1);});
+  }
+  tryFeed(0,0);
+}
+function finalizeNews(items){
+  if(!items.length){
+    items=[{title:'Mercato immobiliare: prezzi in crescita nelle grandi città',link:'https://www.immobiliare.it/news/',pub:'',src:'Immobiliare.it'}];
+  }
+  var seen=new Set();
+  newsCache=items.filter(function(n){
+    var k=n.title.slice(0,40); if(seen.has(k))return false; seen.add(k); return n.title;
+  }).sort(function(a,b){return new Date(b.pub)-new Date(a.pub);}).slice(0,30);
+  renderNews();
+}
+function renderNews(){
+  var badge=document.getElementById('rp-news-count');
+  if(badge) badge.textContent=newsCache.length+' notizie';
+  document.getElementById('rp-news').innerHTML=newsCache.slice(0,20).map(function(n){
+    var when=n.pub?new Date(n.pub).toLocaleDateString('it-IT',{day:'numeric',month:'short'}):'';
+    return '<div class="news-item" onclick="window.open(\''+n.link+'\',\'_blank\')">'+'<div class="news-dot"></div><div><div class="news-txt">'+n.title+'</div><div class="news-src">'+(n.src||'')+(when?' · '+when:'')+'</div></div></div>';
+  }).join('');
+  document.getElementById('mob-news-list').innerHTML=newsCache.map(function(n){
+    var when=n.pub?new Date(n.pub).toLocaleDateString('it-IT',{day:'numeric',month:'short',year:'numeric'}):'';
+    return '<div class="mob-news-item" onclick="window.open(\''+n.link+'\',\'_blank\')">'+'<div class="mob-news-title">'+n.title+'</div><div class="mob-news-src">'+(n.src||'')+(when?' · '+when:'')+'</div></div>';
+  }).join('');
+  var dn=document.getElementById('desk-news-list');
+  if(dn) dn.innerHTML=newsCache.map(function(n){
+    var when=n.pub?new Date(n.pub).toLocaleDateString('it-IT',{day:'numeric',month:'short',year:'numeric'}):'';
+    return '<div class="mob-news-item" style="max-width:680px" onclick="window.open(\''+n.link+'\',\'_blank\')">'+'<div class="mob-news-title">'+n.title+'</div><div class="mob-news-src">'+(n.src||'')+(when?' · '+when:'')+'</div></div>';
+  }).join('');
+}
+
+// ─── IMMOBILI ───
+function loadImms(){
+  n8nPost(CFG.IMMS,{}).then(function(data){
+    var arr=Array.isArray(data)?data:(data.immobili||[]);
+    var sel=document.getElementById('f-imm');
+    arr.forEach(function(im){ var v=im.nome||im,o=document.createElement('option'); o.value=v; o.textContent=v; sel.appendChild(o); });
+    setText('sb-imm-n',arr.length||'—');
+    var dl=document.getElementById('desk-imm-list');
+    if(dl) dl.innerHTML=arr.length?arr.map(function(im){ return '<div style="background:white;border:1px solid var(--g200);border-radius:12px;padding:14px 16px;margin-bottom:8px;font-size:14px;max-width:640px;">🏠 '+(im.nome||im)+'</div>'; }).join(''):'<div style="color:var(--g500);font-size:14px">Nessun immobile caricato</div>';
+  }).catch(function(e){console.warn('imms',e);});
+}
+
+// ─── DATE ───
+function updateMobDate(){
+  var n=new Date(), g=GIORNI[n.getDay()];
+  setText('mob-date-main', g.charAt(0).toUpperCase()+g.slice(1)+' '+n.getDate()+' '+MESI[n.getMonth()]);
+  setText('mob-date-yr', String(n.getFullYear()));
+}
+
+// ─── CALENDAR ───
+function renderWeek(){
+  var ws=getWeekStart(viewDate);
+  var days=[]; for(var i=0;i<7;i++){var d=new Date(ws);d.setDate(ws.getDate()+i);days.push(d);}
+  var todayStr=fmt(new Date());
+  var m1=MESI[days[0].getMonth()],m2=MESI[days[6].getMonth()];
+  setText('gcal-title',m1===m2?m1+' '+days[0].getFullYear():MESI_SH[days[0].getMonth()]+' – '+MESI_SH[days[6].getMonth()]+' '+days[6].getFullYear());
+  var hdr=document.getElementById('gcal-hdr');
+  hdr.style.gridTemplateColumns='52px repeat(7,1fr)';
+  hdr.innerHTML='<div class="ghd-corner"></div>'+days.map(function(d){
+    var isT=fmt(d)===todayStr,dow=d.getDay(),isSat=dow===6,isSun=dow===0;
+    return '<div class="ghd'+(isT?' td':'')+((isSat||isSun)?' wk':'')+'" onclick="clickDayHeader(\''+fmt(d)+'\')">'+'<div class="ghd-dn">'+DAYS_MON[(dow+6)%7]+'</div><div class="ghd-dd">'+d.getDate()+'</div></div>';
+  }).join('');
+  var grid=document.getElementById('gcal-grid');
+  grid.style.gridTemplateColumns='52px repeat(7,1fr)';
+  var html='<div class="time-col">'+HOURS.map(function(h){return '<div class="ts">'+h+'</div>';}).join('')+'</div>';
+  days.forEach(function(d){
+    var ds=fmt(d),isT=ds===todayStr,dow=d.getDay(),isSat=dow===6,isSun=dow===0;
+    var devs=allEvents.filter(function(e){return e.data===ds;}).sort(function(a,b){return a.ora.localeCompare(b.ora);});
+    var cells=HOURS.map(function(h){return '<div class="dc-cell" onclick="clickCell(\''+ds+'\',\''+h+'\')"></div>';}).join('');
+    var evHtml=devs.map(function(e){
+      var parts=(e.ora||'09:00').split(':'),hh=+parts[0],mm=+parts[1];
+      var top=Math.max(0,((hh-8)*60+mm)/60*56);
+      var cls=e.isTodo?'todo':e.isCRM?e.agente:'old';
+      return '<div class="ev '+cls+'" style="top:'+top+'px;height:52px" onclick="event.stopPropagation();showDapt(\''+e.id+'\')">'+'<div class="ev-name">'+e.nome+'</div>'+'<div class="ev-sub">'+e.tipo+(e.immobile?' · '+e.immobile:'')+'</div></div>';
+    }).join('');
+    html+='<div class="day-col'+(isT?' td':'')+((isSat||isSun)?' wk':'')+'">'+cells+evHtml+'</div>';
+  });
+  grid.innerHTML=html;
+  var now=new Date(),nowStr=fmt(now);
+  if(nowStr>=fmt(days[0])&&nowStr<=fmt(days[6])){
+    var top=((now.getHours()-8)*60+now.getMinutes())/60*56;
+    var nl=document.getElementById('now-line');
+    nl.style.top=Math.max(0,top)+'px'; nl.style.display=top>=0?'block':'none';
+  } else { document.getElementById('now-line').style.display='none'; }
+  renderUpcoming();
+}
+function clickDayHeader(ds){ selDate=parseDate(ds); openNewApt(); }
+function clickCell(ds,hour){ selDate=parseDate(ds); openNewApt(hour); }
+function navWeek(dir){ viewDate.setDate(viewDate.getDate()+dir*7); renderWeek(); }
+function goToday(){ viewDate=new Date();selDate=new Date();miniDate=new Date();renderWeek();renderMini();renderMobApts(); }
+function setView(v,btn){ document.querySelectorAll('.gcv').forEach(function(b){b.classList.remove('on');}); btn.classList.add('on'); renderWeek(); }
+
+function deskNav(sec,btn){
+  ['desk-cal','desk-imm','desk-cli','desk-app','desk-news'].forEach(function(id){
+    var el=document.getElementById(id); if(!el)return;
+    el.style.display='none'; el.classList.remove('on');
+  });
+  document.getElementById('rpanel').style.display='none';
+  document.querySelectorAll('.sb-ni').forEach(function(n){n.classList.remove('on');});
+  if(btn) btn.classList.add('on');
+  if(sec==='cal'){
+    document.getElementById('desk-cal').style.display='flex';
+    document.getElementById('rpanel').style.display='flex';
+  } else {
+    var panel=document.getElementById('desk-'+sec);
+    if(panel){panel.style.display='flex';panel.classList.add('on');}
+    if(sec==='cli'&&allClienti.length===0) loadClienti();
+  }
+}
+
+// ─── SEARCH ───
+function doSearch(q){
+  q=q.trim();
+  if(!q){closeSearch();return;}
+  var ql=q.toLowerCase();
+  var found=allEvents.filter(function(e){
+    return (e.nome||'').toLowerCase().includes(ql)||(e.tipo||'').toLowerCase().includes(ql)||(e.immobile||'').toLowerCase().includes(ql)||(e.tel||'').includes(ql)||(e.note||'').toLowerCase().includes(ql);
+  }).sort(function(a,b){return b.data.localeCompare(a.data);});
+  var ov=document.getElementById('search-ov');
+  if(!ov){ov=document.createElement('div');ov.id='search-ov';ov.className='search-ov';document.getElementById('gcal-scroll').appendChild(ov);}
+  if(!found.length){ov.innerHTML='<div style="padding:40px;text-align:center;color:var(--g500);font-size:13px">Nessun risultato</div>';return;}
+  ov.innerHTML='<div style="font-size:11px;color:var(--g500);margin-bottom:12px;font-weight:600">'+found.length+' risultati</div>'+
+  found.map(function(e){
+    var c=e.isTodo?'var(--amber)':e.isCRM?e.agente==='matteo'?'var(--matteo)':'var(--giuseppe)':'var(--g300)';
+    var ds=e.data?e.data.split('-').reverse().join('/'):'—';
+    return '<div class="search-result" onclick="showDapt(\''+e.id+'\')">'+'<div class="sr-bar" style="background:'+c+'"></div>'+'<div><div class="sr-nome">'+e.nome+'</div><div class="sr-meta">'+ds+' · '+e.ora+'</div><div class="sr-tipo">'+e.tipo+(e.immobile?' · '+e.immobile:'')+'</div>'+(e.tel?'<div class="sr-tipo">📞 '+e.tel+'</div>':'')+'</div></div>';
+  }).join('');
+}
+function closeSearch(){ var ov=document.getElementById('search-ov'); if(ov) ov.remove(); }
+
+// ─── UPCOMING ───
+function renderUpcoming(){
+  var todayStr=fmt(new Date());
+  var evs=allEvents.filter(function(e){return e.data===todayStr&&e.isCRM;}).sort(function(a,b){return a.ora.localeCompare(b.ora);});
+  var el=document.getElementById('rp-upc');
+  if(!evs.length){el.innerHTML='<div style="font-size:12px;color:var(--g300)">Nessun appuntamento oggi</div>';return;}
+  el.innerHTML=evs.map(function(e){
+    var cls=e.isTodo?'var(--amber)':e.agente==='matteo'?'var(--matteo)':'var(--giuseppe)';
+    return '<div class="upc-item"><div class="upc-dot" style="background:'+cls+'"></div><div><div class="upc-name">'+e.nome+'</div><div class="upc-meta">'+e.ora+' · '+(e.immobile||e.tipo)+'</div><div class="upc-type">'+e.tipo+'</div></div></div>';
+  }).join('');
+}
+
+// ─── MINI CAL ───
+function renderMini(){
+  var y=miniDate.getFullYear(),mo=miniDate.getMonth();
+  setText('mini-mo',MESI[mo]+' '+y);
+  var first=new Date(y,mo,1),last=new Date(y,mo+1,0);
+  var todayStr=fmt(new Date()),selStr=fmt(selDate);
+  var dow=first.getDay(); dow=dow===0?6:dow-1;
+  var html='';
+  for(var i=0;i<dow;i++){var pd=new Date(y,mo,1-dow+i);html+='<div class="mday mu">'+pd.getDate()+'</div>';}
+  for(var dd=1;dd<=last.getDate();dd++){
+    var ds=fmt(new Date(y,mo,dd));
+    var isT=ds===todayStr,isSel=ds===selStr&&!isT,hasEv=allEvents.some(function(e){return e.data===ds;});
+    html+='<div class="mday'+(isT?' td':'')+(isSel?' sel':'')+(hasEv?' has':'')+'" onclick="pickDay(\''+ds+'\')">'+dd+'</div>';
+  }
+  var rem=(7-(dow+last.getDate())%7)%7; for(var r=1;r<=rem;r++) html+='<div class="mday mu">'+r+'</div>';
+  document.getElementById('mini-days').innerHTML=html;
+}
+function miniNav(dir){ miniDate.setMonth(miniDate.getMonth()+dir); renderMini(); }
+function pickDay(ds){ selDate=parseDate(ds); renderMini(); renderMobApts(); }
+
+// ─── MOB APTS ───
+function renderMobApts(){
+  var ds=fmt(selDate);
+  var evs=allEvents.filter(function(e){return e.data===ds;}).sort(function(a,b){return a.ora.localeCompare(b.ora);});
+  var todayStr=fmt(new Date());
+  var lbl=document.getElementById('mob-sec-lbl');
+  if(lbl) lbl.innerHTML=(ds===todayStr?'Oggi':'<span style="font-family:var(--serif);font-size:14px;text-transform:none;letter-spacing:0;font-weight:400;">'+selDate.getDate()+' '+MESI_SH[selDate.getMonth()]+'</span>')+' <span class="mob-see">Vedi tutto →</span>';
+  var el=document.getElementById('mob-apts');
+  if(!evs.length){el.innerHTML='<div style="font-size:13px;color:var(--g300);padding:20px 0;text-align:center">Nessun appuntamento</div>';return;}
+  el.innerHTML=evs.map(function(e){
+    var barCls=e.isTodo?'todo':e.isCRM?e.agente:'old';
+    return '<div class="apt-card" onclick="showDapt(\''+e.id+'\')">'+'<div class="apt-time"><div class="apt-t">'+e.ora+'</div></div>'+'<div class="apt-bar '+barCls+'"></div>'+'<div class="apt-info"><div class="apt-name">'+e.nome+'</div><div class="apt-prop">'+(e.immobile||'—')+'</div><div class="apt-badge">'+e.tipo+'</div></div>'+'<div class="apt-chev">›</div></div>';
+  }).join('');
+}
+
+// ─── OGGI ───
+function renderOggi(){
+  var todayStr=fmt(new Date()),n=new Date(),g=GIORNI[n.getDay()];
+  setText('oggi-date',g.charAt(0).toUpperCase()+g.slice(1)+' '+n.getDate()+' '+MESI[n.getMonth()]+' '+n.getFullYear());
+  var evs=allEvents.filter(function(e){return e.data===todayStr;}).sort(function(a,b){return a.ora.localeCompare(b.ora);});
+  var el=document.getElementById('oggi-apts');
+  if(!evs.length){el.innerHTML='<div style="font-size:13px;color:var(--g300);padding:20px 0;text-align:center">Nessun appuntamento oggi</div>';return;}
+  el.innerHTML=evs.map(function(e){
+    var barCls=e.isTodo?'todo':e.isCRM?e.agente:'old';
+    return '<div class="apt-card" onclick="showDapt(\''+e.id+'\')">'+'<div class="apt-time"><div class="apt-t">'+e.ora+'</div></div>'+'<div class="apt-bar '+barCls+'"></div>'+'<div class="apt-info"><div class="apt-name">'+e.nome+'</div><div class="apt-prop">'+(e.immobile||'—')+'</div><div class="apt-badge">'+e.tipo+'</div></div>'+'<div class="apt-chev">›</div></div>';
+  }).join('');
+}
+
+// ─── TABS ───
+var TABS={agenda:'scr-agenda',oggi:'scr-oggi',news:'scr-news',note:'scr-note'};
+function switchTab(tab){
+  currentTab=tab;
+  Object.keys(TABS).forEach(function(t){
+    var s=document.getElementById(TABS[t]); if(s) s.classList.toggle('on',t===tab);
+    var b=document.getElementById('bn-'+t); if(b) b.classList.toggle('on',t===tab);
+  });
+  if(tab==='oggi') renderOggi();
+  if(tab==='note'){var ta=document.getElementById('notes-ta-mob');if(ta)ta.value=localStorage.getItem('edilnord-notes')||'';}
+}
+
+// ─── SWIPE ───
+function initSwipe(sheetId,closeFn){
+  var sheet=document.getElementById(sheetId); if(!sheet)return;
+  var startY=0,dragging=false;
+  sheet.addEventListener('touchstart',function(e){startY=e.touches[0].clientY;dragging=true;},{passive:true});
+  sheet.addEventListener('touchmove',function(e){
+    if(!dragging)return;
+    var dy=e.touches[0].clientY-startY;
+    if(dy>0&&sheet.scrollTop<=0){sheet.style.transform='translateY('+dy+'px)';sheet.style.transition='none';}
+  },{passive:true});
+  sheet.addEventListener('touchend',function(e){
+    if(!dragging)return; dragging=false;
+    var dy=e.changedTouches[0].clientY-startY;
+    if(dy>80){sheet.style.transition='transform .25s ease';sheet.style.transform='translateY(100%)';setTimeout(function(){sheet.style.transform='';sheet.style.transition='';closeFn();},240);}
+    else{sheet.style.transition='transform .2s ease';sheet.style.transform='';setTimeout(function(){sheet.style.transition='';},200);}
+  },{passive:true});
+}
+
+// ─── APT DETAIL ───
+function showDapt(id){
+  var e=allEvents.find(function(x){return x.id===id;}); if(!e)return;
+  detEvId=id;
+  var cls=e.isTodo?'todo':e.isCRM?e.agente:'old';
+  document.getElementById('dapt-topbar').className='dapt-topbar '+cls;
+  setText('dapt-name',e.nome);
+  document.getElementById('dapt-del-btn').style.display=e.isCRM?'block':'none';
+  var ds=e.data?e.data.split('-').reverse().join('/'):'—';
+  var html='';
+  if(e.tel) html+='<div class="dapt-field"><div class="dapt-ico">📞</div><div><div class="dapt-val">'+e.tel+'</div><div class="dapt-sub">Telefono</div></div></div>';
+  if(e.tipo) html+='<div class="dapt-field"><div class="dapt-ico">📋</div><div><div class="dapt-val">'+e.tipo+'</div><div class="dapt-sub">Tipo</div></div></div>';
+  if(e.immobile) html+='<div class="dapt-field"><div class="dapt-ico">🏠</div><div><div class="dapt-val">'+e.immobile+'</div><div class="dapt-sub">Immobile</div></div></div>';
+  html+='<div class="dapt-field"><div class="dapt-ico">📅</div><div><div class="dapt-val">'+ds+' · '+e.ora+'</div><div class="dapt-sub">Data e ora</div></div></div>';
+  html+='<div class="dapt-field"><div class="dapt-ico">👤</div><div><div class="dapt-val">'+(e.agente==='matteo'?'Matteo':'Giuseppe')+'</div><div class="dapt-sub">Agente</div></div></div>';
+  if(e.note) html+='<div class="dapt-field"><div class="dapt-ico">📝</div><div><div class="dapt-val">'+e.note+'</div><div class="dapt-sub">Note</div></div></div>';
+  document.getElementById('dapt-fields').innerHTML=html;
+  document.getElementById('dapt-overlay').classList.add('show');
+}
+function closeDapt(){ document.getElementById('dapt-overlay').classList.remove('show'); }
+function deleteEv(){
+  if(!detEvId||!confirm('Eliminare questo appuntamento?'))return;
+  n8nPost(CFG.DEL,{id:detEvId}).then(function(){
+    allEvents=allEvents.filter(function(e){return e.id!==detEvId;});
+    closeDapt(); renderWeek(); renderMobApts(); renderMini(); renderOggi();
+    toast('🗑 Appuntamento eliminato');
+  }).catch(function(){toast('❌ Errore eliminazione.');});
+}
+
+// ─── NEW APT ───
+function openNewApt(presetHour){
+  ['f-nome','f-tel','f-cerca','f-note'].forEach(function(id){var el=document.getElementById(id);if(el)el.value='';});
+  document.getElementById('f-todo').value='';
+  document.getElementById('f-data').value=fmt(selDate);
+  document.getElementById('f-ora').value=presetHour||'10:00';
+  document.getElementById('f-imm').value='';
+  document.getElementById('cerca-wrap').style.display='none';
+  document.getElementById('todo-ta-wrap').style.display='none';
+  selTipoVal=''; isTodoMode=false;
+  document.querySelectorAll('.tipo-opt').forEach(function(o){o.classList.remove('on');});
+  document.getElementById('tipo-todo').classList.remove('on');
+  selAg('matteo');
+  var d=selDate,g=GIORNI[d.getDay()];
+  setText('pop-sub',g.charAt(0).toUpperCase()+g.slice(1)+' '+d.getDate()+' '+MESI[d.getMonth()]);
+  document.getElementById('apt-overlay').classList.add('show');
+  setTimeout(function(){var s=document.getElementById('apt-sheet');if(s)s.scrollTop=0;},50);
+}
+function closeApt(){ document.getElementById('apt-overlay').classList.remove('show'); }
+function selTipo(el,val){
+  selTipoVal=val; isTodoMode=false;
+  document.querySelectorAll('.tipo-opt').forEach(function(o){o.classList.remove('on');});
+  document.getElementById('tipo-todo').classList.remove('on');
+  document.getElementById('todo-ta-wrap').style.display='none';
+  if(el) el.classList.add('on');
+  document.getElementById('cerca-wrap').style.display=(val==='In cerca di...')?'block':'none';
+}
+function selTodo(){
+  isTodoMode=true; selTipoVal='Cose da fare';
+  document.querySelectorAll('.tipo-opt').forEach(function(o){o.classList.remove('on');});
+  document.getElementById('tipo-todo').classList.add('on');
+  document.getElementById('cerca-wrap').style.display='none';
+  document.getElementById('todo-ta-wrap').style.display='block';
+  setTimeout(function(){var ta=document.getElementById('f-todo');if(ta)ta.focus();},100);
+}
+function selAg(ag){
+  selAgente=ag;
+  document.getElementById('ag-matteo').className='ag-opt matteo'+(ag==='matteo'?' on':'');
+  document.getElementById('ag-giuseppe').className='ag-opt giuseppe'+(ag==='giuseppe'?' on':'');
+  setText('sb-av',ag==='matteo'?'M':'G');
+  setText('sb-nm',ag==='matteo'?'Matteo':'Giuseppe');
+}
+function saveApt(){
+  var nome=document.getElementById('f-nome').value.trim()||'—';
+  var tel=document.getElementById('f-tel').value.trim();
+  var cerca=document.getElementById('f-cerca').value.trim();
+  var imm=document.getElementById('f-imm').value;
+  var note=isTodoMode?document.getElementById('f-todo').value.trim():document.getElementById('f-note').value.trim();
+  var data=document.getElementById('f-data').value;
+  var ora=document.getElementById('f-ora').value;
+  if(!data){toast('⚠️ Seleziona almeno la data');return;}
+  var tipo=selTipoVal||'Appuntamento';
+  var tipoFin=tipo+(cerca?' ('+cerca+')':'');
+  var telP=tel.replace(/^\+39\s?/,'').replace(/\+39/g,'').trim();
+  var gcalTitle=nome==='—'?tipoFin:nome+(telP?' – '+telP:'')+' – '+(imm||tipoFin);
+  var btn=document.getElementById('pop-save-btn');
+  btn.disabled=true; btn.textContent='Salvataggio…';
+  n8nPost(CFG.SAVE,{nome:nome,tel:tel,tipo:tipoFin,immobile:imm,agente:selAgente,data:data,ora:ora,note:note,gcalTitle:gcalTitle,isTodo:isTodoMode}).then(function(res){
+    allEvents.push({id:res.id||String(Date.now()),nome:nome,tel:tel,tipo:tipoFin,immobile:imm,agente:selAgente,data:data,ora:ora,note:note,gcalLink:res.gcalLink||'',isCRM:true,isTodo:isTodoMode});
+    closeApt(); renderWeek(); renderMobApts(); renderMini(); renderOggi();
+    toast('✅ Salvato!');
+  }).catch(function(){toast('❌ Errore. Controlla n8n.');}).finally(function(){btn.disabled=false;btn.textContent='💾 Salva appuntamento';});
+}
+
+// ─── NOTIFICATIONS ───
+var notifiedEvents=new Set();
+function playAlertSound(){
+  try{
+    var ctx=new(window.AudioContext||window.webkitAudioContext)();
+    [[0,523.25],[0.18,659.25],[0.36,783.99]].forEach(function(pair){
+      var t=pair[0],freq=pair[1];
+      var osc=ctx.createOscillator(),gain=ctx.createGain();
+      osc.connect(gain);gain.connect(ctx.destination);
+      osc.type='sine';osc.frequency.value=freq;
+      gain.gain.setValueAtTime(0,ctx.currentTime+t);
+      gain.gain.linearRampToValueAtTime(0.35,ctx.currentTime+t+0.04);
+      gain.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+t+0.5);
+      osc.start(ctx.currentTime+t);osc.stop(ctx.currentTime+t+0.55);
+    });
+  }catch(e){console.warn('audio',e);}
+}
+function checkNotifications(){
+  var now=new Date(),todayStr=fmt(now);
+  allEvents.filter(function(e){return e.data===todayStr&&e.isCRM;}).forEach(function(e){
+    if(notifiedEvents.has(e.id))return;
+    var parts=(e.ora||'00:00').split(':'),hh=+parts[0],mm=+parts[1];
+    var evTime=new Date(now.getFullYear(),now.getMonth(),now.getDate(),hh,mm,0);
+    var diffMin=(evTime-now)/60000;
+    if(diffMin>=14&&diffMin<=16){
+      notifiedEvents.add(e.id);
+      playAlertSound();
+      toast('🔔 Tra 15 min: '+e.nome+' — '+e.tipo,6000);
+      if('Notification' in window&&Notification.permission==='granted'){
+        new Notification('Edilnord RE — Appuntamento tra 15 min',{body:e.nome+'\n'+e.tipo+(e.immobile?' · '+e.immobile:''),tag:'apt-'+e.id,requireInteraction:true});
+      }
+    }
+  });
+}
+
+// ─── CRM PIPELINE ───
+function getStage(c){
+  var s=String(c.stato||'').toLowerCase();
+  var t=(c.tipi||[]).join(' ').toLowerCase();
+  if(s.includes('archiviato')||s.includes('perso'))return 'archiviato';
+  if(s.includes('rogito')||t.includes('rogito')||t.includes('atto'))return 'rogito';
+  if(s.includes('proposta')||s.includes('trattativa'))return 'proposta';
+  if(s.includes('attesa')||s.includes('match'))return 'attesa';
+  if(s.includes('visitato')||(c.nAppuntamenti||0)>1)return 'visitato';
+  return 'primo';
+}
+function getTipoInfo(c){
+  var t=(c.tipi||[]).join(' ').toLowerCase();
+  if(t.includes('rogito')||t.includes('atto')) return {cls:'rog',label:'📝 Rogito'};
+  if(t.includes('locazione')||t.includes('contratto')) return {cls:'loc',label:'🔑 Locazione'};
+  if(t.includes('acquisto')) return {cls:'acq',label:'🏠 Acquisto'};
+  if(t.includes('affitto')) return {cls:'aff',label:'🔑 Affitto'};
+  if(t.includes('valutazione')) return {cls:'val',label:'📊 Valutazione'};
+  return {cls:'acq',label:'🏠 Acquisto'};
+}
+function crmMatches(c){
+  var q=(document.getElementById('crm-q')||{}).value||'';
+  if(q&&!(c.nome||'').toLowerCase().includes(q.toLowerCase())&&!(c.tel||'').includes(q))return false;
+  if(crmAg&&(c.agente||'').toLowerCase()!==crmAg)return false;
+  if(crmImm){var imms=(c.immobili||[]).map(function(i){return i.toLowerCase();});if(!imms.some(function(i){return i.includes(crmImm.toLowerCase());}))return false;}
+  if(crmTipo){
+    var t=(c.tipi||[]).join(' ').toLowerCase();
+    if(crmTipo==='acquisto'&&!t.includes('acquisto'))return false;
+    if(crmTipo==='affitto'&&!t.includes('affitto'))return false;
+    if(crmTipo==='valutazione'&&!t.includes('valutazione'))return false;
+    if(crmTipo==='rogito'&&!t.includes('rogito')&&!t.includes('atto'))return false;
+    if(crmTipo==='locazione'&&!t.includes('locazione')&&!t.includes('contratto'))return false;
+  }
+  return true;
+}
+function isValidCrmClient(c){
+  var nome=String(c.nome||'').trim();
+  var tel=String(c.tel||'').trim();
+  if(!tel||nome==='—'||!nome)return false;
+  var t=(c.tipi||[]).join(' ').toLowerCase();
+  var excluded=['cose da fare','personale','todo'];
+  if(excluded.some(function(x){return t.includes(x);}))return false;
+  var allowed=['acquisto','affitto','valutazione','ufficio','rogito','atto','locazione','contratto'];
+  return allowed.some(function(x){return t.includes(x);});
+}
+function loadClienti(){
+  n8nPost(CFG.CLIENTI,{}).then(function(data){
+    var arr=Array.isArray(data)?data:(data.clienti||[]);
+    allClienti=arr.filter(isValidCrmClient);
+    buildImmChips();
+    crmRender();
+  }).catch(function(e){
+    console.warn('clienti',e);
+    var b=document.getElementById('crm-board');
+    if(b) b.innerHTML='<div style="padding:32px;color:var(--g500);font-size:13px;text-align:center">Impossibile caricare clienti.<br>Controlla che il workflow n8n sia attivo.</div>';
+  });
+}
+function buildImmChips(){
+  var row=document.getElementById('crm-imm-row');
+  if(!row)return;
+  var all=new Set();
+  allClienti.forEach(function(c){(c.immobili||[]).forEach(function(i){if(i&&i.trim())all.add(i.trim());});});
+  var today=fmt(new Date());
+  var urgenti={};
+  allClienti.forEach(function(c){
+    if(c.followUp&&c.followUp<today){(c.immobili||[]).forEach(function(i){urgenti[i]=(urgenti[i]||0)+1;});}
+  });
+  var chips='<span class="crm-row-lbl">Immobile</span><div class="crm-chip on" data-imm="" onclick="crmSetImm(\'\',this)">Tutti</div>';
+  all.forEach(function(i){
+    var u=urgenti[i]||0;
+    chips+='<div class="crm-chip'+(u?' urg':'')+'" data-imm="'+i+'" onclick="crmSetImm(\''+i.replace(/'/g,"\\'")+'  \',this)">'+i+(u?' ⚠️'+u:'')+'</div>';
+  });
+  row.innerHTML=chips;
+}
+function crmRender(){
+  var filtered=allClienti.filter(crmMatches);
+  var today=fmt(new Date());
+  setText('crm-n-tot',filtered.length);
+  setText('crm-n-cal',filtered.filter(function(c){return getStage(c)==='proposta';}).length);
+  setText('crm-n-fu',filtered.filter(function(c){return c.followUp&&c.followUp<today;}).length);
+  var byStage={};
+  PIPELINE.forEach(function(s){byStage[s.id]=[];});
+  filtered.forEach(function(c){var st=getStage(c);if(byStage[st])byStage[st].push(c);});
+  var board=document.getElementById('crm-board');
+  if(!board)return;
+  var html='';
+  PIPELINE.forEach(function(stage){
+    var cards=byStage[stage.id]||[];
+    var cardsHtml=cards.length?cards.map(function(c){
+      var initials=(c.nome||'?').split(' ').map(function(w){return w[0]||'';}).join('').toUpperCase().slice(0,2);
+      var ag=(c.agente||'matteo').toLowerCase();
+      var isOver=c.followUp&&c.followUp<today;
+      var isFuWarn=c.followUp&&c.followUp>=today;
+      var fuDate=c.followUp?new Date(c.followUp).toLocaleDateString('it-IT',{day:'numeric',month:'short'}):'';
+      var ti=getTipoInfo(c);
+      var imm=(c.immobili||[])[0]||'';
+      var cardCls='kc'+(isOver?' urg':stage.id==='proposta'?' warm':stage.id==='rogito'?' rog':'');
+      var idx=allClienti.indexOf(c);
+      return '<div class="'+cardCls+'" onclick="openDet('+idx+')">'
+        +'<div class="kc-top"><div class="kc-av '+ag+'">'+initials+'</div><div class="kc-name">'+c.nome+'</div></div>'
+        +'<div class="kc-tipo '+ti.cls+'">'+ti.label+'</div>'
+        +(imm?'<div class="kc-sub">🏠 '+imm+'</div>':'')
+        +(c.tel?'<div class="kc-sub">📞 '+c.tel+'</div>':'')
+        +(isOver?'<div class="kc-fu over">⚠️ Follow-up scaduto</div>':'')
+        +(isFuWarn&&!isOver?'<div class="kc-fu warn">🗓 '+fuDate+'</div>':'')
+        +(stage.id==='rogito'?'<button class="kc-wa" onclick="event.stopPropagation();openWaCard('+idx+',\'recensione\')">💬 Richiesta recensione</button>':'')
+        +(isOver?'<button class="kc-wa" onclick="event.stopPropagation();openWaCard('+idx+',\'followup\')">💬 Follow-up WhatsApp</button>':'')
+        +'</div>';
+    }).join(''):'<div class="k-empty">Nessun cliente</div>';
+    html+='<div class="k-col">'
+      +'<div class="k-col-hdr '+stage.h+'"><span class="k-col-ttl '+stage.c+'">'+stage.label+'</span><span class="k-col-n">'+cards.length+'</span></div>'
+      +'<div class="k-col-body">'+cardsHtml+'</div>'
+      +'</div>';
+  });
+  board.innerHTML=html;
+}
+
+// filtri CRM
+document.addEventListener('DOMContentLoaded',function(){
+  var tabs=document.getElementById('crm-tabs');
+  if(tabs){
+    tabs.addEventListener('click',function(e){
+      var tab=e.target.closest('.crm-tab');
+      if(!tab)return;
+      crmTipo=tab.dataset.tipo||'';
+      tabs.querySelectorAll('.crm-tab').forEach(function(t){t.classList.remove('on');});
+      tab.classList.add('on');
+      crmRender();
+    });
+  }
+});
+function crmSetImm(imm,btn){
+  crmImm=imm.trim();
+  var row=document.getElementById('crm-imm-row');
+  if(row) row.querySelectorAll('.crm-chip').forEach(function(c){c.classList.remove('on');});
+  btn.classList.add('on');
+  crmRender();
+}
+function crmSetAg(ag,btn){
+  crmAg=ag;
+  ['ag-tutti','ag-m','ag-g'].forEach(function(id){var el=document.getElementById(id);if(el)el.className='crm-chip';});
+  if(!ag){document.getElementById('ag-tutti').className='crm-chip on';}
+  else if(ag==='matteo'){document.getElementById('ag-m').className='crm-chip on-m on';}
+  else{document.getElementById('ag-g').className='crm-chip on-g on';}
+  crmRender();
+}
+
+// ─── DET PANEL ───
+function openDet(idx){
+  var c=allClienti[idx]; if(!c)return;
+  selClienteDet=c;
+  var ag=(c.agente||'matteo').toLowerCase();
+  var initials=(c.nome||'?').split(' ').map(function(w){return w[0]||'';}).join('').toUpperCase().slice(0,2);
+  var av=document.getElementById('det-av');
+  av.textContent=initials; av.className='det-av '+(ag==='matteo'?'m':'g');
+  setText('det-name',c.nome);
+  var telEl=document.getElementById('det-tel');
+  telEl.innerHTML=c.tel?'<a href="tel:'+c.tel+'">📞 '+c.tel+'</a>':'Nessun telefono';
+  // pipeline
+  var stage=getStage(c);
+  var isRogito=stage==='rogito';
+  document.getElementById('det-wa-rec').style.display=isRogito?'flex':'none';
+  document.getElementById('det-pipe').innerHTML=PIPELINE.map(function(s){
+    return '<button class="det-pipe-btn'+(s.id===stage?' '+s.ob:'')+'" onclick="setStage('+idx+',\''+s.id+'\',this)">'+s.label+'</button>';
+  }).join('');
+  // kpi
+  var apts=c.appuntamenti||[];
+  var imms=[]; var seen={}; apts.forEach(function(a){if(a.immobile&&!seen[a.immobile]){seen[a.immobile]=1;imms.push(a.immobile);}});
+  document.getElementById('det-kpi').innerHTML=
+    '<div class="det-kpi-card"><div class="det-kpi-n">'+apts.length+'</div><div class="det-kpi-l">Visite</div></div>'+
+    '<div class="det-kpi-card"><div class="det-kpi-n">'+(imms.length||'—')+'</div><div class="det-kpi-l">Immobili</div></div>'+
+    '<div class="det-kpi-card"><div class="det-kpi-n">'+(ag==='matteo'?'M':'G')+'</div><div class="det-kpi-l">Agente</div></div>';
+  // storico
+  document.getElementById('det-storico').innerHTML=apts.length?apts.map(function(a){
+    var d=a.data?new Date(a.data):null;
+    var mese=d?d.getDate()+' '+MESI_SH[d.getMonth()]:'—';
+    var dotCls=(a.agente||'matteo').toLowerCase()==='matteo'?'m':'g';
+    return '<div class="det-hist"><div class="det-hist-date">'+mese+'</div><div class="det-hist-dot '+dotCls+'"></div><div><div class="det-hist-tipo">'+(a.tipo||'—')+'</div>'+(a.immobile?'<div class="det-hist-imm">🏠 '+a.immobile+'</div>':'')+'</div></div>';
+  }).join(''):'<div style="color:var(--g300);font-size:12px;padding:8px 0">Nessuno</div>';
+  // note
+  var noteKey='crm-note-'+(c.tel||'')+c.nome;
+  var nta=document.getElementById('det-note-ta');
+  if(nta){nta.value=localStorage.getItem(noteKey)||'';nta.dataset.key=noteKey;}
+  document.getElementById('det-overlay').classList.add('show');
+}
+function closeDet(){ document.getElementById('det-overlay').classList.remove('show'); }
+function setStage(idx,stageId,btn){
+  var c=allClienti[idx]; if(!c)return;
+  c.stato=stageId;
+  document.querySelectorAll('.det-pipe-btn').forEach(function(b){b.className='det-pipe-btn';});
+  var stage=PIPELINE.find(function(s){return s.id===stageId;});
+  if(stage) btn.className='det-pipe-btn '+stage.ob;
+  var isRogito=stageId==='rogito';
+  document.getElementById('det-wa-rec').style.display=isRogito?'flex':'none';
+  crmRender();
+  n8nPost(CFG.UPD_STATO,{nome:c.nome,tel:c.tel,stato:stageId}).then(function(){toast('✅ Fase aggiornata');}).catch(function(){toast('❌ Errore aggiornamento');});
+}
+function saveDetNote(){
+  var ta=document.getElementById('det-note-ta'); if(!ta)return;
+  localStorage.setItem(ta.dataset.key,ta.value);
+  toast('📝 Nota salvata');
+}
+function newAptFromDet(){
+  if(!selClienteDet)return;
+  closeDet(); openNewApt();
+  setTimeout(function(){
+    var fn=document.getElementById('f-nome'),ft=document.getElementById('f-tel');
+    if(fn)fn.value=selClienteDet.nome==='—'?'':selClienteDet.nome;
+    if(ft)ft.value=selClienteDet.tel||'';
+  },80);
+}
+function openWaDet(tipo){ if(selClienteDet) openWaPopup(tipo,selClienteDet.nome,selClienteDet.tel||''); }
+function openWaCard(idx,tipo){ var c=allClienti[idx]; if(c) openWaPopup(tipo,c.nome,c.tel||''); }
+
+// ─── WA POPUP ───
+var WA_TPL={
+  followup: function(n){ return 'Ciao '+n+'! 👋\nSono Matteo di Edilnord RE.\nVolevo sapere come stai e se hai avuto modo di riflettere sulla nostra ultima visita.\nSiamo qui se hai domande o vuoi vedere altri immobili!\nA presto 🏠'; },
+  recensione: function(n){ return 'Ciao '+n+'! 🎉\nComplimenti per il tuo nuovo immobile!\nSe sei soddisfatto del nostro lavoro, ci farebbe molto piacere una tua recensione su Google:\n👉 [inserisci link]\nGrazie mille!\nMatteo - Edilnord RE'; },
+  match: function(n){ return 'Ciao '+n+'! 👋\nSono Matteo di Edilnord RE.\nHo un immobile che potrebbe interessarti — molto simile a quello che cercavi!\nTi va di vederlo questa settimana?\nA presto 🏠'; },
+  auguri: function(n){ return 'Ciao '+n+'! 🎄\nTutto il team di Edilnord RE ti augura buone feste!\nA presto, Matteo'; }
+};
+var waCurrentTel='';
+function openWaPopup(tipo,nome,tel){
+  var n=nome.split(' ')[0];
+  var tmpl=WA_TPL[tipo]||WA_TPL.followup;
+  var titles={followup:'Follow-up cliente',recensione:'Richiesta recensione',match:'Nuovo immobile disponibile',auguri:'Auguri festività'};
+  setText('wa-title',titles[tipo]||'Messaggio WhatsApp');
+  setText('wa-sub','Per '+nome+(tel?' · '+tel:''));
+  document.getElementById('wa-ta').value=tmpl(n);
+  waCurrentTel=String(tel||'').replace(/\s+/g,'').replace(/^\+39/,'').replace(/^\+/,'');
+  document.getElementById('wa-overlay').classList.add('show');
+}
+function closeWa(){ document.getElementById('wa-overlay').classList.remove('show'); }
+function sendWa(){
+  var msg=encodeURIComponent(document.getElementById('wa-ta').value);
+  var url=waCurrentTel?'https://wa.me/39'+waCurrentTel+'?text='+msg:'https://wa.me/?text='+msg;
+  window.open(url,'_blank');
+  closeWa();
+}
+
+// ─── NOTES ───
+function initNotes(){
+  var saved=localStorage.getItem('edilnord-notes')||'';
+  ['notes-ta','notes-ta-desk','notes-ta-mob'].forEach(function(id){
+    var ta=document.getElementById(id); if(!ta)return;
+    ta.value=saved;
+    ta.addEventListener('input',function(){
+      var v=ta.value; localStorage.setItem('edilnord-notes',v);
+      ['notes-ta','notes-ta-desk','notes-ta-mob'].forEach(function(i2){
+        var t2=document.getElementById(i2); if(t2&&t2!==ta) t2.value=v;
+      });
+    });
+  });
+}
+
+// ─── INIT ───
+function init(){
+  updateMobDate();
+  renderMini();
+  renderMobApts();
+  renderWeek();
+  initNotes();
+  initSwipe('apt-sheet',closeApt);
+  initSwipe('dapt-sheet',closeDapt);
+  if('Notification' in window && Notification.permission==='default') Notification.requestPermission();
+  loadMeteo();
+  loadNews();
+  loadImms();
+  loadEvents().then(function(evs){
+    allEvents=evs;
+    renderWeek(); renderMobApts(); renderMini(); renderOggi();
+  }).catch(function(err){
+    console.error('loadEvents',err);
+    toast('⚠️ Impossibile caricare eventi — controlla n8n');
+    document.getElementById('gcal-grid').innerHTML='<div style="padding:32px;color:var(--g500);font-size:13px;text-align:center">Impossibile caricare eventi.<br>Controlla la connessione a n8n.</div>';
+  });
+  setInterval(checkNotifications,60000);
+  checkNotifications();
+  setInterval(function(){
+    loadEvents().then(function(evs){
+      allEvents=evs;
+      renderWeek(); renderMobApts(); renderMini(); renderOggi(); renderUpcoming();
+      var dot=document.getElementById('sync-dot');
+      if(dot){dot.style.opacity='1';setTimeout(function(){dot.style.opacity='0';},1000);}
+    }).catch(function(){console.warn('sync fallita');});
+  },60000);
+}
+document.addEventListener('DOMContentLoaded',init);
+</script>
+</body>
+</html>
