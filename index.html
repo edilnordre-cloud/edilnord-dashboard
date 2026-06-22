@@ -962,6 +962,29 @@ select.pop-input option{background:#0d1912;color:#e8f0eb;}
 ::-webkit-scrollbar-track{background:transparent;}
 ::-webkit-scrollbar-thumb{background:rgba(157,192,170,.18);border-radius:3px;}
 
+/* ── CALENDAR END-OF-DAY FADE ── */
+.cal-eod{height:80px;background:linear-gradient(to bottom,transparent,#f0f4f1);pointer-events:none;}
+
+/* ── STATS BAR ── */
+.cal-statsbar{
+  flex-shrink:0;
+  background:rgba(240,244,241,.97);
+  backdrop-filter:blur(12px);
+  border-top:1px solid rgba(21,35,25,.09);
+  padding:10px 16px;
+  display:flex;align-items:center;gap:20px;
+  font-size:12px;
+}
+.csb-item{display:flex;align-items:center;gap:7px;}
+.csb-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
+.csb-dot.m{background:#4285f4;box-shadow:0 0 6px rgba(66,133,244,.5);}
+.csb-dot.g{background:#e07b39;box-shadow:0 0 6px rgba(224,123,57,.5);}
+.csb-dot.tot{background:var(--green);box-shadow:0 0 6px rgba(109,184,130,.4);}
+.csb-lbl{color:rgba(21,35,25,.5);font-size:11px;}
+.csb-n{font-weight:700;color:#152319;font-size:13px;}
+.csb-sep{width:1px;height:18px;background:rgba(21,35,25,.1);}
+.csb-week{margin-left:auto;font-size:11px;color:rgba(21,35,25,.4);font-style:italic;}
+
 /* ── TOAST ── */
 #toast{background:rgba(12,22,16,.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(157,192,170,.18);color:#e8f0eb;box-shadow:0 8px 32px rgba(0,0,0,.5);}
 
@@ -1082,7 +1105,9 @@ select.pop-input option{background:#0d1912;color:#e8f0eb;}
     <div class="gcal-scroll" id="gcal-scroll">
       <div class="now-line" id="now-line"></div>
       <div class="gcal-grid" id="gcal-grid"><div class="loading"><div class="spin"></div>Caricamento eventi…</div></div>
+      <div class="cal-eod"></div>
     </div>
+    <div class="cal-statsbar" id="cal-statsbar"></div>
   </div>
 
   <div class="desk-panel" id="desk-imm">
@@ -1647,6 +1672,28 @@ function renderWeek(){
     nl.style.top=Math.max(0,top)+'px'; nl.style.display=top>=0?'block':'none';
   } else { document.getElementById('now-line').style.display='none'; }
   renderUpcoming();
+  renderStatsBar(days);
+}
+function renderStatsBar(days){
+  var bar=document.getElementById('cal-statsbar');
+  if(!bar)return;
+  var weekStart=fmt(days[0]),weekEnd=fmt(days[days.length-1]);
+  var weekEvs=allEvents.filter(function(e){return e.data>=weekStart&&e.data<=weekEnd&&!e.isTodo;});
+  var tot=weekEvs.length;
+  var matteo=weekEvs.filter(function(e){return (e.agente||'').toLowerCase()==='matteo';}).length;
+  var giuseppe=weekEvs.filter(function(e){return (e.agente||'').toLowerCase()==='giuseppe';}).length;
+  var todayStr=fmt(new Date());
+  var todayEvs=allEvents.filter(function(e){return e.data===todayStr&&!e.isTodo;}).length;
+  var mesi=['Gen','Feb','Mar','Apr','Mag','Giu','Lug','Ago','Set','Ott','Nov','Dic'];
+  var d0=days[0],d1=days[days.length-1];
+  var range=(d0.getMonth()===d1.getMonth()?d0.getDate()+' – '+d1.getDate()+' '+mesi[d0.getMonth()]:d0.getDate()+' '+mesi[d0.getMonth()]+' – '+d1.getDate()+' '+mesi[d1.getMonth()])+' '+d1.getFullYear();
+  bar.innerHTML='<div class="csb-item"><div class="csb-dot tot"></div><div class="csb-lbl">Settimana</div><div class="csb-n">'+tot+'</div></div>'
+    +'<div class="csb-sep"></div>'
+    +'<div class="csb-item"><div class="csb-dot m"></div><div class="csb-lbl">Matteo</div><div class="csb-n">'+matteo+'</div></div>'
+    +'<div class="csb-item"><div class="csb-dot g"></div><div class="csb-lbl">Giuseppe</div><div class="csb-n">'+giuseppe+'</div></div>'
+    +'<div class="csb-sep"></div>'
+    +'<div class="csb-item"><div class="csb-dot tot"></div><div class="csb-lbl">Oggi</div><div class="csb-n">'+todayEvs+'</div></div>'
+    +'<div class="csb-week">'+range+'</div>';
 }
 function clickDayHeader(ds){ selDate=parseDate(ds); openNewApt(); }
 function clickCell(ds,hour){ selDate=parseDate(ds); openNewApt(hour); }
