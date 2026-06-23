@@ -1397,15 +1397,8 @@ body.dark .ql-link:hover{color:#9dc0aa;border-color:rgba(157,192,170,.4);}
       <div class="cal-eod"></div>
     </div>
     <div class="cal-statsbar" id="cal-statsbar"></div>
-    <!-- NEWS TICKER -->
-    <div class="news-ticker" id="news-ticker">
-      <div class="nt-tag">📰 News</div>
-      <div class="nt-track">
-        <div class="nt-inner" id="nt-inner">
-          <span class="nt-item"><strong>Mercato</strong>Caricamento notizie immobiliari…</span>
-        </div>
-      </div>
-    </div>
+    <!-- nt-inner kept hidden for JS compat -->
+    <div style="display:none"><div id="nt-inner"></div></div>
     <!-- QUICK LINKS -->
     <div class="quick-links">
       <div class="ql-dot"></div>
@@ -1549,22 +1542,10 @@ body.dark .ql-link:hover{color:#9dc0aa;border-color:rgba(157,192,170,.4);}
     <div id="desk-news-list"><div class="loading"><div class="spin"></div></div></div>
   </div>
 
-  <div class="search-panel" id="rpanel">
-    <div class="rp-sec">
-      <div class="rp-title">Oggi <button class="rp-add" onclick="openNewApt()">+</button></div>
-      <div id="rp-upc"><div class="loading" style="padding:8px 0"><div class="spin"></div></div></div>
-    </div>
-    <div class="rp-sec grow">
-      <div class="rp-title">Appunti <button class="rp-add" onclick="deskNav('app',null)">✏️</button></div>
-      <textarea class="notes-ta" id="notes-ta" placeholder="Appunti settimanali…"></textarea>
-    </div>
-    <div class="rp-sec news-sec">
-      <div class="news-panel-hdr">
-        <div class="news-panel-hdr-lbl"><span class="news-panel-live"></span>News Mercato</div>
-        <span class="news-panel-badge" id="rp-news-count">—</span>
-      </div>
-      <div id="rp-news"><div class="loading" style="padding:6px 0"><div class="spin"></div></div></div>
-    </div>
+  <!-- rpanel removed — kept hidden for JS compat -->
+  <div id="rpanel" style="display:none">
+    <div id="rp-upc"></div><div id="notes-ta" style="display:none"></div>
+    <div id="rp-news"></div><span id="rp-news-count"></span>
   </div>
 </div>
 
