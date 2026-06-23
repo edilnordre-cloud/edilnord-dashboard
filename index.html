@@ -842,47 +842,49 @@ body.dark .cp-note-ta{background:rgba(255,255,255,.04);border-color:rgba(157,192
 /* POPUP SHEETS */
 .sheet-overlay{position:fixed;inset:0;background:rgba(10,10,8,.45);backdrop-filter:blur(6px);z-index:100;display:none;align-items:flex-end;justify-content:center;}
 .sheet-overlay.show{display:flex;}
-.pop-sheet{background:white;border-radius:24px 24px 0 0;width:100%;max-width:520px;height:92dvh;overflow-y:auto;padding-bottom:max(env(safe-area-inset-bottom,0px),24px);box-shadow:0 -8px 48px rgba(0,0,0,.2);animation:slideUp .25s ease;touch-action:pan-y;}
+.pop-sheet{background:white;border-radius:20px 20px 0 0;width:100%;max-width:520px;max-height:94dvh;overflow-y:auto;padding-bottom:max(env(safe-area-inset-bottom,0px),16px);box-shadow:0 -8px 48px rgba(0,0,0,.18);animation:slideUp .25s ease;touch-action:pan-y;}
 .pop-sheet::-webkit-scrollbar{display:none;}
 @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
-.pop-handle-wrap{position:sticky;top:0;z-index:10;background:white;padding:12px 0 0;border-radius:24px 24px 0 0;}
-.pop-handle{width:40px;height:4px;background:var(--g200);border-radius:2px;margin:0 auto 2px;}
-.pop-hdr{padding:10px 20px 0;}
-.pop-title{font-family:var(--serif);font-size:24px;color:var(--g900);font-weight:400;}
-.pop-sub{font-size:12px;color:var(--g500);margin-top:3px;}
-.pop-body{padding:16px 20px;}
-.pop-lbl{font-size:10px;font-weight:600;color:var(--g500);letter-spacing:.5px;text-transform:uppercase;margin-bottom:5px;}
-.pop-field{margin-bottom:12px;}
-.pop-input{width:100%;background:var(--g50);border:1.5px solid var(--g200);border-radius:10px;padding:11px 13px;font-size:14px;color:var(--g900);font-family:var(--sans);outline:none;transition:border-color .15s;appearance:none;}
+.pop-handle-wrap{position:sticky;top:0;z-index:10;background:white;padding:8px 0 0;border-radius:20px 20px 0 0;}
+.pop-handle{width:36px;height:4px;background:var(--g200);border-radius:2px;margin:0 auto 0;}
+.pop-hdr{padding:7px 18px 0;}
+.pop-title{font-size:19px;color:var(--g900);font-weight:700;letter-spacing:-.3px;}
+.pop-sub{font-size:11px;color:var(--g500);margin-top:1px;}
+.pop-body{padding:10px 18px 4px;}
+.pop-lbl{font-size:9px;font-weight:700;color:var(--g500);letter-spacing:.5px;text-transform:uppercase;margin-bottom:4px;}
+.pop-field{margin-bottom:8px;}
+.pop-input{width:100%;background:var(--g50);border:1.5px solid var(--g200);border-radius:9px;padding:8px 11px;font-size:13px;color:var(--g900);font-family:var(--sans);outline:none;transition:border-color .15s;appearance:none;}
 .pop-input:focus{border-color:var(--green);background:white;}
 .pop-input::placeholder{color:var(--g300);}
-.pop-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-.tipo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:8px;}
-.tipo-opt{border:1.5px solid var(--g200);border-radius:12px;padding:12px 6px;display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;background:white;transition:all .15s;user-select:none;}
-.tipo-opt:active{transform:scale(.96);}
+.pop-row{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
+/* ── Apple-style tipo chips ── */
+.tipo-grid{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:6px;}
+.tipo-opt{border:1.5px solid var(--g200);border-radius:20px;padding:5px 11px;display:flex;flex-direction:row;align-items:center;gap:5px;cursor:pointer;background:white;transition:background .12s,border-color .12s,transform .1s;user-select:none;flex-shrink:0;}
+.tipo-opt:active{transform:scale(.95);}
 .tipo-opt.on{border-color:var(--green);background:var(--gp);}
-.tipo-ico{font-size:22px;line-height:1;}
-.tipo-lbl{font-size:11px;font-weight:500;color:var(--g700);text-align:center;line-height:1.2;}
-.tipo-opt.on .tipo-lbl{color:var(--gd);}
-.tipo-todo{border:1.5px solid var(--amber);border-radius:12px;padding:12px;display:flex;align-items:center;justify-content:center;gap:8px;cursor:pointer;background:#fffdf0;margin-bottom:12px;transition:all .15s;}
-.tipo-todo.on{background:#fff8e1;border-width:2px;}
-.tipo-todo-lbl{font-size:13px;font-weight:500;color:var(--amber);}
-.todo-ta-wrap{display:none;margin-bottom:12px;}
-.todo-ta{width:100%;min-height:90px;background:var(--g50);border:1.5px solid var(--amber);border-radius:10px;padding:11px 13px;font-size:14px;color:var(--g900);font-family:var(--sans);outline:none;resize:vertical;transition:border-color .15s;}
+.tipo-ico{font-size:15px;line-height:1;}
+.tipo-lbl{font-size:12px;font-weight:500;color:var(--g700);white-space:nowrap;}
+.tipo-opt.on .tipo-lbl{color:var(--gd);font-weight:600;}
+.tipo-todo{border:1.5px solid var(--g200);border-radius:20px;padding:5px 13px;display:inline-flex;align-items:center;gap:5px;cursor:pointer;background:white;margin-bottom:8px;transition:all .12s;}
+.tipo-todo.on{background:#fff8e1;border-color:var(--amber);}
+.tipo-todo-lbl{font-size:12px;font-weight:500;color:var(--g700);}
+.tipo-todo.on .tipo-todo-lbl{color:#854f0b;}
+.todo-ta-wrap{display:none;margin-bottom:8px;}
+.todo-ta{width:100%;min-height:64px;background:var(--g50);border:1.5px solid var(--amber);border-radius:9px;padding:8px 11px;font-size:13px;color:var(--g900);font-family:var(--sans);outline:none;resize:none;transition:border-color .15s;}
 .todo-ta:focus{border-color:#c8890a;background:#fffdf0;}
 .todo-ta::placeholder{color:var(--g300);}
-.ag-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px;}
-.ag-opt{border-radius:12px;padding:12px;border:2px solid var(--g200);text-align:center;cursor:pointer;background:white;transition:all .15s;}
-.ag-opt.on{border-color:var(--dark);background:var(--sage-light);}
-.ag-opt.on.matteo{border-color:var(--matteo);background:var(--matteo-l);}
-.ag-opt.on.giuseppe{border-color:var(--giuseppe);background:var(--giuseppe-l);}
-.ag-av{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;margin:0 auto 6px;}
+/* ── Apple segmented agent control ── */
+.ag-grid{display:flex;gap:0;background:var(--g100);border-radius:11px;padding:3px;margin-bottom:10px;}
+.ag-opt{flex:1;border-radius:9px;padding:7px 8px;border:none;text-align:center;cursor:pointer;background:transparent;transition:background .15s,box-shadow .15s;display:flex;align-items:center;justify-content:center;gap:7px;}
+.ag-opt.on{background:white;box-shadow:0 1px 5px rgba(0,0,0,.12);}
+.ag-av{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0;}
 .ag-opt.matteo .ag-av{background:var(--matteo-l);color:var(--matteo);}
 .ag-opt.on.matteo .ag-av{background:var(--matteo);color:white;}
 .ag-opt.giuseppe .ag-av{background:var(--giuseppe-l);color:var(--giuseppe);}
 .ag-opt.on.giuseppe .ag-av{background:var(--giuseppe);color:white;}
-.ag-nm{font-size:13px;font-weight:600;color:var(--g900);}
-.pop-save{width:100%;background:#152319;color:white;border:none;border-radius:12px;padding:15px;font-size:15px;font-weight:600;font-family:var(--sans);cursor:pointer;transition:opacity .15s;margin-bottom:8px;}
+.ag-nm{font-size:13px;font-weight:600;color:var(--g700);}
+.ag-opt.on .ag-nm{color:var(--g900);}
+.pop-save{width:100%;background:#152319;color:white;border:none;border-radius:12px;padding:12px;font-size:14px;font-weight:600;font-family:var(--sans);cursor:pointer;transition:opacity .15s;margin-top:4px;}
 .pop-save:hover{opacity:.88;}
 .pop-save:disabled{opacity:.5;cursor:not-allowed;}
 /* det apt sheet */
@@ -1654,21 +1656,18 @@ body.dark .ql-link:hover{color:#9dc0aa;border-color:rgba(157,192,170,.4);}
     <div class="pop-body">
       <div class="pop-field"><div class="pop-lbl">Nome</div><input class="pop-input" id="f-nome" placeholder="Marco Rossi (facoltativo)"></div>
       <div class="pop-field"><div class="pop-lbl">Telefono</div><input class="pop-input" id="f-tel" placeholder="333 000 0000 (facoltativo)" type="tel"></div>
-      <div class="pop-lbl" style="margin-bottom:8px">Per cosa</div>
-      <div class="tipo-grid">
-        <div class="tipo-opt" onclick="selTipo(this,'Visita acquisto')"><div class="tipo-ico">🏠</div><div class="tipo-lbl">Visita acquisto</div></div>
-        <div class="tipo-opt" onclick="selTipo(this,'Visita affitto')"><div class="tipo-ico">🔑</div><div class="tipo-lbl">Visita affitto</div></div>
+      <div class="pop-lbl" style="margin-bottom:5px">Per cosa</div>
+      <div class="tipo-grid" style="margin-bottom:6px;">
+        <div class="tipo-opt" onclick="selTipo(this,'Visita acquisto')"><div class="tipo-ico">🏠</div><div class="tipo-lbl">Acquisto</div></div>
+        <div class="tipo-opt" onclick="selTipo(this,'Visita affitto')"><div class="tipo-ico">🔑</div><div class="tipo-lbl">Affitto</div></div>
         <div class="tipo-opt" onclick="selTipo(this,'In cerca di...')"><div class="tipo-ico">🔍</div><div class="tipo-lbl">In cerca di…</div></div>
         <div class="tipo-opt" onclick="selTipo(this,'Valutazione')"><div class="tipo-ico">📊</div><div class="tipo-lbl">Valutazione</div></div>
         <div class="tipo-opt" onclick="selTipo(this,'In ufficio')"><div class="tipo-ico">🏢</div><div class="tipo-lbl">In ufficio</div></div>
         <div class="tipo-opt" onclick="selTipo(this,'Personale')"><div class="tipo-ico">👤</div><div class="tipo-lbl">Personale</div></div>
-      </div>
-      <div class="tipo-grid" style="margin-bottom:12px;">
         <div class="tipo-opt" onclick="selTipo(this,'Rogito')"><div class="tipo-ico">📝</div><div class="tipo-lbl">Rogito</div></div>
-        <div class="tipo-opt" onclick="selTipo(this,'Contratto locazione')"><div class="tipo-ico">🔑</div><div class="tipo-lbl">Contratto locazione</div></div>
-        <div class="tipo-opt" style="border:none;background:transparent;cursor:default;"></div>
+        <div class="tipo-opt" onclick="selTipo(this,'Contratto locazione')"><div class="tipo-ico">🗂️</div><div class="tipo-lbl">Locazione</div></div>
       </div>
-      <div class="tipo-todo" id="tipo-todo" onclick="selTodo()"><span style="font-size:22px">✅</span><div class="tipo-todo-lbl">Cose da fare</div></div>
+      <div class="tipo-todo" id="tipo-todo" onclick="selTodo()"><span style="font-size:14px">✅</span><div class="tipo-todo-lbl">Cose da fare</div></div>
       <div class="todo-ta-wrap" id="todo-ta-wrap"><div class="pop-lbl" style="margin-bottom:6px">Descrivi cosa fare</div><textarea class="todo-ta" id="f-todo" placeholder="Es: Chiamare notaio…" rows="3"></textarea></div>
       <div class="pop-field" id="cerca-wrap" style="display:none"><div class="pop-lbl">Specifica</div><input class="pop-input" id="f-cerca" placeholder="Es: bilocale con terrazzo…"></div>
       <div id="extra-fields"></div>
