@@ -29,40 +29,83 @@ body{font-family:var(--sans);background:var(--cream);color:var(--g900);display:f
 /* APP SHELL */
 .app{display:flex;flex:1;overflow:hidden;min-height:0;}
 
-/* ══ SIDEBAR B — BOLD LINES ══ */
-.sidebar{width:220px;flex-shrink:0;background:#141f18;display:flex;flex-direction:column;}
-/* logo con immagine tonda */
-.sb-logo{padding:20px 16px 18px;border-bottom:2px solid rgba(90,154,112,.22);display:flex;align-items:center;gap:12px;}
-.sb-logo-img{width:38px;height:38px;border-radius:50%;overflow:hidden;flex-shrink:0;border:2px solid rgba(90,154,112,.4);}
-.sb-logo-img img{width:100%;height:100%;object-fit:cover;}
-.sb-logo-fallback{width:38px;height:38px;border-radius:50%;background:#2d5a3d;border:2px solid rgba(90,154,112,.4);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:var(--serif);font-size:15px;font-weight:700;color:#9dc0aa;}
-.sb-lm{font-family:var(--serif);font-size:17px;color:white;font-weight:700;letter-spacing:.2px;line-height:1.2;}
-.sb-ls{font-size:9px;color:rgba(255,255,255,.38);letter-spacing:2px;text-transform:uppercase;margin-top:3px;}
-/* nav */
-.sb-nav{padding:10px 0;flex:1;overflow-y:auto;}
-.sb-nl{font-size:8.5px;letter-spacing:1.3px;text-transform:uppercase;color:rgba(255,255,255,.28);padding:8px 18px 4px;font-weight:700;}
-.sb-ni{display:flex;align-items:center;gap:10px;padding:10px 16px;border-radius:0;color:rgba(255,255,255,.5);font-size:13.5px;cursor:pointer;margin-bottom:0;transition:background .15s,color .15s,border-color .15s;user-select:none;border-left:3px solid transparent;font-weight:500;}
-.sb-ni:hover{background:rgba(255,255,255,.05);color:rgba(255,255,255,.8);}
-.sb-ni.on{border-left-color:#6db882;color:white;background:rgba(109,184,130,.1);font-weight:600;}
-.sb-ni .ic{font-size:15px;width:20px;text-align:center;}
-.sb-badge{margin-left:auto;background:rgba(109,184,130,.22);color:#8dd4a8;font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;}
-/* meteo */
-.sb-wx{margin:0;background:rgba(0,0,0,.28);padding:14px 16px;border-top:1px solid rgba(255,255,255,.07);}
-.wx-lbl{font-size:8.5px;letter-spacing:1px;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:10px;font-weight:700;}
-.wx-main{display:flex;align-items:flex-end;gap:10px;margin-bottom:5px;}
-.wx-ico{font-size:26px;line-height:1;}
-.wx-tmp{font-family:var(--serif);font-size:34px;color:white;font-weight:300;line-height:1;}
-.wx-dsc{font-size:12px;color:rgba(255,255,255,.65);font-weight:500;margin-top:2px;}
-.wx-details{display:flex;gap:10px;margin-bottom:8px;}
-.wd{font-size:10px;color:rgba(255,255,255,.35);}
-.wd span{color:rgba(255,255,255,.62);font-weight:500;}
-.wx-sep{height:1px;background:rgba(255,255,255,.08);margin-bottom:8px;}
-/* domani — pill card */
-.wx-dom-pill{background:rgba(255,255,255,.07);border-radius:8px;padding:7px 10px;display:flex;align-items:center;gap:8px;}
-.wx-dom-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;color:rgba(255,255,255,.3);}
-.wx-dom-ico{font-size:16px;}
-.wx-dom-tmp{font-size:13px;font-weight:600;color:rgba(255,255,255,.75);margin-left:auto;}
-.wx-dom-dsc{font-size:10px;color:rgba(255,255,255,.38);margin-left:4px;}
+/* ══ SIDEBAR SLIM ══ */
+.sidebar{width:72px;flex-shrink:0;background:#141f18;display:flex;flex-direction:column;align-items:center;padding:14px 0 12px;}
+.sb-logo{width:36px;height:36px;border-radius:11px;overflow:hidden;margin-bottom:18px;border:2px solid rgba(90,154,112,.35);flex-shrink:0;}
+.sb-logo img{width:100%;height:100%;object-fit:cover;}
+.sb-logo-fallback{width:36px;height:36px;border-radius:11px;background:#2d5a3d;border:2px solid rgba(90,154,112,.4);display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:14px;font-weight:700;color:#9dc0aa;}
+.sb-nav{display:flex;flex-direction:column;align-items:center;gap:2px;flex:1;width:100%;}
+.sb-ni{width:56px;display:flex;flex-direction:column;align-items:center;gap:4px;padding:9px 0;border-radius:12px;cursor:pointer;transition:background .15s,transform .2s var(--spring);user-select:none;border:none;background:none;}
+.sb-ni:hover{background:rgba(157,192,170,.1);transform:translateY(-1px);}
+.sb-ni.on{background:rgba(157,192,170,.16);}
+.sb-ni svg{width:20px;height:20px;stroke:rgba(255,255,255,.32);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;transition:stroke .15s;flex-shrink:0;}
+.sb-ni.on svg{stroke:#9dc0aa;}
+.sb-ni span{font-size:9px;font-weight:600;color:rgba(255,255,255,.28);letter-spacing:.1px;transition:color .15s;}
+.sb-ni.on span{color:#9dc0aa;}
+/* keep old badge class for js compat */
+.sb-badge{display:none;}
+.sb-nl{display:none;}
+/* meteo — nascosto nella sidebar, ora nel left panel */
+.sb-wx{display:none;}
+.wx-lbl,.wx-main,.wx-ico,.wx-tmp,.wx-dsc,.wx-details,.wd,.wx-sep,.wx-dom-pill,.wx-dom-lbl,.wx-dom-ico,.wx-dom-tmp,.wx-dom-dsc{/* kept for JS compat */}
+
+/* ══ LEFT PANEL ══ */
+.left-panel{width:222px;flex-shrink:0;background:white;display:flex;flex-direction:column;border-right:1px solid #eef0ec;overflow:hidden;transition:width .3s var(--spring);}
+.left-panel.hidden{width:0;overflow:hidden;}
+.lp-inner{flex:1;overflow-y:auto;padding:16px 14px;display:flex;flex-direction:column;gap:16px;}
+.lp-inner::-webkit-scrollbar{width:2px;}
+.lp-inner::-webkit-scrollbar-thumb{background:#e8f2ec;}
+/* mini calendar in left panel */
+.lp-cal-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.lp-cal-mo{font-size:13px;font-weight:700;color:#152319;}
+.lp-cal-nav{display:flex;gap:2px;}
+.lp-cal-nav button{background:none;border:none;cursor:pointer;width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;transition:background .15s;}
+.lp-cal-nav button:hover{background:#f0f4f1;}
+.lp-cal-nav button svg{width:11px;height:11px;stroke:#9dc0aa;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round;}
+.lp-mc-days{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;margin-bottom:3px;}
+.lp-mc-dl{font-size:8.5px;font-weight:600;color:#9dc0aa;padding:2px 0;}
+.lp-mc-grid{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;row-gap:1px;}
+.lp-mc-cell{font-size:10px;color:#8a8f86;padding:4px 1px;border-radius:6px;cursor:pointer;position:relative;transition:background .12s;}
+.lp-mc-cell:hover{background:#e8f2ec;color:#152319;}
+.lp-mc-cell.td{background:#152319;color:white;font-weight:700;border-radius:7px;}
+.lp-mc-cell.other{color:#d4d8d1;}
+.lp-mc-cell.dot::after{content:'';position:absolute;bottom:0px;left:50%;transform:translateX(-50%);width:3px;height:3px;border-radius:50%;background:#9dc0aa;}
+/* weather widget in left panel */
+.lp-wx{background:linear-gradient(135deg,#1e3a27 0%,#2d5a3d 100%);border-radius:12px;padding:13px 14px;color:white;}
+.lp-wx-top{display:flex;align-items:flex-start;justify-content:space-between;}
+.lp-wx-city{font-size:9px;font-weight:600;color:rgba(255,255,255,.5);letter-spacing:.5px;text-transform:uppercase;margin-bottom:2px;}
+.lp-wx-temp{font-size:30px;font-weight:700;line-height:1;color:white;}
+.lp-wx-desc{font-size:10.5px;color:rgba(255,255,255,.65);margin-top:2px;}
+.lp-wx-ico{font-size:28px;line-height:1;}
+.lp-wx-row{display:flex;gap:0;margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.1);}
+.lp-wx-item{flex:1;text-align:center;}
+.lp-wx-val{font-size:11px;font-weight:600;color:white;}
+.lp-wx-lbl{font-size:8px;color:rgba(255,255,255,.45);margin-top:1px;}
+.lp-wx-fore{display:flex;gap:5px;margin-top:9px;}
+.lp-wx-fd{flex:1;background:rgba(255,255,255,.09);border-radius:7px;padding:5px 2px;text-align:center;}
+.lp-wx-fd-l{font-size:7.5px;color:rgba(255,255,255,.45);}
+.lp-wx-fd-i{font-size:13px;}
+.lp-wx-fd-t{font-size:9px;font-weight:600;color:white;}
+/* today list in left panel */
+.lp-sec-lbl{font-size:9px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;color:#9dc0aa;margin-bottom:7px;display:flex;align-items:center;justify-content:space-between;}
+.lp-sec-lbl em{font-style:normal;background:#e8f2ec;color:#2d5a3d;font-size:8.5px;padding:1px 7px;border-radius:20px;}
+.lp-td-item{display:flex;align-items:center;gap:8px;padding:7px 9px;border-radius:9px;background:#f8faf8;margin-bottom:4px;cursor:pointer;transition:background .15s,transform .18s var(--spring);}
+.lp-td-item:hover{background:#e8f2ec;transform:translateX(3px);}
+.lp-td-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
+.lp-td-dot.matteo{background:#4285f4;}
+.lp-td-dot.giuseppe{background:#e07b39;}
+.lp-td-dot.old{background:#c4c8c0;}
+.lp-td-info{flex:1;min-width:0;}
+.lp-td-name{font-size:11px;font-weight:600;color:#152319;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.lp-td-time{font-size:9.5px;color:#8a8f86;margin-top:1px;}
+/* news ticker */
+.news-ticker{height:34px;background:#152319;flex-shrink:0;display:flex;align-items:center;overflow:hidden;}
+.nt-tag{background:#9dc0aa;color:#152319;font-size:9px;font-weight:700;padding:0 12px;height:100%;display:flex;align-items:center;white-space:nowrap;letter-spacing:.5px;text-transform:uppercase;flex-shrink:0;}
+.nt-track{flex:1;overflow:hidden;}
+@keyframes ntScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.nt-inner{display:flex;gap:48px;white-space:nowrap;animation:ntScroll 32s linear infinite;}
+.nt-item{font-size:10.5px;color:rgba(255,255,255,.7);white-space:nowrap;}
+.nt-item strong{color:#9dc0aa;margin-right:5px;}
 
 /* ── GLOBAL TEXT CONTRAST BOOST ── */
 .gcal-title{font-family:var(--serif);font-size:22px;font-weight:500;color:var(--g900);}
@@ -1121,6 +1164,23 @@ select.pop-input option{background:#0d1912;color:#e8f0eb;}
 .bn-item{color:rgba(255,255,255,.4);}
 .bn-item.on{color:#9dc0aa;}
 
+/* ── LEFT PANEL DARK ── */
+body.dark .left-panel{background:#0d1a10;border-right-color:rgba(157,192,170,.08);}
+body.dark .lp-cal-mo{color:#e8f0eb;}
+body.dark .lp-mc-dl{color:rgba(157,192,170,.5);}
+body.dark .lp-mc-cell{color:rgba(255,255,255,.5);}
+body.dark .lp-mc-cell:hover{background:rgba(157,192,170,.08);color:#9dc0aa;}
+body.dark .lp-mc-cell.td{background:#9dc0aa;color:#152319;}
+body.dark .lp-mc-cell.other{color:rgba(255,255,255,.18);}
+body.dark .lp-mc-cell.dot::after{background:#9dc0aa;}
+body.dark .lp-cal-nav button:hover{background:rgba(157,192,170,.1);}
+body.dark .lp-sec-lbl{color:rgba(157,192,170,.6);}
+body.dark .lp-sec-lbl em{background:rgba(157,192,170,.12);color:#9dc0aa;}
+body.dark .lp-td-item{background:rgba(255,255,255,.04);}
+body.dark .lp-td-item:hover{background:rgba(157,192,170,.08);}
+body.dark .lp-td-name{color:#e8f0eb;}
+body.dark .lp-td-time{color:rgba(255,255,255,.38);}
+body.dark .news-ticker{background:#0a1410;}
 /* ── SCROLLBARS ── */
 ::-webkit-scrollbar{width:4px;height:4px;}
 ::-webkit-scrollbar-track{background:transparent;}
@@ -1160,44 +1220,78 @@ select.pop-input option{background:#0d1912;color:#e8f0eb;}
 <div class="app" id="app">
   <div class="sidebar">
     <div class="sb-logo">
-      <div class="sb-logo-img">
-        <img src="https://edilnordre.it/wp-content/uploads/2025/02/cropped-favicon-logo-tondo-270x270.webp" alt="Edilnord RE" onerror="this.parentNode.className='sb-logo-fallback';this.parentNode.innerHTML='E'">
-      </div>
-      <div>
-        <div class="sb-lm">Edilnord RE</div>
-        <div class="sb-ls">Brugherio · MB</div>
-      </div>
+      <img src="https://edilnordre.it/wp-content/uploads/2025/02/cropped-favicon-logo-tondo-270x270.webp" alt="E" onerror="this.parentNode.className='sb-logo-fallback';this.parentNode.textContent='E'">
     </div>
     <div class="sb-nav">
-      <div class="sb-nl">Principale</div>
-      <div class="sb-ni on" onclick="deskNav('cal',this)"><span class="ic">📅</span> Calendario</div>
-      <div class="sb-ni" onclick="deskNav('imm',this)"><span class="ic">🏠</span> Immobili <span class="sb-badge" id="sb-imm-n">—</span></div>
-      <div class="sb-ni" onclick="deskNav('cli',this)"><span class="ic">👥</span> Clienti</div>
-      <div class="sb-ni" onclick="deskNav('app',this)"><span class="ic">📋</span> Appunti</div>
-      <div class="sb-nl" style="margin-top:8px">Strumenti</div>
-      <div class="sb-ni" onclick="deskNav('news',this)"><span class="ic">📰</span> News</div>
-      <div class="sb-ni"><span class="ic">⚙️</span> Impostazioni</div>
+      <div class="sb-ni on" onclick="deskNav('cal',this)">
+        <svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        <span>Calendario</span>
+      </div>
+      <div class="sb-ni" onclick="deskNav('cli',this)">
+        <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        <span>Contatti</span>
+      </div>
+      <div class="sb-ni" onclick="deskNav('news',this)">
+        <svg viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2z"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/><polyline points="8 14 10 16 14 12"/></svg>
+        <span>News</span>
+      </div>
+      <div class="sb-ni" onclick="deskNav('app',this)">
+        <svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+        <span>Appunti</span>
+      </div>
     </div>
-    <div class="sb-wx">
-      <div class="wx-lbl">METEO · BRUGHERIO</div>
-      <div class="wx-main">
-        <div class="wx-ico" id="wx-ico">⛅</div>
-        <div>
-          <div class="wx-tmp" id="wx-tmp">—°</div>
-          <div class="wx-dsc" id="wx-dsc">Caricamento…</div>
+    <!-- hidden elements kept for JS weather compat -->
+    <div style="display:none">
+      <span id="wx-ico"></span><span id="wx-tmp"></span><span id="wx-dsc"></span>
+      <span id="wx-hum"></span><span id="wx-wind"></span><span id="wx-min"></span>
+      <span id="wt-ico"></span><span id="wt-tmp"></span><span id="wt-dsc"></span>
+    </div>
+  </div>
+
+  <!-- LEFT PANEL: mini-cal + meteo + oggi -->
+  <div class="left-panel" id="left-panel">
+    <div class="lp-inner">
+      <!-- mini calendario -->
+      <div>
+        <div class="lp-cal-hdr">
+          <div class="lp-cal-mo" id="lp-cal-mo">—</div>
+          <div class="lp-cal-nav">
+            <button onclick="miniNav(-1)"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+            <button onclick="miniNav(1)"><svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg></button>
+          </div>
+        </div>
+        <div class="lp-mc-days">
+          <div class="lp-mc-dl">L</div><div class="lp-mc-dl">M</div><div class="lp-mc-dl">M</div>
+          <div class="lp-mc-dl">G</div><div class="lp-mc-dl">V</div><div class="lp-mc-dl">S</div><div class="lp-mc-dl">D</div>
+        </div>
+        <div class="lp-mc-grid" id="lp-mini-grid"></div>
+      </div>
+      <!-- meteo widget -->
+      <div class="lp-wx" id="lp-wx">
+        <div class="lp-wx-top">
+          <div>
+            <div class="lp-wx-city">Brugherio · MB</div>
+            <div class="lp-wx-temp" id="lp-wx-tmp">—°</div>
+            <div class="lp-wx-desc" id="lp-wx-dsc">Caricamento…</div>
+          </div>
+          <div class="lp-wx-ico" id="lp-wx-ico">⛅</div>
+        </div>
+        <div class="lp-wx-row">
+          <div class="lp-wx-item"><div class="lp-wx-val" id="lp-wx-hum">—</div><div class="lp-wx-lbl">Umidità</div></div>
+          <div class="lp-wx-item"><div class="lp-wx-val" id="lp-wx-wind">—</div><div class="lp-wx-lbl">Vento</div></div>
+          <div class="lp-wx-item"><div class="lp-wx-val" id="lp-wx-minmax">—</div><div class="lp-wx-lbl">Min/Max</div></div>
+        </div>
+        <div class="lp-wx-fore">
+          <div class="lp-wx-fd"><div class="lp-wx-fd-l" id="lp-d1-l">Dom</div><div class="lp-wx-fd-i" id="lp-d1-i">—</div><div class="lp-wx-fd-t" id="lp-d1-t">—°</div></div>
+          <div class="lp-wx-fd"><div class="lp-wx-fd-l" id="lp-d2-l">Lun</div><div class="lp-wx-fd-i" id="lp-d2-i">—</div><div class="lp-wx-fd-t" id="lp-d2-t">—°</div></div>
+          <div class="lp-wx-fd"><div class="lp-wx-fd-l" id="lp-d3-l">Mar</div><div class="lp-wx-fd-i" id="lp-d3-i">—</div><div class="lp-wx-fd-t" id="lp-d3-t">—°</div></div>
+          <div class="lp-wx-fd"><div class="lp-wx-fd-l" id="lp-d4-l">Mer</div><div class="lp-wx-fd-i" id="lp-d4-i">—</div><div class="lp-wx-fd-t" id="lp-d4-t">—°</div></div>
         </div>
       </div>
-      <div class="wx-details">
-        <div class="wd">💧 <span id="wx-hum">—</span></div>
-        <div class="wd">💨 <span id="wx-wind">—</span></div>
-        <div class="wd">🌡 <span id="wx-min">—</span></div>
-      </div>
-      <div class="wx-sep"></div>
-      <div class="wx-dom-pill">
-        <span class="wx-dom-lbl">DOMANI</span>
-        <span class="wx-dom-ico" id="wt-ico">—</span>
-        <span class="wx-dom-tmp" id="wt-tmp">—</span>
-        <span class="wx-dom-dsc" id="wt-dsc">—</span>
+      <!-- oggi list -->
+      <div>
+        <div class="lp-sec-lbl">Oggi <em id="lp-oggi-n">—</em></div>
+        <div id="lp-oggi-list"><div style="font-size:11px;color:#c4c8c0;padding:8px 0">Nessun appuntamento</div></div>
       </div>
     </div>
   </div>
@@ -1272,6 +1366,15 @@ select.pop-input option{background:#0d1912;color:#e8f0eb;}
       <div class="cal-eod"></div>
     </div>
     <div class="cal-statsbar" id="cal-statsbar"></div>
+    <!-- NEWS TICKER -->
+    <div class="news-ticker" id="news-ticker">
+      <div class="nt-tag">📰 News</div>
+      <div class="nt-track">
+        <div class="nt-inner" id="nt-inner">
+          <span class="nt-item"><strong>Mercato</strong>Caricamento notizie immobiliari…</span>
+        </div>
+      </div>
+    </div>
   </div>
 
   <div class="desk-panel" id="desk-imm">
@@ -1768,6 +1871,12 @@ function loadMeteo(){
     var t2i=WX_ICO[d.daily.weathercode[1]]||'🌡', t2=Math.round(d.daily.temperature_2m_min[1])+'°/'+Math.round(d.daily.temperature_2m_max[1])+'°', t2d=WX_DSC[d.daily.weathercode[1]]||'—';
     setText('wx-ico',ico);setText('wx-tmp',t+'°');setText('wx-dsc',dsc);setText('wx-hum',hum);setText('wx-wind',win);setText('wx-min',min);setText('wt-ico',t2i);setText('wt-tmp',t2);setText('wt-dsc',t2d);
     setText('mwx-ico',ico);setText('mwx-tmp',t+'°');setText('mwx-de',dsc);setText('mwx-hum',hum);setText('mwx-wind',win);setText('mwx-min',min);setText('mwt-ico',t2i);setText('mwt-tmp',t2);setText('mwt-dsc',t2d);
+    // left panel weather
+    setText('lp-wx-tmp',t+'°');setText('lp-wx-ico',ico);setText('lp-wx-dsc',dsc);
+    setText('lp-wx-hum',hum);setText('lp-wx-wind',win);
+    setText('lp-wx-minmax',Math.round(d.daily.temperature_2m_min[0])+'°/'+Math.round(d.daily.temperature_2m_max[0])+'°');
+    var GN=['Dom','Lun','Mar','Mer','Gio','Ven','Sab'];
+    for(var fi=1;fi<=4;fi++){var fd=new Date();fd.setDate(fd.getDate()+fi);setText('lp-d'+fi+'-l',GN[fd.getDay()]);setText('lp-d'+fi+'-i',WX_ICO[d.daily.weathercode[Math.min(fi,d.daily.weathercode.length-1)]]||'🌡');setText('lp-d'+fi+'-t',Math.round(d.daily.temperature_2m_max[Math.min(fi,d.daily.temperature_2m_max.length-1)])+'°');}
   }).catch(function(e){console.warn('meteo',e);});
 }
 
@@ -1851,6 +1960,7 @@ function finalizeNews(items){
     return !!(n.title||'').trim();
   }).sort(function(a,b){return new Date(b.pub)-new Date(a.pub);}).slice(0,30);
   renderNews();
+  renderNtTicker();
 }
 function renderNews(){
   var badge=document.getElementById('rp-news-count');
@@ -1951,7 +2061,7 @@ function renderStatsBar(days){
 function clickDayHeader(ds){ selDate=parseDate(ds); openNewApt(); }
 function clickCell(ds,hour){ selDate=parseDate(ds); openNewApt(hour); }
 function navWeek(dir){ viewDate.setDate(viewDate.getDate()+dir*7); renderWeek(); }
-function goToday(){ viewDate=new Date();selDate=new Date();miniDate=new Date();renderWeek();renderMini();renderMobApts(); }
+function goToday(){ viewDate=new Date();selDate=new Date();miniDate=new Date();renderWeek();renderMini();renderMobApts();renderLpMini();renderLpToday(); }
 function setView(v,btn){ document.querySelectorAll('.gcv').forEach(function(b){b.classList.remove('on');}); btn.classList.add('on'); renderWeek(); }
 
 function deskNav(sec,btn){
@@ -1959,17 +2069,98 @@ function deskNav(sec,btn){
     var el=document.getElementById(id); if(!el)return;
     el.style.display='none'; el.classList.remove('on');
   });
-  document.getElementById('rpanel').style.display='none';
+  var rp=document.getElementById('rpanel'); if(rp) rp.style.display='none';
   document.querySelectorAll('.sb-ni').forEach(function(n){n.classList.remove('on');});
   if(btn) btn.classList.add('on');
+  var lp=document.getElementById('left-panel');
   if(sec==='cal'){
     document.getElementById('desk-cal').style.display='flex';
-    document.getElementById('rpanel').style.display='flex';
+    if(lp) lp.classList.remove('hidden');
+    renderLpMini(); renderLpToday();
   } else {
+    if(lp) lp.classList.add('hidden');
     var panel=document.getElementById('desk-'+sec);
     if(panel){panel.style.display='flex';panel.classList.add('on');}
     if(sec==='cli'&&allClienti.length===0) loadClienti();
   }
+}
+// ─── LEFT PANEL: mini-cal + oggi ───
+function renderLpMini(){
+  var grid=document.getElementById('lp-mini-grid'); if(!grid)return;
+  var moEl=document.getElementById('lp-cal-mo');
+  var d=new Date(miniDate.getFullYear(),miniDate.getMonth(),1);
+  if(moEl) moEl.textContent=MESI[d.getMonth()]+' '+d.getFullYear();
+  var todayStr=fmt(new Date());
+  var firstDow=(d.getDay()+6)%7;
+  var daysInMonth=new Date(d.getFullYear(),d.getMonth()+1,0).getDate();
+  var html='';
+  for(var i=0;i<firstDow;i++){
+    var prev=new Date(d.getFullYear(),d.getMonth(),0-(firstDow-1-i));
+    html+='<div class="lp-mc-cell other">'+prev.getDate()+'</div>';
+  }
+  for(var day=1;day<=daysInMonth;day++){
+    var ds=fmt(new Date(d.getFullYear(),d.getMonth(),day));
+    var hasEv=allEvents.some(function(e){return e.data===ds&&!e.isTodo;});
+    var cls='lp-mc-cell'+(ds===todayStr?' td':'')+(hasEv&&ds!==todayStr?' dot':'');
+    html+='<div class="'+cls+'" onclick="lpMiniClick(\''+ds+'\')">'+day+'</div>';
+  }
+  var total=firstDow+daysInMonth;
+  var rem=total%7===0?0:7-(total%7);
+  for(var n=1;n<=rem;n++) html+='<div class="lp-mc-cell other">'+n+'</div>';
+  grid.innerHTML=html;
+}
+function lpMiniClick(ds){
+  viewDate=parseDate(ds); selDate=parseDate(ds); miniDate=parseDate(ds);
+  renderWeek(); renderLpMini();
+}
+function miniNav(dir){
+  miniDate=new Date(miniDate.getFullYear(),miniDate.getMonth()+dir,1);
+  renderLpMini();
+}
+function renderLpToday(){
+  var list=document.getElementById('lp-oggi-list'); if(!list)return;
+  var cntEl=document.getElementById('lp-oggi-n');
+  var todayStr=fmt(new Date());
+  var evs=allEvents.filter(function(e){return e.data===todayStr&&!e.isTodo;}).sort(function(a,b){return a.ora.localeCompare(b.ora);});
+  if(cntEl) cntEl.textContent=evs.length||'0';
+  if(!evs.length){list.innerHTML='<div style="font-size:11px;color:#c4c8c0;padding:6px 0">Nessun appuntamento oggi</div>';return;}
+  list.innerHTML=evs.map(function(e){
+    var ag=(e.agente||'old').toLowerCase();
+    var tipoShort=(e.tipo||'').split(' ').slice(0,2).join(' ');
+    return '<div class="lp-td-item" onclick="showDapt(\''+e.id+'\')">'
+      +'<div class="lp-td-dot '+ag+'"></div>'
+      +'<div class="lp-td-info"><div class="lp-td-name">'+escHtml(e.nome||'—')+'</div>'
+      +'<div class="lp-td-time">'+(e.ora||'')+(tipoShort?' · '+escHtml(tipoShort):'')+'</div></div>'
+      +'</div>';
+  }).join('');
+}
+function renderLpWeather(d){
+  var GN=['Dom','Lun','Mar','Mer','Gio','Ven','Sab'];
+  setText('lp-wx-tmp',Math.round(d.current_weather.temperature)+'°');
+  var code=d.current_weather.weathercode;
+  setText('lp-wx-ico',WX_ICO[code]||'🌡');
+  setText('lp-wx-dsc',WX_DSC[code]||'—');
+  var hum=d.hourly&&d.hourly.relativehumidity_2m?d.hourly.relativehumidity_2m[new Date().getHours()]+'%':'—';
+  var wind=Math.round(d.current_weather.windspeed)+' km/h';
+  var minT=Math.round(d.daily.temperature_2m_min[0])+'°';
+  var maxT=Math.round(d.daily.temperature_2m_max[0])+'°';
+  setText('lp-wx-hum',hum);
+  setText('lp-wx-wind',wind);
+  setText('lp-wx-minmax',minT+'/'+maxT);
+  for(var i=1;i<=4;i++){
+    var dd=new Date(); dd.setDate(dd.getDate()+i);
+    setText('lp-d'+i+'-l',GN[dd.getDay()]);
+    setText('lp-d'+i+'-i',WX_ICO[d.daily.weathercode[i]]||'🌡');
+    setText('lp-d'+i+'-t',Math.round(d.daily.temperature_2m_max[i])+'°');
+  }
+}
+function renderNtTicker(){
+  var inner=document.getElementById('nt-inner'); if(!inner||!newsCache.length)return;
+  var items=newsCache.slice(0,6).map(function(n){
+    var src=(n.source||'').split('.')[0]||'News';
+    return '<span class="nt-item"><strong>'+escHtml(src.charAt(0).toUpperCase()+src.slice(1))+'</strong>'+escHtml(n.title||n.titolo||'')+'</span>';
+  }).join('');
+  inner.innerHTML=items+items;
 }
 
 // ─── SEARCH DROPDOWN ───
@@ -2750,6 +2941,7 @@ function init(){
   loadEvents().then(function(evs){
     allEvents=evs;
     renderWeek(); renderMobApts(); renderMini(); renderOggi();
+    renderLpMini(); renderLpToday();
   }).catch(function(err){
     console.error('loadEvents',err);
     toast('⚠️ Impossibile caricare eventi — controlla n8n');
@@ -2761,6 +2953,7 @@ function init(){
     loadEvents().then(function(evs){
       allEvents=evs;
       renderWeek(); renderMobApts(); renderMini(); renderOggi(); renderUpcoming();
+      renderLpMini(); renderLpToday();
       var dot=document.getElementById('sync-dot');
       if(dot){dot.style.opacity='1';setTimeout(function(){dot.style.opacity='0';},1000);}
     }).catch(function(){console.warn('sync fallita');});
