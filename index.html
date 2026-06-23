@@ -50,28 +50,31 @@ body{font-family:var(--sans);background:var(--cream);color:var(--g900);display:f
 .wx-lbl,.wx-main,.wx-ico,.wx-tmp,.wx-dsc,.wx-details,.wd,.wx-sep,.wx-dom-pill,.wx-dom-lbl,.wx-dom-ico,.wx-dom-tmp,.wx-dom-dsc{/* kept for JS compat */}
 
 /* ══ LEFT PANEL ══ */
-.left-panel{width:248px;flex-shrink:0;background:white;display:flex;flex-direction:column;border-right:1px solid #eef0ec;overflow:hidden;transition:width .3s var(--spring);}
+.left-panel{width:248px;flex-shrink:0;background:#111d14;display:flex;flex-direction:column;border-right:1px solid rgba(157,192,170,.08);overflow:hidden;transition:width .3s var(--spring);}
 .left-panel.hidden{width:0;overflow:hidden;}
-.lp-inner{flex:1;overflow-y:auto;padding:16px 14px;display:flex;flex-direction:column;gap:16px;}
+.lp-inner{flex:1;overflow-y:auto;padding:16px 14px;display:flex;flex-direction:column;gap:14px;}
 .lp-inner::-webkit-scrollbar{width:2px;}
-.lp-inner::-webkit-scrollbar-thumb{background:#e8f2ec;}
+.lp-inner::-webkit-scrollbar-thumb{background:rgba(157,192,170,.15);}
 /* mini calendar in left panel */
 .lp-cal-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
-.lp-cal-mo{font-size:13px;font-weight:700;color:#152319;}
+.lp-cal-mo{font-size:13px;font-weight:700;color:#e8f2ec;}
 .lp-cal-nav{display:flex;gap:2px;}
 .lp-cal-nav button{background:none;border:none;cursor:pointer;width:22px;height:22px;border-radius:6px;display:flex;align-items:center;justify-content:center;transition:background .15s;}
-.lp-cal-nav button:hover{background:#f0f4f1;}
+.lp-cal-nav button:hover{background:rgba(157,192,170,.1);}
 .lp-cal-nav button svg{width:11px;height:11px;stroke:#9dc0aa;stroke-width:2.5;fill:none;stroke-linecap:round;stroke-linejoin:round;}
 .lp-mc-days{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;margin-bottom:3px;}
-.lp-mc-dl{font-size:8.5px;font-weight:600;color:#9dc0aa;padding:2px 0;}
+.lp-mc-dl{font-size:8.5px;font-weight:600;color:rgba(157,192,170,.4);padding:2px 0;}
 .lp-mc-grid{display:grid;grid-template-columns:repeat(7,1fr);text-align:center;row-gap:1px;}
-.lp-mc-cell{font-size:10px;color:#8a8f86;padding:4px 1px;border-radius:6px;cursor:pointer;position:relative;transition:background .12s;}
-.lp-mc-cell:hover{background:#e8f2ec;color:#152319;}
-.lp-mc-cell.td{background:#152319;color:white;font-weight:700;border-radius:7px;}
-.lp-mc-cell.other{color:#d4d8d1;}
+.lp-mc-cell{font-size:10px;color:rgba(255,255,255,.38);padding:4px 1px;border-radius:6px;cursor:pointer;position:relative;transition:background .12s;}
+.lp-mc-cell:hover{background:rgba(157,192,170,.12);color:#9dc0aa;}
+.lp-mc-cell.td{background:#152319;color:#9dc0aa;font-weight:700;border-radius:7px;}
+.lp-mc-cell.other{color:rgba(255,255,255,.15);}
+.lp-mc-cell.sun{color:rgba(157,192,170,.2);}
 .lp-mc-cell.dot::after{content:'';position:absolute;bottom:0px;left:50%;transform:translateX(-50%);width:3px;height:3px;border-radius:50%;background:#9dc0aa;}
-/* weather widget in left panel */
-.lp-wx{background:linear-gradient(135deg,#1e3a27 0%,#2d5a3d 100%);border-radius:12px;padding:13px 14px;color:white;}
+/* weather widget in left panel — clickable */
+.lp-wx-link{display:block;text-decoration:none;border-radius:12px;transition:opacity .2s;}
+.lp-wx-link:hover{opacity:.88;}
+.lp-wx{background:linear-gradient(135deg,#1a3028 0%,#243d2e 100%);border-radius:12px;padding:13px 14px;color:white;border:1px solid rgba(157,192,170,.1);}
 .lp-wx-top{display:flex;align-items:flex-start;justify-content:space-between;}
 .lp-wx-city{font-size:9px;font-weight:600;color:rgba(255,255,255,.5);letter-spacing:.5px;text-transform:uppercase;margin-bottom:2px;}
 .lp-wx-temp{font-size:30px;font-weight:700;line-height:1;color:white;}
@@ -87,17 +90,17 @@ body{font-family:var(--sans);background:var(--cream);color:var(--g900);display:f
 .lp-wx-fd-i{font-size:13px;}
 .lp-wx-fd-t{font-size:9px;font-weight:600;color:white;}
 /* today list in left panel */
-.lp-sec-lbl{font-size:9px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;color:#9dc0aa;margin-bottom:7px;display:flex;align-items:center;justify-content:space-between;}
-.lp-sec-lbl em{font-style:normal;background:#e8f2ec;color:#2d5a3d;font-size:8.5px;padding:1px 7px;border-radius:20px;}
-.lp-td-item{display:flex;align-items:center;gap:8px;padding:7px 9px;border-radius:9px;background:#f8faf8;margin-bottom:4px;cursor:pointer;transition:background .15s,transform .18s var(--spring);}
-.lp-td-item:hover{background:#e8f2ec;transform:translateX(3px);}
+.lp-sec-lbl{font-size:9px;font-weight:700;letter-spacing:.7px;text-transform:uppercase;color:rgba(157,192,170,.55);margin-bottom:7px;display:flex;align-items:center;justify-content:space-between;}
+.lp-sec-lbl em{font-style:normal;background:rgba(157,192,170,.12);color:#9dc0aa;font-size:8.5px;padding:1px 7px;border-radius:20px;}
+.lp-td-item{display:flex;align-items:center;gap:8px;padding:7px 9px;border-radius:9px;background:rgba(157,192,170,.06);margin-bottom:4px;cursor:pointer;transition:background .15s,transform .18s var(--spring);}
+.lp-td-item:hover{background:rgba(157,192,170,.12);transform:translateX(3px);}
 .lp-td-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
 .lp-td-dot.matteo{background:#4285f4;}
 .lp-td-dot.giuseppe{background:#e07b39;}
 .lp-td-dot.old{background:#c4c8c0;}
 .lp-td-info{flex:1;min-width:0;}
-.lp-td-name{font-size:11px;font-weight:600;color:#152319;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.lp-td-time{font-size:9.5px;color:#8a8f86;margin-top:1px;}
+.lp-td-name{font-size:11px;font-weight:600;color:rgba(255,255,255,.75);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.lp-td-time{font-size:9.5px;color:rgba(157,192,170,.5);margin-top:1px;}
 /* news ticker */
 .news-ticker{height:34px;background:#152319;flex-shrink:0;display:flex;align-items:center;overflow:hidden;}
 .nt-tag{background:#9dc0aa;color:#152319;font-size:9px;font-weight:700;padding:0 12px;height:100%;display:flex;align-items:center;white-space:nowrap;letter-spacing:.5px;text-transform:uppercase;flex-shrink:0;}
@@ -106,17 +109,17 @@ body{font-family:var(--sans);background:var(--cream);color:var(--g900);display:f
 .nt-inner{display:flex;gap:48px;white-space:nowrap;animation:ntScroll 32s linear infinite;}
 .nt-item{font-size:10.5px;color:rgba(255,255,255,.7);white-space:nowrap;}
 /* ══ LP NEWS WIDGET ══ */
-.lp-news-item{display:flex;flex-direction:column;gap:2px;padding:8px 0;border-bottom:1px solid #f0f3ee;cursor:pointer;transition:background .15s;}
+.lp-news-item{display:flex;flex-direction:column;gap:2px;padding:8px 0;border-bottom:1px solid rgba(157,192,170,.07);cursor:pointer;transition:background .15s;}
 .lp-news-item:last-child{border-bottom:none;}
-.lp-news-item:hover{background:#f8faf7;border-radius:8px;padding-left:6px;}
+.lp-news-item:hover{background:rgba(157,192,170,.06);border-radius:8px;padding-left:6px;}
 .lp-news-tag{font-size:8.5px;font-weight:700;color:#9dc0aa;text-transform:uppercase;letter-spacing:.06em;}
-.lp-news-title{font-size:11px;color:#2a3828;font-weight:600;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-.lp-news-time{font-size:9px;color:#adb5a8;margin-top:1px;}
+.lp-news-title{font-size:11px;color:rgba(255,255,255,.6);font-weight:600;line-height:1.35;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.lp-news-time{font-size:9px;color:rgba(157,192,170,.4);margin-top:1px;}
 /* ══ QUICK LINKS ══ */
 @keyframes qlScan{0%{background-position:200% center}100%{background-position:-200% center}}
 @keyframes qlPulse{0%,100%{box-shadow:0 0 0 0 rgba(157,192,170,0)}50%{box-shadow:0 0 10px 2px rgba(157,192,170,.22)}}
 @keyframes qlGlow{0%,100%{opacity:.5}50%{opacity:1}}
-.quick-links{height:48px;background:#0f1a12;flex-shrink:0;display:flex;align-items:center;justify-content:center;gap:12px;padding:0 20px;border-top:1px solid rgba(157,192,170,.08);}
+.quick-links{height:58px;background:#0f1a12;flex-shrink:0;display:flex;align-items:center;justify-content:center;gap:12px;padding:0 20px;border-top:1px solid rgba(157,192,170,.08);}
 .ql-link{display:flex;align-items:center;gap:7px;padding:8px 14px;border-radius:22px;text-decoration:none;font-size:11px;font-weight:700;font-family:var(--font,inherit);letter-spacing:.04em;border:1px solid rgba(157,192,170,.18);color:rgba(157,192,170,.7);position:relative;overflow:hidden;transition:color .2s,border-color .25s,transform .2s var(--spring,cubic-bezier(.34,1.56,.64,1));cursor:pointer;}
 .ql-link::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent 0%,rgba(157,192,170,.12) 50%,transparent 100%);background-size:200% 100%;opacity:0;transition:opacity .25s;}
 .ql-link:hover::before{opacity:1;animation:qlScan 1.4s linear infinite;}
@@ -225,8 +228,12 @@ body{font-family:var(--sans);background:var(--cream);color:var(--g900);display:f
 .ts{height:56px;display:flex;align-items:flex-start;justify-content:flex-end;padding:4px 8px 0;font-size:11px;color:var(--g700);font-weight:600;letter-spacing:.2px;}
 .day-col{border-right:1.5px solid var(--g300);position:relative;}
 .day-col:last-child{border-right:none;}
-.day-col.td{background:rgba(90,154,112,.04);}
+.day-col.td{background:rgba(90,154,112,.05);}
 .day-col.wk{background:rgba(0,0,0,.018);}
+.day-col.sun{background:rgba(0,0,0,.012);opacity:.5;}
+.gcal-scroll{background:white;}
+.gcal-hdr{background:white !important;}
+.main{background:white;}
 .dc-cell{height:56px;border-bottom:1px solid var(--g200);cursor:pointer;transition:background .1s;}
 .dc-cell:hover{background:rgba(90,154,112,.07);}
 .ev{position:absolute;left:3px;right:3px;border-radius:7px;padding:5px 8px;font-size:11px;font-weight:500;cursor:pointer;overflow:hidden;color:white;transition:opacity .15s,transform .1s;z-index:5;box-shadow:0 1px 4px rgba(0,0,0,.18);}
@@ -1216,15 +1223,7 @@ body.dark .ql-link:hover{color:#9dc0aa;border-color:rgba(157,192,170,.4);}
 .cal-eod{height:80px;background:linear-gradient(to bottom,transparent,#f0f4f1);pointer-events:none;}
 
 /* ── STATS BAR ── */
-.cal-statsbar{
-  flex-shrink:0;
-  background:rgba(240,244,241,.97);
-  backdrop-filter:blur(12px);
-  border-top:1px solid rgba(21,35,25,.09);
-  padding:10px 16px;
-  display:flex;align-items:center;gap:20px;
-  font-size:12px;
-}
+.cal-statsbar{display:none;}
 .csb-item{display:flex;align-items:center;gap:7px;}
 .csb-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0;}
 .csb-dot.m{background:#4285f4;box-shadow:0 0 6px rgba(66,133,244,.5);}
@@ -1292,32 +1291,34 @@ body.dark .ql-link:hover{color:#9dc0aa;border-color:rgba(157,192,170,.4);}
         </div>
         <div class="lp-mc-grid" id="lp-mini-grid"></div>
       </div>
-      <!-- meteo widget -->
-      <div class="lp-wx" id="lp-wx">
-        <div class="lp-wx-top">
-          <div>
-            <div class="lp-wx-city">Brugherio · MB</div>
-            <div class="lp-wx-temp" id="lp-wx-tmp">—°</div>
-            <div class="lp-wx-desc" id="lp-wx-dsc">Caricamento…</div>
+      <!-- meteo widget — clicca per 3bmeteo -->
+      <a class="lp-wx-link" href="https://www.3bmeteo.com/meteo/brugherio" target="_blank" rel="noopener">
+        <div class="lp-wx" id="lp-wx">
+          <div class="lp-wx-top">
+            <div>
+              <div class="lp-wx-city">Brugherio · MB</div>
+              <div class="lp-wx-temp" id="lp-wx-tmp">—°</div>
+              <div class="lp-wx-desc" id="lp-wx-dsc">Caricamento…</div>
+            </div>
+            <div class="lp-wx-ico" id="lp-wx-ico">⛅</div>
           </div>
-          <div class="lp-wx-ico" id="lp-wx-ico">⛅</div>
+          <div class="lp-wx-row">
+            <div class="lp-wx-item"><div class="lp-wx-val" id="lp-wx-hum">—</div><div class="lp-wx-lbl">Umidità</div></div>
+            <div class="lp-wx-item"><div class="lp-wx-val" id="lp-wx-wind">—</div><div class="lp-wx-lbl">Vento</div></div>
+            <div class="lp-wx-item"><div class="lp-wx-val" id="lp-wx-minmax">—</div><div class="lp-wx-lbl">Min/Max</div></div>
+          </div>
+          <div class="lp-wx-fore">
+            <div class="lp-wx-fd"><div class="lp-wx-fd-l" id="lp-d1-l">Dom</div><div class="lp-wx-fd-i" id="lp-d1-i">—</div><div class="lp-wx-fd-t" id="lp-d1-t">—°</div></div>
+            <div class="lp-wx-fd"><div class="lp-wx-fd-l" id="lp-d2-l">Lun</div><div class="lp-wx-fd-i" id="lp-d2-i">—</div><div class="lp-wx-fd-t" id="lp-d2-t">—°</div></div>
+            <div class="lp-wx-fd"><div class="lp-wx-fd-l" id="lp-d3-l">Mar</div><div class="lp-wx-fd-i" id="lp-d3-i">—</div><div class="lp-wx-fd-t" id="lp-d3-t">—°</div></div>
+            <div class="lp-wx-fd"><div class="lp-wx-fd-l" id="lp-d4-l">Mer</div><div class="lp-wx-fd-i" id="lp-d4-i">—</div><div class="lp-wx-fd-t" id="lp-d4-t">—°</div></div>
+          </div>
         </div>
-        <div class="lp-wx-row">
-          <div class="lp-wx-item"><div class="lp-wx-val" id="lp-wx-hum">—</div><div class="lp-wx-lbl">Umidità</div></div>
-          <div class="lp-wx-item"><div class="lp-wx-val" id="lp-wx-wind">—</div><div class="lp-wx-lbl">Vento</div></div>
-          <div class="lp-wx-item"><div class="lp-wx-val" id="lp-wx-minmax">—</div><div class="lp-wx-lbl">Min/Max</div></div>
-        </div>
-        <div class="lp-wx-fore">
-          <div class="lp-wx-fd"><div class="lp-wx-fd-l" id="lp-d1-l">Dom</div><div class="lp-wx-fd-i" id="lp-d1-i">—</div><div class="lp-wx-fd-t" id="lp-d1-t">—°</div></div>
-          <div class="lp-wx-fd"><div class="lp-wx-fd-l" id="lp-d2-l">Lun</div><div class="lp-wx-fd-i" id="lp-d2-i">—</div><div class="lp-wx-fd-t" id="lp-d2-t">—°</div></div>
-          <div class="lp-wx-fd"><div class="lp-wx-fd-l" id="lp-d3-l">Mar</div><div class="lp-wx-fd-i" id="lp-d3-i">—</div><div class="lp-wx-fd-t" id="lp-d3-t">—°</div></div>
-          <div class="lp-wx-fd"><div class="lp-wx-fd-l" id="lp-d4-l">Mer</div><div class="lp-wx-fd-i" id="lp-d4-i">—</div><div class="lp-wx-fd-t" id="lp-d4-t">—°</div></div>
-        </div>
-      </div>
-      <!-- oggi list -->
-      <div>
+      </a>
+      <!-- oggi list — nascosta, mantenuta per JS compat -->
+      <div style="display:none">
         <div class="lp-sec-lbl">Oggi <em id="lp-oggi-n">—</em></div>
-        <div id="lp-oggi-list"><div style="font-size:11px;color:#c4c8c0;padding:8px 0">Nessun appuntamento</div></div>
+        <div id="lp-oggi-list"></div>
       </div>
       <!-- news mini widget -->
       <div>
@@ -2038,13 +2039,14 @@ function renderWeek(){
   var m1=MESI[days[0].getMonth()],m2=MESI[days[6].getMonth()];
   setText('gcal-title',m1===m2?m1+' '+days[0].getFullYear():MESI_SH[days[0].getMonth()]+' – '+MESI_SH[days[6].getMonth()]+' '+days[6].getFullYear());
   var hdr=document.getElementById('gcal-hdr');
-  hdr.style.gridTemplateColumns='52px repeat(7,1fr)';
+  var colTpl='52px '+days.map(function(d){var isT=fmt(d)===todayStr,isSun=d.getDay()===0;return isT?'1.45fr':isSun?'0.55fr':'1fr';}).join(' ');
+  hdr.style.gridTemplateColumns=colTpl;
   hdr.innerHTML='<div class="ghd-corner"></div>'+days.map(function(d){
     var isT=fmt(d)===todayStr,dow=d.getDay(),isSat=dow===6,isSun=dow===0;
     return '<div class="ghd'+(isT?' td':'')+((isSat||isSun)?' wk':'')+'" onclick="clickDayHeader(\''+fmt(d)+'\')">'+'<div class="ghd-dn">'+DAYS_MON[(dow+6)%7]+'</div><div class="ghd-dd">'+d.getDate()+'</div></div>';
   }).join('');
   var grid=document.getElementById('gcal-grid');
-  grid.style.gridTemplateColumns='52px repeat(7,1fr)';
+  grid.style.gridTemplateColumns=colTpl;
   var html='<div class="time-col">'+HOURS.map(function(h){return '<div class="ts">'+h+'</div>';}).join('')+'</div>';
   days.forEach(function(d){
     var ds=fmt(d),isT=ds===todayStr,dow=d.getDay(),isSat=dow===6,isSun=dow===0;
@@ -2056,7 +2058,7 @@ function renderWeek(){
       var cls=e.isTodo?'todo':e.isCRM?e.agente:'old';
       return '<div class="ev '+cls+'" style="top:'+top+'px;height:52px" onclick="event.stopPropagation();showDapt(\''+e.id+'\')" onmouseenter="showEvTip(event,\''+e.id+'\')" onmouseleave="hideEvTip()">'+'<div class="ev-name">'+e.nome+'</div>'+'<div class="ev-sub">'+e.tipo+(e.immobile?' · '+e.immobile:'')+'</div></div>';
     }).join('');
-    html+='<div class="day-col'+(isT?' td':'')+((isSat||isSun)?' wk':'')+'">'+cells+evHtml+'</div>';
+    html+='<div class="day-col'+(isT?' td':'')+((isSat||isSun)?' wk':'')+(isSun?' sun':'')+'">'+cells+evHtml+'</div>';
   });
   grid.innerHTML=html;
   var now=new Date(),nowStr=fmt(now);
