@@ -1,0 +1,10 @@
+# Tooling locale Claude Code
+.claude/
+
+# File temporanei estrazione PDF
+brochure.txt
+capitolato.txt
+
+# Materiali interni / automazioni (non pubblicare senza revisione)
+*.pdf
+edilnord-n8n-*.json

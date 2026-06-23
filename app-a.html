@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>4 locali con giardino privato — Residenza Verdi8</title>
+<meta name="description" content="4 locali con giardino privato, 147 m² commerciali — Residenza Verdi8, Via Giuseppe Verdi 8, Brugherio (MB). Nuova costruzione di pregio in Brianza.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="images/app-a_24.jpeg" fetchpriority="high">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#080808;--t:#f0ece4;--t2:rgba(240,236,228,.55);
+  --accent:#9dc0aa;--v:#9dc0aa;
+  --e:cubic-bezier(.22,1,.36,1);
+}
+body{background:var(--bg);color:var(--t);font-family:'Montserrat',sans-serif;overflow-x:hidden;}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;
+  padding:18px 40px;
+  display:flex;align-items:center;justify-content:space-between;
+  background:linear-gradient(to bottom,rgba(8,8,8,.92),transparent);
+  backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);}
+.nav-brand{font-family:'Anton',sans-serif;font-size:22px;letter-spacing:-.01em;
+  color:var(--t);text-decoration:none;display:flex;align-items:center;gap:6px;}
+.nav-brand em{color:var(--accent);font-style:normal;}
+.nav-back{font-family:'Montserrat',sans-serif;font-size:10px;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--t2);text-decoration:none;
+  display:flex;align-items:center;gap:8px;transition:color .2s;}
+.nav-back:hover{color:var(--t);}
+.nav-back::before{content:'←';font-size:14px;}
+/* HERO */
+.hero{height:70vh;min-height:480px;position:relative;overflow:hidden;}
+.hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;
+  transform:scale(1.04);transition:transform 8s ease;}
+.hero-bg.loaded{transform:scale(1);}
+.hero-overlay{position:absolute;inset:0;
+  background:linear-gradient(to right,rgba(8,8,8,.88) 40%,rgba(8,8,8,.3));}
+.hero-content{position:absolute;bottom:60px;left:60px;right:60px;}
+.hero-tag{font-size:9px;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:14px;
+  display:flex;align-items:center;gap:10px;}
+.hero-tag::before{content:'';display:block;width:24px;height:.5px;background:var(--accent);}
+.hero-title{font-family:'Anton',sans-serif;
+  font-size:clamp(30px,4.6vw,56px);line-height:1.0;
+  letter-spacing:-.02em;margin-bottom:8px;}
+.hero-sub{font-size:14px;color:var(--t2);letter-spacing:.04em;}
+/* SPECS BAR */
+.specs-bar{display:flex;background:#0e0e0e;
+  border-bottom:.5px solid rgba(255,255,255,.07);}
+.spec-item{flex:1;padding:28px 32px;
+  border-right:.5px solid rgba(255,255,255,.07);}
+.spec-item:last-child{border-right:none;}
+.spec-val{font-family:'Anton',sans-serif;font-size:32px;color:var(--t);}
+.spec-lbl{font-size:9px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--t2);margin-top:4px;}
+/* PRICE BAR */
+.price-bar{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
+  background:linear-gradient(135deg,#1c3a2a,#142b1f);
+  padding:24px 40px;border-bottom:.5px solid rgba(255,255,255,.07);}
+.price-lbl{font-size:9px;letter-spacing:.24em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;}
+.price-val{font-family:'Anton',sans-serif;font-size:clamp(34px,5vw,46px);color:#fff;line-height:1;}
+.price-note{font-size:12px;color:rgba(240,236,228,.7);line-height:1.6;text-align:right;}
+@media(max-width:768px){.price-bar{padding:20px 24px;}.price-note{text-align:left;}}
+/* LAYOUT */
+.content{display:grid;grid-template-columns:1fr 1fr;min-height:80vh;}
+.plan-col{background:#0a0a0a;padding:60px;display:flex;flex-direction:column;
+  justify-content:center;align-items:center;border-right:.5px solid rgba(255,255,255,.05);}
+.plan-col img{max-width:100%;max-height:600px;object-fit:contain;
+  border-radius:4px;transition:transform .4s;}
+.plan-col img:hover{transform:scale(1.02);}
+.plan-label{font-size:9px;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--t2);margin-top:20px;}
+.info-col{padding:60px;display:flex;flex-direction:column;justify-content:center;}
+.info-eyebrow{font-size:9px;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:20px;}
+.info-title{font-family:'Anton',sans-serif;font-size:clamp(36px,4vw,56px);
+  line-height:.95;margin-bottom:24px;letter-spacing:-.01em;}
+.info-desc{font-size:14px;color:var(--t2);line-height:1.85;margin-bottom:40px;}
+.feat-list{display:flex;flex-direction:column;gap:0;margin-bottom:44px;}
+.feat-item{display:flex;align-items:center;gap:14px;padding:14px 0;
+  border-bottom:.5px solid rgba(255,255,255,.05);
+  font-size:13px;color:var(--t);}
+.feat-item::before{content:'✦';color:var(--accent);font-size:10px;flex-shrink:0;}
+.cta-block{background:rgba(157,192,170,.06);border:.5px solid rgba(157,192,170,.18);
+  border-radius:12px;padding:28px;}
+.cta-label{font-size:10px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--t2);margin-bottom:10px;}
+.cta-title{font-family:'Anton',sans-serif;font-size:22px;margin-bottom:18px;}
+.cta-btn{display:inline-flex;align-items:center;gap:10px;
+  background:var(--accent);color:#080808;
+  font-family:'Montserrat',sans-serif;font-size:11px;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;
+  padding:14px 28px;border-radius:7px;text-decoration:none;
+  transition:background .2s,transform .2s;}
+.cta-btn:hover{background:#7aaa8a;transform:translateX(3px);}
+.cta-note{font-size:10px;color:var(--t2);margin-top:12px;line-height:1.6;}
+/* FOOTER */
+footer{background:#050505;border-top:.5px solid rgba(255,255,255,.05);
+  padding:28px 40px;display:flex;align-items:center;
+  justify-content:space-between;flex-wrap:wrap;gap:12px;}
+.footer-brand{font-family:'Anton',sans-serif;font-size:18px;color:var(--t);}
+.footer-brand em{color:var(--accent);font-style:normal;}
+.footer-note{font-size:9px;color:rgba(240,236,228,.2);max-width:600px;line-height:1.7;}
+.other-units{background:#0e0e0e;padding:60px 5vw;}
+.other-title{font-family:'Anton',sans-serif;font-size:28px;margin-bottom:32px;}
+.other-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+.other-card{background:#161616;border:.5px solid rgba(255,255,255,.07);
+  border-radius:10px;padding:24px;text-decoration:none;color:var(--t);
+  transition:border-color .2s,transform .2s;}
+.other-card:hover{border-color:var(--accent);transform:translateY(-3px);}
+.other-card-tag{font-size:9px;letter-spacing:.2em;color:var(--accent);
+  text-transform:uppercase;margin-bottom:8px;}
+.other-card-name{font-family:'Anton',sans-serif;font-size:22px;margin-bottom:6px;}
+.other-card-sub{font-size:12px;color:var(--t2);}
+@media(max-width:768px){
+  nav{padding:14px 20px;}
+  .hero-content{bottom:32px;left:24px;right:24px;}
+  .content{grid-template-columns:1fr;}
+  .plan-col{padding:40px 24px;}
+  .info-col{padding:40px 24px;}
+  .specs-bar{flex-wrap:wrap;}
+  .spec-item{min-width:50%;border-bottom:.5px solid rgba(255,255,255,.07);}
+  .other-grid{grid-template-columns:1fr;}
+  footer{padding:20px;}
+}
+</style>
+</head>
+<body>
+<nav>
+  <a class="nav-brand" href="index.html">VERD<em>I</em>8</a>
+  <a class="nav-back" href="index.html#unita">Tutte le unità</a>
+</nav>
+
+<div class="hero">
+  <div class="hero-bg" id="heroBg" style="background-image:url('images/app-a_24.jpeg')"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <p class="hero-tag">Appartamento A · Piano Terra</p>
+    <h1 class="hero-title">4 locali con giardino privato</h1>
+    <p class="hero-sub">Piano terra · ingresso indipendente · giardino 129,9 m² · 147 m² commerciali</p>
+  </div>
+</div>
+
+<div class="specs-bar">
+<div class="spec-item"><div class="spec-val">147 m²</div><div class="spec-lbl">Sup. commerciale</div></div><div class="spec-item"><div class="spec-val">4</div><div class="spec-lbl">Locali</div></div><div class="spec-item"><div class="spec-val">129,9 m²</div><div class="spec-lbl">Giardino</div></div><div class="spec-item"><div class="spec-val">A</div><div class="spec-lbl">Classe Energ.</div></div>
+</div>
+
+<div class="price-bar">
+  <div>
+    <div class="price-lbl">Prezzo</div>
+    <div class="price-val">€ 461.000</div>
+  </div>
+  <div class="price-note">compresi 2 posti auto</div>
+</div>
+
+<div class="content">
+  <div class="plan-col">
+    <img src="images/app-a_23.png" alt="Planimetria App. A" loading="lazy">
+    <p class="plan-label">Planimetria — App. A</p>
+  </div>
+  <div class="info-col">
+    <p class="info-eyebrow">Residenza Verdi8 · Brugherio</p>
+    <h2 class="info-title">App. A<br><span style="color:var(--accent)">4 locali con giardino privato</span></h2>
+    <p class="info-desc">Una delle quattro unità esclusive di Residenza Verdi8, nel cuore residenziale di Brugherio. Nuova costruzione di pregio con finiture di alto livello, classe energetica A e tecnologie W4HOUSE, fotovoltaico e VMC.</p>
+    <div class="feat-list">
+      <div class="feat-item">4 locali + doppi servizi</div>      <div class="feat-item">Ampio giardino privato</div>      <div class="feat-item">Cucina abitabile</div>      <div class="feat-item">Pavimenti in gres porcellanato</div>      <div class="feat-item">Struttura antisismica W4HOUSE · Classe A</div>      <div class="feat-item">Pompa di calore aria-aria indipendente</div>      <div class="feat-item">Fotovoltaico 1,20 kWp + VMC con recupero</div>      <div class="feat-item">Serramenti PVC 68 mm triplo vetro</div>      <div class="feat-item">2 posti auto inclusi nel prezzo</div>
+    </div>
+    <div class="cta-block">
+      <p class="cta-label">Richiedi informazioni</p>
+      <p class="cta-title">Prenota una<br>visita privata</p>
+      <a class="cta-btn" href="https://www.tecnobriantea.it" target="_blank">
+        Contatta Tecnobriantea
+        <svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" style="width:14px;height:14px"><path d="M2 7h10M8 3l4 4-4 4"/></svg>
+      </a>
+      <p class="cta-note">Le proposte d'acquisto sono gestite in esclusiva da <strong>Tecnobriantea Immobiliare</strong> · www.tecnobriantea.it<br>Edilnord RE cura la comunicazione e non raccoglie proposte.</p>
+    </div>
+  </div>
+</div>
+
+<div class="other-units">
+  <h3 class="other-title">Le altre un<em style="color:var(--accent);font-style:normal">i</em>tà</h3>
+  <div class="other-grid">
+    <a class="other-card" href="app-b.html"><div class="other-card-tag">Appartamento B</div><div class="other-card-name">App. B</div><div class="other-card-sub">4 locali · Balconi e terrazzo · 154 m²</div></a>
+    <a class="other-card" href="villa-c.html"><div class="other-card-tag">Villa C</div><div class="other-card-name">Villa C</div><div class="other-card-sub">Villa indip. · Giardino + Terrazzo · 158 m²</div></a>
+    <a class="other-card" href="attico.html"><div class="other-card-tag">Attico</div><div class="other-card-name">Attico</div><div class="other-card-sub">4 locali · Ultimo piano · 134 m²</div></a>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-brand">VERD<em>I</em>8</div>
+  <p class="footer-note">Residenza Verdi8 · Via Giuseppe Verdi 8, 20861 Brugherio (MB) · Nuova costruzione · Classe A · Consegna estate 2027 · Edilnord RE non è un'agenzia immobiliare ai sensi della L. 39/89. Le proposte d'acquisto sono gestite da Tecnobriantea Immobiliare.</p>
+</footer>
+
+<script>
+document.getElementById('heroBg').classList.add('loaded');
+</script>
+</body>
+</html>
