@@ -1244,6 +1244,53 @@ body.dark .ql-link:hover{color:#9dc0aa;border-color:rgba(157,192,170,.4);}
 /* ── TOAST ── */
 #toast{background:rgba(12,22,16,.97);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(157,192,170,.18);color:#e8f0eb;box-shadow:0 8px 32px rgba(0,0,0,.5);}
 
+/* ══════════════════════════════════════════════════════════════
+   REDESIGN — layout mockup approvato: sfondo chiaro, calendario
+   centrale con bordo salvia in vetro, colonna destra a card distinte.
+   Blocco messo in fondo per vincere la cascata sulle regole sopra.
+   ══════════════════════════════════════════════════════════════ */
+.app{background:
+  radial-gradient(650px 500px at 10% 6%, rgba(157,192,170,.18), transparent 60%),
+  radial-gradient(600px 480px at 94% 90%, rgba(90,154,112,.14), transparent 60%),
+  #eef1ee;
+}
+.sidebar{background:linear-gradient(180deg,#1e3d2f 0%,#0b1510 100%);}
+
+.main{
+  order:2; margin:20px 14px 20px 18px; border:1.4px solid var(--sage);
+  border-radius:20px; overflow:hidden; background:rgba(255,255,255,.8);
+  backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+  box-shadow:0 18px 40px rgba(20,41,31,.12), inset 0 1px 0 rgba(255,255,255,.6);
+}
+.gcal-bar{background:rgba(255,255,255,.7)!important;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);}
+.gcal-hdr{background:rgba(255,255,255,.55)!important;backdrop-filter:blur(14px);}
+.gcal-scroll{background:transparent!important;}
+.day-col.td{background:rgba(90,154,112,.09);}
+
+.left-panel{
+  order:3; width:270px; background:transparent; border-right:none;
+  padding:20px 18px 20px 0; display:flex; flex-direction:column;
+}
+.lp-inner{padding:0; gap:14px; overflow-y:auto;}
+.lp-card{
+  background:linear-gradient(155deg, rgba(30,58,39,.94), rgba(11,21,16,.97));
+  backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+  border-radius:18px; padding:16px; flex-shrink:0;
+  box-shadow:0 14px 34px rgba(20,41,31,.18), inset 0 1px 0 rgba(255,255,255,.08);
+  border:1px solid rgba(157,192,170,.14);
+  transition:transform 200ms cubic-bezier(0.23,1,0.32,1), box-shadow 200ms ease-out;
+}
+.lp-card:hover{transform:translateY(-2px); box-shadow:0 18px 40px rgba(20,41,31,.24), inset 0 1px 0 rgba(255,255,255,.1);}
+.lp-card.lp-news{flex:1; min-height:0; overflow-y:auto;}
+.lp-wx-link{display:block;}
+.lp-wx{box-shadow:0 14px 34px rgba(20,41,31,.18), inset 0 1px 0 rgba(255,255,255,.08); border:1px solid rgba(157,192,170,.14); transition:transform 200ms cubic-bezier(0.23,1,0.32,1), box-shadow 200ms ease-out;}
+.lp-wx-link:hover .lp-wx{transform:translateY(-2px); box-shadow:0 18px 40px rgba(20,41,31,.24), inset 0 1px 0 rgba(255,255,255,.1);}
+
+@media (max-width: 980px){
+  .left-panel{display:none!important;}
+  .main{margin:14px;}
+}
+
 </style>
 </head>
 <body>
@@ -1284,7 +1331,7 @@ body.dark .ql-link:hover{color:#9dc0aa;border-color:rgba(157,192,170,.4);}
   <div class="left-panel" id="left-panel">
     <div class="lp-inner">
       <!-- mini calendario -->
-      <div style="padding-bottom:16px;">
+      <div class="lp-card">
         <div class="lp-cal-hdr">
           <div class="lp-cal-mo" id="lp-cal-mo">—</div>
           <div class="lp-cal-nav">
@@ -1298,10 +1345,8 @@ body.dark .ql-link:hover{color:#9dc0aa;border-color:rgba(157,192,170,.4);}
         </div>
         <div class="lp-mc-grid" id="lp-mini-grid"></div>
       </div>
-      <!-- divisore -->
-      <div style="height:1px;background:rgba(157,192,170,.1);margin:0 0 18px;flex-shrink:0;"></div>
       <!-- meteo widget — clicca per 3bmeteo -->
-      <a class="lp-wx-link" href="https://www.3bmeteo.com/meteo/brugherio" target="_blank" rel="noopener" style="padding-bottom:18px;display:block;">
+      <a class="lp-wx-link" href="https://www.3bmeteo.com/meteo/brugherio" target="_blank" rel="noopener">
         <div class="lp-wx" id="lp-wx">
           <div class="lp-wx-top">
             <div>
@@ -1324,15 +1369,13 @@ body.dark .ql-link:hover{color:#9dc0aa;border-color:rgba(157,192,170,.4);}
           </div>
         </div>
       </a>
-      <!-- divisore -->
-      <div style="height:1px;background:rgba(157,192,170,.1);margin:0 0 18px;flex-shrink:0;"></div>
       <!-- oggi list — nascosta, mantenuta per JS compat -->
       <div style="display:none">
         <div class="lp-sec-lbl">Oggi <em id="lp-oggi-n">—</em></div>
         <div id="lp-oggi-list"></div>
       </div>
       <!-- news mini widget -->
-      <div style="flex:1;">
+      <div class="lp-card lp-news">
         <div class="lp-sec-lbl">Ultime notizie</div>
         <div id="lp-news-list"><div style="font-size:11px;color:rgba(157,192,170,.4);padding:8px 0">Caricamento…</div></div>
       </div>
