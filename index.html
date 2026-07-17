@@ -1249,15 +1249,30 @@ body.dark .ql-link:hover{color:#9dc0aa;border-color:rgba(157,192,170,.4);}
    centrale con bordo salvia in vetro, colonna destra a card distinte.
    Blocco messo in fondo per vincere la cascata sulle regole sopra.
    ══════════════════════════════════════════════════════════════ */
-.app{background:
+.app{
+  position:relative;
+  background:
   radial-gradient(650px 500px at 10% 6%, rgba(157,192,170,.18), transparent 60%),
   radial-gradient(600px 480px at 94% 90%, rgba(90,154,112,.14), transparent 60%),
   #eef1ee;
 }
-.sidebar{background:linear-gradient(180deg,#1e3d2f 0%,#0b1510 100%);}
+
+/* sidebar interna: menu a scomparsa, esce in overlay quando ci si avvicina */
+.sidebar{
+  position:absolute; left:0; top:0; bottom:0; width:90px; z-index:40;
+  background:linear-gradient(180deg,#1e3d2f 0%,#0b1510 100%);
+  transform:translateX(-76px);
+  transition:transform 280ms cubic-bezier(0.16,1,0.3,1), box-shadow 280ms ease-out;
+  border-radius:0 20px 20px 0;
+  box-shadow:6px 0 20px rgba(0,0,0,.1);
+}
+.sidebar:hover{transform:translateX(0); box-shadow:14px 0 34px rgba(0,0,0,.28);}
+.sidebar::after{
+  content:''; position:absolute; top:0; right:-16px; bottom:0; width:16px;
+}
 
 .main{
-  order:2; margin:20px 14px 20px 18px; border:1.4px solid var(--sage);
+  order:2; margin:20px 14px 20px 22px; border:1.4px solid var(--sage);
   border-radius:20px; overflow:hidden; background:rgba(255,255,255,.8);
   backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
   box-shadow:0 18px 40px rgba(20,41,31,.12), inset 0 1px 0 rgba(255,255,255,.6);
@@ -1298,9 +1313,6 @@ body.dark .ql-link:hover{color:#9dc0aa;border-color:rgba(157,192,170,.4);}
 <!-- DESKTOP -->
 <div class="app" id="app">
   <div class="sidebar">
-    <div class="sb-logo">
-      <img src="https://edilnordre.it/wp-content/uploads/2025/02/cropped-favicon-logo-tondo-270x270.webp" alt="E" onerror="this.parentNode.className='sb-logo-fallback';this.parentNode.textContent='E'">
-    </div>
     <div class="sb-nav">
       <div class="sb-ni cal on" onclick="deskNav('cal',this)">
         <div class="sb-swatch"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
