@@ -1257,35 +1257,28 @@ body.dark .ql-link:hover{color:#9dc0aa;border-color:rgba(157,192,170,.4);}
   #ffffff;
 }
 
-/* sidebar interna: menu a scomparsa, ancorato al bordo sinistro del calendario —
-   si "apre" crescendo da lì verso sinistra (non scivola da fuori), stessa altezza
-   del calendario. Il confine della webview con la barra di LAN resta comunque
-   sempre bianco, quindi il menu non tocca mai la barra. */
-.lp-trigger{
-  position:absolute; left:0; top:26px; bottom:26px; width:64px; z-index:35;
-}
-.sidebar{
-  position:absolute; left:-144px; top:26px; bottom:26px; width:196px; z-index:40;
-  background:linear-gradient(180deg,#1e3d2f 0%,#0b1510 100%);
-  border-radius:20px;
-  clip-path:inset(0 0 0 196px);
-  box-shadow:0 24px 48px rgba(11,21,16,0);
-  pointer-events:none;
-  transition:clip-path 340ms cubic-bezier(0.16,1,0.3,1), box-shadow 340ms ease-out;
-}
-.app:has(.lp-trigger:hover) .sidebar,
-.app:has(.sidebar:hover) .sidebar{
-  clip-path:inset(0 0 0 0);
-  pointer-events:auto;
-  box-shadow:0 24px 48px rgba(11,21,16,.32), inset 0 1px 0 rgba(255,255,255,.08);
-}
-
 .main{
-  order:2; margin:26px 22px 26px 52px; border:1.4px solid var(--sage);
+  order:2; position:relative; margin:26px 22px 26px 22px; border:1.4px solid var(--sage);
   border-radius:20px; overflow:hidden; background:rgba(255,255,255,.8);
   backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
   box-shadow:0 18px 40px rgba(20,41,31,.12), inset 0 1px 0 rgba(255,255,255,.6);
 }
+
+/* barra a scomparsa in fondo al calendario: le icone di sezione restano nascoste
+   (si vede solo una sottile maniglia) e si aprono al passaggio del mouse */
+.quick-links{
+  position:absolute; left:0; right:0; bottom:0; z-index:50;
+  height:62px; padding:0 24px; gap:22px;
+  display:flex; align-items:center; justify-content:center;
+  background:linear-gradient(180deg,#1e3d2f 0%,#0b1510 100%);
+  border-radius:0 0 18.5px 18.5px;
+  box-shadow:0 -10px 26px rgba(11,21,16,.18);
+  transform:translateY(46px);
+  transition:transform 300ms cubic-bezier(0.16,1,0.3,1);
+  cursor:pointer;
+}
+.quick-links:hover{transform:translateY(0);}
+.quick-links .sb-ni{width:64px;}
 .gcal-bar{background:rgba(255,255,255,.7)!important;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);}
 .gcal-hdr{background:rgba(255,255,255,.55)!important;backdrop-filter:blur(14px);}
 .gcal-scroll{background:transparent!important;}
@@ -1321,32 +1314,11 @@ body.dark .ql-link:hover{color:#9dc0aa;border-color:rgba(157,192,170,.4);}
 
 <!-- DESKTOP -->
 <div class="app" id="app">
-  <div class="lp-trigger"></div>
-  <div class="sidebar">
-    <div class="sb-nav">
-      <div class="sb-ni cal on" onclick="deskNav('cal',this)">
-        <div class="sb-swatch"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
-        <span>Calendario</span>
-      </div>
-      <div class="sb-ni cli" onclick="deskNav('cli',this)">
-        <div class="sb-swatch"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-        <span>Contatti</span>
-      </div>
-      <div class="sb-ni news" onclick="deskNav('news',this)">
-        <div class="sb-swatch"><svg viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2z"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/><polyline points="8 14 10 16 14 12"/></svg></div>
-        <span>News</span>
-      </div>
-      <div class="sb-ni app" onclick="deskNav('app',this)">
-        <div class="sb-swatch"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
-        <span>Appunti</span>
-      </div>
-    </div>
-    <!-- hidden elements kept for JS weather compat -->
-    <div style="display:none">
-      <span id="wx-ico"></span><span id="wx-tmp"></span><span id="wx-dsc"></span>
-      <span id="wx-hum"></span><span id="wx-wind"></span><span id="wx-min"></span>
-      <span id="wt-ico"></span><span id="wt-tmp"></span><span id="wt-dsc"></span>
-    </div>
+  <!-- hidden elements kept for JS weather compat -->
+  <div style="display:none">
+    <span id="wx-ico"></span><span id="wx-tmp"></span><span id="wx-dsc"></span>
+    <span id="wx-hum"></span><span id="wx-wind"></span><span id="wx-min"></span>
+    <span id="wt-ico"></span><span id="wt-tmp"></span><span id="wt-dsc"></span>
   </div>
 
   <!-- LEFT PANEL: mini-cal + meteo + oggi -->
@@ -1476,24 +1448,24 @@ body.dark .ql-link:hover{color:#9dc0aa;border-color:rgba(157,192,170,.4);}
     <div class="cal-statsbar" id="cal-statsbar"></div>
     <!-- nt-inner kept hidden for JS compat -->
     <div style="display:none"><div id="nt-inner"></div></div>
-    <!-- QUICK LINKS -->
+    <!-- BARRA A SCOMPARSA: icone di sezione, esce al passaggio del mouse -->
     <div class="quick-links">
-      <div class="ql-dot"></div>
-      <a class="ql-link" href="https://www.edilnordre.it" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        edilnordre.it
-      </a>
-      <div class="ql-sep"></div>
-      <a class="ql-link" href="https://mail.google.com/mail/u/0/#inbox" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-        Gmail
-      </a>
-      <div class="ql-sep"></div>
-      <a class="ql-link" href="https://www.immobiliare.it/agenzie-immobiliari/24118/edilnord-real-estate-brugherio/" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="16"/><line x1="10" y1="14" x2="14" y2="14"/></svg>
-        Immobiliare.it
-      </a>
-      <div class="ql-dot"></div>
+      <div class="sb-ni cal on" onclick="deskNav('cal',this)">
+        <div class="sb-swatch"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <span>Calendario</span>
+      </div>
+      <div class="sb-ni cli" onclick="deskNav('cli',this)">
+        <div class="sb-swatch"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+        <span>Contatti</span>
+      </div>
+      <div class="sb-ni news" onclick="deskNav('news',this)">
+        <div class="sb-swatch"><svg viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2H8a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2z"/><path d="M16 2v4"/><path d="M8 2v4"/><path d="M3 10h18"/><polyline points="8 14 10 16 14 12"/></svg></div>
+        <span>News</span>
+      </div>
+      <div class="sb-ni app" onclick="deskNav('app',this)">
+        <div class="sb-swatch"><svg viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></div>
+        <span>Appunti</span>
+      </div>
     </div>
   </div>
 
