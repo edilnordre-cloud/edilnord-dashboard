@@ -1030,6 +1030,11 @@ body{background:#080f0a;}
 .ev.giuseppe{background:linear-gradient(150deg,rgba(224,123,57,.88),rgba(200,100,30,.7));backdrop-filter:blur(6px);border-left-color:rgba(255,165,100,.55);box-shadow:0 2px 12px rgba(224,123,57,.22);}
 .ev.todo{background:linear-gradient(150deg,rgba(244,180,0,.85),rgba(220,155,0,.65));backdrop-filter:blur(6px);}
 .ev.old{background:rgba(255,255,255,.09);backdrop-filter:blur(6px);border-left-color:rgba(255,255,255,.15);}
+/* CORSO — eventi speciali (non appuntamenti): viola, blocco che occupa la fascia */
+.ev.corso{background:linear-gradient(155deg,rgba(139,92,246,.94),rgba(101,55,204,.82));backdrop-filter:blur(6px);border-left:3px solid rgba(201,180,255,.75);box-shadow:0 3px 14px rgba(124,92,246,.3);align-items:flex-start;}
+.ev.corso .ev-name{white-space:normal;line-height:1.15;}
+.ev.corso .ev-sub{opacity:.95;font-weight:600;}
+.ev-badge{display:inline-block;font-size:8.5px;font-weight:700;letter-spacing:.3px;background:rgba(255,255,255,.24);color:#fff;padding:1px 6px;border-radius:20px;margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;}
 .ev:hover{opacity:.95;transform:scale(1.03) translateY(-1px);box-shadow:0 6px 20px rgba(0,0,0,.35);}
 
 /* ── RIGHT PANEL ── */
@@ -1895,6 +1900,19 @@ function parseDate(s){ var p=s.split('-'); return new Date(+p[0],+p[1]-1,+p[2]);
 function setText(id,v){ var el=document.getElementById(id); if(el) el.textContent=v; }
 function toast(msg,dur){ var el=document.getElementById('toast'); el.textContent=msg; el.classList.add('show'); clearTimeout(el._t); el._t=setTimeout(function(){ el.classList.remove('show'); },dur||3000); }
 function getWeekStart(d){ var dt=new Date(d),day=dt.getDay(); dt.setDate(dt.getDate()+(day===0?-6:1-day)); dt.setHours(0,0,0,0); return dt; }
+function minToHM(m){ var h=Math.floor(m/60),n=m%60; return (h<10?'0':'')+h+':'+(n<10?'0':'')+n; }
+// Riconosce gli eventi "corso" (non appuntamenti): blocchi orari che occupano la fascia, mattina + pomeriggio, colore dedicato.
+function corsoInfo(e){
+  var nome=e.nome||'', note=e.note||'';
+  var isCorso = /^Corso Ag/.test(nome) || /^Esame finale corso/.test(nome) || /Corso Agente Immobiliare - ICAF/.test(note);
+  if(!isCorso) return null;
+  var tt=(note.match(/([01]?\d|2[0-3]):[0-5]\d/g)||[]).map(function(t){var p=t.split(':');return (+p[0])*60+(+p[1]);});
+  var segs=[];
+  if(tt.length>=4){ segs.push([tt[0],tt[1]]); segs.push([tt[2],tt[3]]); }
+  else if(tt.length>=2){ segs.push([tt[0],tt[1]]); }
+  else { var p=(e.ora||'09:00').split(':'); var s=(+p[0])*60+(+p[1]); segs.push([s, s+240]); }
+  return { segs:segs };
+}
 
 // ─── N8N ───
 function n8nPost(path, body) {
@@ -2098,6 +2116,15 @@ function renderWeek(){
     var devs=allEvents.filter(function(e){return e.data===ds;}).sort(function(a,b){return a.ora.localeCompare(b.ora);});
     var cells=HOURS.map(function(h){return '<div class="dc-cell" onclick="clickCell(\''+ds+'\',\''+h+'\')"></div>';}).join('');
     var evHtml=devs.map(function(e){
+      var ci=corsoInfo(e);
+      if(ci){
+        return ci.segs.map(function(sg){
+          var top=Math.max(0,(sg[0]-480)/60*56);
+          var h=Math.max(26,(sg[1]-sg[0])/60*56-3);
+          var rng=minToHM(sg[0])+'–'+minToHM(sg[1]);
+          return '<div class="ev corso" style="top:'+top+'px;height:'+h+'px" onclick="event.stopPropagation();showDapt(\''+e.id+'\')" onmouseenter="showEvTip(event,\''+e.id+'\')" onmouseleave="hideEvTip()">'+'<div class="ev-badge">🎓 '+e.tipo+'</div>'+'<div class="ev-name">'+e.nome+'</div>'+'<div class="ev-sub">'+rng+'</div></div>';
+        }).join('');
+      }
       var parts=(e.ora||'09:00').split(':'),hh=+parts[0],mm=+parts[1];
       var top=Math.max(0,((hh-8)*60+mm)/60*56);
       var cls=e.isTodo?'todo':e.isCRM?e.agente:'old';
