@@ -62,7 +62,7 @@ const m1=new maplibregl.Map({container:'m1',attributionControl:false,interactive
 sky:{'sky-color':'#bcd3e3','horizon-color':'#f3f1e9','fog-color':'#f3f1e9','sky-horizon-blend':0.7,'horizon-fog-blend':0.6,'fog-ground-blend':0.3,'atmosphere-blend':0.8},
 layers:[{id:'sat',type:'raster',source:'sat',paint:{'raster-contrast':0.08}},{id:'af',type:'fill',source:'area',paint:{'fill-color':'#fff','fill-opacity':0.15}},{id:'al',type:'line',source:'area',paint:{'line-color':'#fff','line-width':2.5}},
 {id:'pin',type:'fill-extrusion',source:'pin',paint:{'fill-extrusion-color':'#1e3d2f','fill-extrusion-height':130}},place(15,'#fff','rgba(20,41,31,.9)',['city','town','village','hamlet'])]}});
-m1.on('load',()=>{m1.setTerrain({source:'dem',exaggeration:2});const spin=()=>{m1.setBearing(m1.getBearing()+0.05);requestAnimationFrame(spin)};spin()});
+m1.on('load',()=>m1.setTerrain({source:'dem',exaggeration:2}));
 new maplibregl.Map({container:'m2',attributionControl:false,interactive:false,center:[10.29,44.765],zoom:10.15,style:{version:8,glyphs:GLY,sources:{v:VEC,r:{type:'geojson',data:{type:'FeatureCollection',features:[circ(C,10000),circ(C,5000),circ(C,2000)]}},p:{type:'geojson',data:pt}},
 layers:[{id:'bg',type:'background',paint:{'background-color':'#f2f4ef'}},{id:'lc',type:'fill',source:'v','source-layer':'landcover',paint:{'fill-color':'#e4ebdf'}},
 {id:'lu',type:'fill',source:'v','source-layer':'landuse',filter:['in',['get','class'],['literal',['residential','commercial','industrial','retail']]],paint:{'fill-color':'#dde3da'}},
