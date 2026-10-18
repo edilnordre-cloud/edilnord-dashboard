@@ -86,6 +86,8 @@ function build(i){
  {id:'rl',type:'symbol',source:'v','source-layer':'transportation_name',layout:{'symbol-placement':'line','text-field':['get','name'],'text-font':['Noto Sans Bold'],'text-size':13},paint:{'text-color':'#fff','text-halo-color':'rgba(20,41,31,.85)','text-halo-width':2}}]}});
  m1.once('idle',()=>{const p=m1.project(C);const fs=m1.queryRenderedFeatures([[p.x-160,p.y-160],[p.x+160,p.y+160]],{layers:['bq']}).filter(f=>/Polygon/.test(f.geometry.type));
   const parts=[];fs.forEach(f=>{const g=f.geometry;(g.type==='Polygon'?[g.coordinates]:g.coordinates).forEach(pc=>parts.push({props:f.properties,coords:pc}))});
+  const area=q=>{const r=q.coords[0],k=111320*Math.cos(C[1]*Math.PI/180);let A=0;for(let i=0;i<r.length-1;i++)A+=(r[i][0]*k)*(r[i+1][1]*110540)-(r[i+1][0]*k)*(r[i][1]*110540);return Math.abs(A/2)};
+  const big=parts.filter(q=>area(q)>250);if(big.length)parts.splice(0,parts.length,...big);
   if(!parts.length)return;const cen=q=>{const r=q.coords[0];let x=0,y=0;r.forEach(v=>{x+=v[0];y+=v[1]});return[x/r.length,y/r.length]};
   const d=q=>(q[0]-C[0])**2+(q[1]-C[1])**2;parts.sort((u,w)=>d(cen(u))-d(cen(w)));const P=parts[0],B=cen(P);
   m1.getSource('subj').setData({type:'FeatureCollection',features:[{type:'Feature',properties:P.props,geometry:{type:'Polygon',coordinates:P.coords}}]});
