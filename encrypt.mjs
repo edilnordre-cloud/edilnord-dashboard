@@ -2,7 +2,7 @@
 // Uso:  node encrypt.mjs "LaPassword"
 // La pagina pubblicata contiene solo dati cifrati (AES-256-GCM, chiave da PBKDF2-SHA256):
 // senza password il contenuto non è leggibile, nemmeno aprendo il codice sorgente.
-import { readFileSync, writeFileSync } from 'node:fs';
+import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { webcrypto as crypto } from 'node:crypto';
 
 const password = process.argv[2];
@@ -10,7 +10,11 @@ if (!password) { console.error('Uso: node encrypt.mjs "password"'); process.exit
 
 const ITER = 600000;
 const src = readFileSync(new URL('./dashboard-src.html', import.meta.url), 'utf8');
-const salt = crypto.getRandomValues(new Uint8Array(16));
+// Il salt resta quello della versione già pubblicata: così la chiave salvata con "Ricordami"
+// continua a funzionare dopo ogni aggiornamento e non si deve rimettere la password.
+// (L'IV invece cambia a ogni cifratura, come richiesto da AES-GCM.)
+const prev = existsSync(new URL('./index.html', import.meta.url)) ? readFileSync(new URL('./index.html', import.meta.url), 'utf8').match(/var D=\{s:"([^"]+)"/) : null;
+const salt = prev ? new Uint8Array(Buffer.from(prev[1], 'base64')) : crypto.getRandomValues(new Uint8Array(16));
 const iv = crypto.getRandomValues(new Uint8Array(12));
 const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveKey']);
 const key = await crypto.subtle.deriveKey({ name: 'PBKDF2', salt, iterations: ITER, hash: 'SHA-256' }, base, { name: 'AES-GCM', length: 256 }, false, ['encrypt']);
